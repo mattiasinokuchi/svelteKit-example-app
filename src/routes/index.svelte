@@ -15,10 +15,9 @@
 </script>
 
 <main>
-	{#each users as { avatar, lastName }}
-		<a sveltekit:prefetch href={`/${lastName}`} class="box">
-			<img src={avatar} alt={lastName} />
-			<h2>{lastName}</h2>
+	{#each users as { firstName, lastName }}
+		<a href={`/${lastName}`} class="box">
+		<h2>{firstName} {lastName}</h2>
 		</a>
 	{/each}
 </main>
@@ -37,9 +36,5 @@
 	}
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;
-	}
-	img {
-		width: 15rem;
-		object-fit: contain;
 	}
 </style>

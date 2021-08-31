@@ -1,4 +1,4 @@
-import faker from "faker";
+/*import faker from "faker";
 
 const generateUsers = () =>
     [...Array(50)].map(() => {
@@ -13,4 +13,13 @@ export async function get() {
     return {
         body: generateUsers(),
     };
+
+}*/
+
+import supabase from '$lib/db';
+
+export async function get() {
+    return supabase
+        .from('fakeUsers')
+        .select(`*`);
 }
