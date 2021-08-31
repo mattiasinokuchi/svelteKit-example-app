@@ -16,7 +16,7 @@
 
 <main>
 	{#each users as { firstName, lastName }}
-		<a href={`/${lastName}`} class="box">
+		<a sveltekit:prefetch href={`/${lastName}`} class="box">
 		<h2>{firstName} {lastName}</h2>
 		</a>
 	{/each}

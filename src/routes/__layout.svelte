@@ -7,8 +7,8 @@
 </svelte:head>
 
 <nav>
-	<a href=".">HOME</a>
-	<a href="/about">ABOUT</a>
+	<a sveltekit:prefetch href=".">HOME</a>
+	<a sveltekit:prefetch href="/about">ABOUT</a>
 </nav>
 
 <slot />

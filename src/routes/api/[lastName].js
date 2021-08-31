@@ -18,13 +18,12 @@ import supabase from '$lib/db';
 
 export async function get({ params }) {
     const { lastName } = params;
-    const firstName = await supabase.from('fakeUsers').select(`firstName`).match({lastName: lastName});
-    const title = await supabase.from('fakeUsers').select(`title`).match({lastName: lastName});
+    const response = await supabase.from('fakeUsers').select(`*`).match({lastName: lastName});
     return {
         body: {
             lastName,
-            firstName: firstName.data[0].firstName,
-            title: title.data[0].title
+            firstName: response.data[0].firstName,
+            title: response.data[0].title
         },
     };
 }
