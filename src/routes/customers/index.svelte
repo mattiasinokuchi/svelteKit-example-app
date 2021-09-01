@@ -1,6 +1,6 @@
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/api");
+		const res = await fetch("/api/customers");
 
 		if (res.ok) return { props: { users: await res.json() } };
 		return {

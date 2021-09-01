@@ -1,7 +1,7 @@
 <script context="module">
     export async function load({ fetch, page }) {
         const { lastName } = page.params;
-        const res = await fetch(`/api/${lastName}`);
+        const res = await fetch(`/api/customers/${lastName}`);
 
         if (res.ok) return { props: { user: await res.json() } };
         return {
