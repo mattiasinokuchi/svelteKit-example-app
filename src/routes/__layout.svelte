@@ -9,6 +9,7 @@
 <nav>
 	<a sveltekit:prefetch href=".">HOME</a>
 	<a sveltekit:prefetch href="/about">ABOUT</a>
+	<a sveltekit:prefetch href="/customers">CUSTOMERS</a>
 </nav>
 
 <slot />

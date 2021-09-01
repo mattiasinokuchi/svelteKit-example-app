@@ -1,25 +1,9 @@
-<script context="module">
-	export async function load({ fetch }) {
-		const res = await fetch("/api");
-
-		if (res.ok) return { props: { users: await res.json() } };
-		return {
-			status: res.status,
-			error: new Error(),
-		};
-	}
-</script>
-
-<script>
-	export let users;
-</script>
-
 <main>
-	{#each users as { firstName, lastName }}
-		<a sveltekit:prefetch href={`/${lastName}`} class="box">
-		<h2>{firstName} {lastName}</h2>
-		</a>
-	{/each}
+	<h1>
+		<a sveltekit:prefetch href="." class="box">HOME</a>
+		<a sveltekit:prefetch href="/about" class="box">ABOUT</a>
+		<a sveltekit:prefetch href="/customers" class="box">CUSTOMERS</a>
+	</h1>
 </main>
 
 <style>
