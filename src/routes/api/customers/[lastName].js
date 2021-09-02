@@ -2,7 +2,10 @@ import supabase from '$lib/db';
 
 export async function get({ params }) {
     const { lastName } = params;
-    const response = await supabase.from('customers').select(`*`).match({lastName: lastName});
+    const response = await supabase
+        .from('customers')
+        .select(`*`)
+        .match({lastName: lastName});
     return {
         body: {
             lastName,
