@@ -2,7 +2,7 @@
 	export async function load({ fetch }) {
 		const res = await fetch("/api/customers");
 
-		if (res.ok) return { props: { users: await res.json() } };
+		if (res.ok) return { props: { customers: await res.json() } };
 		return {
 			status: res.status,
 			error: new Error(),
@@ -11,11 +11,11 @@
 </script>
 
 <script>
-	export let users;
+	export let customers;
 </script>
 
 <main>
-	{#each users as { firstName, lastName }}
+	{#each customers as { firstName, lastName }}
 		<a sveltekit:prefetch href={`/customers/${lastName}`} class="box">
 		<h2>{firstName} {lastName}</h2>
 		</a>
