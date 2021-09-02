@@ -2,7 +2,7 @@ import supabase from '$lib/db';
 
 export async function get({ params }) {
     const { name } = params;
-    const response = await supabase.from('products').select(`*`).match({name: name});
+    const response = await supabase.from('subscriptions').select(`*`).match({name: name});
     return {
         body: {
             name,

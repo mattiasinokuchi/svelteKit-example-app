@@ -1,8 +1,8 @@
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/api/products");
+		const res = await fetch("/api/subscriptions");
 
-		if (res.ok) return { props: { products: await res.json() } };
+		if (res.ok) return { props: { subscriptions: await res.json() } };
 		return {
 			status: res.status,
 			error: new Error(),
@@ -11,12 +11,12 @@
 </script>
 
 <script>
-	export let products;
+	export let subscriptions;
 </script>
 
 <main>
-	{#each products as { name, emoji }}
-		<a sveltekit:prefetch href={`/products/${name}`} class="box">
+	{#each subscriptions as { name, emoji }}
+		<a sveltekit:prefetch href={`/subscriptions/${name}`} class="box">
 		<h2>{name} {emoji}</h2>
 		</a>
 	{/each}
