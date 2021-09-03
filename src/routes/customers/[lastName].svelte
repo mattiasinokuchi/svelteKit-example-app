@@ -12,18 +12,20 @@
 </script>
 
 <script>
+    import { each } from "svelte/internal";
+
     export let customer;
 </script>
 
 <main>
     <h1>{customer.firstName} {customer.lastName}</h1>
-    <div class="box">
-        <ul>
-            <li>Subscription: {customer.subscription.active}</li>
-            <li>Phone: {customer.phone}</li>
-            <li>Email: {customer.email}</li>
-        </ul>
-    </div>
+    <p>Subscription: {customer.subscription.active}</p>
+    <p>Products:</p>
+    <ul>
+        {#each customer.products as { product }}
+            <li>{product.name}</li>
+        {/each}
+    </ul>
 </main>
 
 <style>
