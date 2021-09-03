@@ -7,14 +7,15 @@ export async function get({ params }) {
         .select(`
             firstName,
             lastName,
-            status (active)`
-        )
+            status (active),
+            customer_purchases ( product ( name ) )`)
         .match({lastName: lastName});
     return {
         body: {
             lastName,
             firstName: response.data[0].firstName,
             subscription: response.data[0].status,
+            products: response.data[0].customer_purchases
         },
     };
 }
