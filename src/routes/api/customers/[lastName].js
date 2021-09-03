@@ -4,13 +4,17 @@ export async function get({ params }) {
     const { lastName } = params;
     const response = await supabase
         .from('customers')
-        .select(`*`)
+        .select(`
+            firstName,
+            lastName,
+            subscriptions (name)`
+        )
         .match({lastName: lastName});
     return {
         body: {
             lastName,
             firstName: response.data[0].firstName,
-            subscription: response.data[0].subscription
+            subscription: response.data[0].subscriptions.name,
         },
     };
 }
