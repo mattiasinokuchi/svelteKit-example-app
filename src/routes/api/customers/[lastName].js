@@ -14,7 +14,7 @@ export async function get({ params }) {
         body: {
             lastName,
             firstName: response.data[0].firstName,
-            subscription: response.data[0].subscriptions.name,
+            subscription: response.data[0].subscriptions,
         },
     };
 }

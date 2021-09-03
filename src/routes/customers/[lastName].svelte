@@ -19,7 +19,7 @@
     <h1>{customer.firstName} {customer.lastName}</h1>
     <div class="box">
         <ul>
-            <li>Subscription: {customer.subscription}</li>
+            <li>Subscription: {customer.subscription.name}</li>
             <li>Phone: {customer.phone}</li>
             <li>Email: {customer.email}</li>
         </ul>
