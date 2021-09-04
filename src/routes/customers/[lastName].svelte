@@ -21,11 +21,16 @@
     <h1>{customer.firstName} {customer.lastName}</h1>
     <p>Subscription: {customer.subscription.active}</p>
     <p>Products:</p>
-    <ul>
-        {#each customer.products as { product }}
-            <li>{product.name}</li>
-        {/each}
-    </ul>
+    <form action="">
+        <ul>
+            {#each customer.products as { product }}
+                <li>
+                    <input type="checkbox" bind:checked={product.name} />
+                    <label>{product.name}</label>
+                </li>
+            {/each}
+        </ul>
+    </form>
 </main>
 
 <style>
@@ -39,7 +44,7 @@
     h1 {
         color: salmon;
     }
-    li {
-        margin-bottom: 1rem;
+    ul {
+        list-style-type: none;
     }
 </style>
