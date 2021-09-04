@@ -25,8 +25,10 @@
         <ul>
             {#each customer.products as { product }}
                 <li>
-                    <input type="checkbox" bind:checked={product.name} />
-                    <label>{product.name}</label>
+                    <label>
+                        <input type="checkbox" bind:checked={product.name} />
+                        {product.name}
+                    </label>
                 </li>
             {/each}
         </ul>
