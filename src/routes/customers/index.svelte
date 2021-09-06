@@ -15,18 +15,23 @@
 </script>
 
 <main>
-	{#each customers as { firstName, lastName }}
-		<a sveltekit:prefetch href={`/customers/${lastName}`} class="box">
-		<h2>{firstName} {lastName}</h2>
-		</a>
-	{/each}
+	<ul>
+		{#each customers as { firstName, lastName }}
+			<li class="box">
+				<a sveltekit:prefetch href={`/customers/${lastName}`}>
+					<h2>{firstName} {lastName}</h2>
+				</a>
+			</li>
+		{/each}
+	</ul>
 </main>
 
 <style>
 	main {
 		display: flex;
-		flex-wrap: wrap;
 		justify-content: center;
+		align-items: center;
+		height: 80vh;
 	}
 	.box {
 		padding: 0.25rem;
@@ -36,5 +41,8 @@
 	}
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;
+	}
+	ul {
+		list-style-type: none;
 	}
 </style>
