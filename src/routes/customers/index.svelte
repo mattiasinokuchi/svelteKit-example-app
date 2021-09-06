@@ -16,6 +16,7 @@
 
 <main>
 	<ul>
+		<li class="box"><a href={`/customers/new`}><h2>Add New Customer</h2></a></li>
 		{#each customers as { firstName, lastName }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${lastName}`}>
@@ -26,10 +27,6 @@
 	</ul>
 </main>
 
-<footer>
-	<form action="" />
-</footer>
-
 <style>
 	main {
 		display: flex;
@@ -37,6 +34,7 @@
 		align-items: center;
 		height: 80vh;
 	}
+
 	.box {
 		padding: 0.25rem;
 		margin: 1.5rem;
@@ -51,5 +49,6 @@
 	}
 	a {
 		text-decoration: none;
+		color: salmon;
 	}
 </style>
