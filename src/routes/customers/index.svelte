@@ -26,6 +26,10 @@
 	</ul>
 </main>
 
+<footer>
+	<form action="" />
+</footer>
+
 <style>
 	main {
 		display: flex;
@@ -44,5 +48,8 @@
 	}
 	ul {
 		list-style-type: none;
+	}
+	a {
+		text-decoration: none;
 	}
 </style>
