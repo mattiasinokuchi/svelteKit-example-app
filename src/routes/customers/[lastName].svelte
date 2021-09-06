@@ -12,8 +12,6 @@
 </script>
 
 <script>
-    import { each } from "svelte/internal";
-
     export let customer;
 </script>
 
