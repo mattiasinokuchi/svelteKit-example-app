@@ -1,5 +1,5 @@
 <script context="module">
-	export async function load({ fetch }) {
+	/*export async function load({ fetch }) {
 		const res = await fetch("/api/subscriptions");
 
 		if (res.ok) return { props: { subscriptions: await res.json() } };
@@ -7,6 +7,18 @@
 			status: res.status,
 			error: new Error(),
 		};
+	}*/
+	export async function load({ fetch }) {
+		const res = await fetch("/api/subscriptions.json");
+		if (res.ok) {
+			const subscriptions = await res.json();
+			return {
+				props: { subscriptions },
+			};
+		}
+		return {
+			error: new Error(),
+		}
 	}
 </script>
 
@@ -17,7 +29,7 @@
 <main>
 	{#each subscriptions as { name, emoji }}
 		<a sveltekit:prefetch href={`/subscriptions/${name}`} class="box">
-		<h2>{name} {emoji}</h2>
+			<h2>{name} {emoji}</h2>
 		</a>
 	{/each}
 </main>
