@@ -4,9 +4,9 @@
         const res = await fetch(`/api/subscriptions/${name}`);
 
         if (res.ok) return { props: { product: await res.json() } };
+        const { message } = await res.json();
         return {
-            status: res.status,
-            error: new Error(),
+            error: new Error(message),
         };
     }
 </script>
