@@ -1,13 +1,4 @@
 <script context="module">
-	/*export async function load({ fetch }) {
-		const res = await fetch("/api/subscriptions");
-
-		if (res.ok) return { props: { subscriptions: await res.json() } };
-		return {
-			status: res.status,
-			error: new Error(),
-		};
-	}*/
 	export async function load({ fetch }) {
 		const res = await fetch("/subscriptions.json");
 		if (res.ok) {

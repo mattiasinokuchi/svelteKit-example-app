@@ -1,14 +1,4 @@
 <script context="module">
-    /*export async function load({ fetch, page }) {
-        const { lastName } = page.params;
-        const res = await fetch(`/api/customers/${lastName}`);
-
-        if (res.ok) return { props: { customer: await res.json() } };
-        return {
-            status: res.status,
-            error: new Error(),
-        };
-    }*/
     export async function load({ fetch, page }) {
         const { lastName } = page.params;
         const res = await fetch(`/customers/${lastName}.json`);
