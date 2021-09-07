@@ -16,9 +16,10 @@
 				props: { customers },
 			};
 		}
-		return {
-			error: new Error(),
-		}
+        const { message } = await res.json();
+        return {
+            error: new Error(message),
+        };
 	}
 </script>
 

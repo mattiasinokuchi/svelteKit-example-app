@@ -27,7 +27,6 @@
 
 <script>
     export let customer;
-    console.log(customer);
 </script>
 
 <main>
