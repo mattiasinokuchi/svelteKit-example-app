@@ -1,5 +1,5 @@
 <script context="module">
-	export async function load({ fetch }) {
+	/*export async function load({ fetch }) {
 		const res = await fetch("/api/customers");
 
 		if (res.ok) return { props: { customers: await res.json() } };
@@ -7,6 +7,18 @@
 			status: res.status,
 			error: new Error(),
 		};
+	}*/
+	export async function load({ fetch }) {
+		const res = await fetch("/customers.json");
+		if (res.ok) {
+			const customers = await res.json();
+			return {
+				props: { customers },
+			};
+		}
+		return {
+			error: new Error(),
+		}
 	}
 </script>
 

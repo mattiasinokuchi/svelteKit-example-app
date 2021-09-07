@@ -1,5 +1,5 @@
 <script context="module">
-    export async function load({ fetch, page }) {
+    /*export async function load({ fetch, page }) {
         const { lastName } = page.params;
         const res = await fetch(`/api/customers/${lastName}`);
 
@@ -8,20 +8,35 @@
             status: res.status,
             error: new Error(),
         };
+    }*/
+    export async function load({ fetch, page }) {
+        const { lastName } = page.params;
+        const res = await fetch(`/customers/${lastName}.json`);
+        if (res.ok) {
+            const customer = await res.json();
+            return {
+                props: { customer },
+            };
+        }
+        const { message } = await res.json();
+        return {
+            error: new Error(message),
+        };
     }
 </script>
 
 <script>
     export let customer;
+    console.log(customer);
 </script>
 
 <main>
-    <h1>{customer.firstName} {customer.lastName}</h1>
-    <p>Subscription: {customer.subscription.active}</p>
+    <h1>{customer[0].firstName} {customer[0].lastName}</h1>
+    <p>Subscription: {customer[0].status.active}</p>
     <p>Products:</p>
     <form action="">
         <ul>
-            {#each customer.products as { product }}
+            {#each customer[0].customer_purchases as { product }}
                 <li>
                     <label>
                         <input type="checkbox" bind:checked={product.name} />
