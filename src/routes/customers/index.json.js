@@ -13,7 +13,8 @@ export const post = async (request) => {
     const { data, error } = await supabase
         .from('customers')
         .upsert({
-            lastName: request.body.get('text'),
+            firstName: request.body.get('firstName'),
+            lastName: request.body.get('lastName'),
         });
 
     if (!error && request.headers.accept !== 'application/json') {

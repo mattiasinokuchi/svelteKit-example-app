@@ -1,5 +1,4 @@
 <script context="module">
-	import { enhance } from "$lib/form";
 	export async function load({ fetch }) {
 		const res = await fetch("/customers.json");
 		if (res.ok) {
@@ -19,27 +18,13 @@
 	export let customers;
 </script>
 
-<form
-	class="new"
-	action="/customers.json"
-	method="post"
-	use:enhance={{
-		result: async (res, form) => {
-			const created = await res.json();
-			customers = [...customers, created];
-			form.reset();
-		},
-	}}
->
-	<input
-		name="text"
-		aria-label="Add customer"
-		placeholder="+ tap to add a customer"
-	/>
-</form>
-
 <main>
 	<ul>
+		<li class="box">
+			<a sveltekit:prefetch href='/customers/new'>
+				<h2>Add Customer</h2>
+			</a>
+		</li>
 		{#each customers as { firstName, lastName }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${lastName}`}>
@@ -54,26 +39,6 @@
 	main {
 		display: flex;
 		justify-content: center;
-	}
-	.new {
-		margin: 0 0 0.5rem 0;
-	}
-	input {
-		border: 1px solid transparent;
-	}
-	input:focus-visible {
-		box-shadow: inset 1px 1px 6px rgba(0, 0, 0, 0.1);
-		border: 1px solid #ff3e00 !important;
-		outline: none;
-	}
-	.new input {
-		font-size: 28px;
-		width: 100%;
-		padding: 0.5em 1em 0.3em 1em;
-		box-sizing: border-box;
-		background: rgba(255, 255, 255, 0.05);
-		border-radius: 8px;
-		text-align: center;
 	}
 	.box {
 		padding: 0.25rem;
