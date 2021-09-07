@@ -10,7 +10,7 @@ export async function get({ params }) {
         body: {
             name,
             name: response.data[0].name,
-            emoji: response.data[0].name
+            price: response.data[0].price
         },
     };
 }

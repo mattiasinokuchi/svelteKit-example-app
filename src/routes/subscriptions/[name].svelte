@@ -19,7 +19,7 @@
     <h1>{product.name}</h1>
     <div class="box">
         <ul>
-            <li>Price: {product.name}</li>
+            <li>Price: $ {product.price}</li>
         </ul>
     </div>
 </main>
