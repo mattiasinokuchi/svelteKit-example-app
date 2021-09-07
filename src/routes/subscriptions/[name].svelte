@@ -11,7 +11,7 @@
     }*/
     export async function load({ fetch, page }) {
         const { name } = page.params;
-        const res = await fetch(`/api/subscriptions/${name}`);
+        const res = await fetch(`/subscriptions/${name}.json`);
         if (res.ok) {
             const product = await res.json();
             return {
@@ -27,7 +27,6 @@
 
 <script>
     export let product;
-    console.log(product);
 </script>
 
 <main>
