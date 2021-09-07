@@ -27,13 +27,14 @@
 
 <script>
     export let product;
+    console.log(product);
 </script>
 
 <main>
-    <h1>{product.name}</h1>
+    <h1>{product[0].name}</h1>
     <div class="box">
         <ul>
-            <li>Price: $ {product.price}</li>
+            <li>Price: $ {product[0].price}</li>
         </ul>
     </div>
 </main>
