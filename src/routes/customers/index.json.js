@@ -10,7 +10,6 @@ export const get = async (_) => {
 };
 
 export const post = async (request) => {
-    console.log(request);
     const { data, error } = await supabase
         .from('customers')
         .upsert({
