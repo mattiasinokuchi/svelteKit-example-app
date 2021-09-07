@@ -9,7 +9,7 @@
 		};
 	}*/
 	export async function load({ fetch }) {
-		const res = await fetch("/api/subscriptions.json");
+		const res = await fetch("/subscriptions.json");
 		if (res.ok) {
 			const subscriptions = await res.json();
 			return {
