@@ -8,8 +8,9 @@ export const get = async ({ params }) => {
             firstName,
             lastName,
             status (active),
-            customer_purchases ( product ( name ) )`)
-        .match({ lastName: lastName });
+            subscription ( product ( name ) )`)
+        .match({ lastName: lastName })
+        .single();
     return {
         body: data
     };

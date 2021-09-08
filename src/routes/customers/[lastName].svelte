@@ -20,12 +20,12 @@
 </script>
 
 <main>
-    <h1>{customer[0].firstName} {customer[0].lastName}</h1>
-    <p>Subscription: {customer[0].status.active}</p>
+    <h1>{customer.firstName} {customer.lastName}</h1>
+    <p>Subscription: {customer.status.active}</p>
     <p>Products:</p>
     <form action="">
         <ul>
-            {#each customer[0].customer_purchases as { product }}
+            {#each customer.subscription as { product }}
                 <li>
                     <label>
                         <input type="checkbox" bind:checked={product.name} />
