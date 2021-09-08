@@ -1,7 +1,7 @@
 <script context="module">
     export async function load({ fetch, page }) {
-        const { name } = page.params;
-        const res = await fetch(`/subscriptions/${name}.json`);
+        const { id } = page.params;
+        const res = await fetch(`/subscriptions/${id}.json`);
         if (res.ok) {
             const product = await res.json();
             return {
@@ -20,10 +20,10 @@
 </script>
 
 <main>
-    <h1>{product[0].name}</h1>
+    <h1>{product.name}</h1>
     <div class="box">
         <ul>
-            <li>Price: $ {product[0].price}</li>
+            <li>Price: $ {product.price}</li>
         </ul>
     </div>
 </main>

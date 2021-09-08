@@ -19,8 +19,8 @@
 </script>
 
 <main>
-	{#each subscriptions as { name, emoji }}
-		<a sveltekit:prefetch href={`/subscriptions/${name}`} class="box">
+	{#each subscriptions as { name, emoji, id }}
+		<a sveltekit:prefetch href={`/subscriptions/${id}`} class="box">
 			<h2>{name} {emoji}</h2>
 		</a>
 	{/each}

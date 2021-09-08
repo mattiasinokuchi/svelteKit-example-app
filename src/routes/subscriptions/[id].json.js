@@ -1,11 +1,12 @@
 import supabase from '$lib/db';
 
 export const get = async ({ params }) => {
-    const { name } = params;
+    const { id } = params;
     let { data } = await supabase
         .from('products')
         .select('*')
-        .match({ name: name });
+        .match({ id: id })
+        .single();
     return {
         body: data
     };
