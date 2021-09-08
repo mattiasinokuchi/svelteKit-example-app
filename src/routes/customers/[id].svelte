@@ -25,11 +25,11 @@
     <p>Products:</p>
     <form action="">
         <ul>
-            {#each customer.customers_subscriptions as { product }}
+            {#each customer.customers_subscriptions as { subscription }}
                 <li>
                     <label>
-                        <input type="checkbox" bind:checked={product.name} />
-                        {product.name}
+                        <input type="checkbox" bind:checked={subscription.name} />
+                        {subscription.name}
                     </label>
                 </li>
             {/each}
