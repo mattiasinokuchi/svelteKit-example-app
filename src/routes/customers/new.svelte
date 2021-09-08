@@ -20,7 +20,7 @@
 			/>
 		</li>
 		<li>
-			<label for="lastName" type="text">Last Name</label>
+			<label for="lastName">Last Name</label>
 			<input
 				type="text"
 				id="lastName"
@@ -28,14 +28,6 @@
 				aria-label="Add customer"
 				placeholder="Last name"
 			/>
-		</li>
-		<li>
-			{#each products as { name }}
-				<div>
-					<input name="product" type="checkbox" />
-					<label for="product">{name}</label>
-				</div>
-			{/each}
 		</li>
 		<li class="button">
 			<button type="submit">Submit</button>
@@ -47,7 +39,7 @@
 	form {
 		/* Center the form on the page */
 		margin: 0 auto;
-		width: 40vw;
+		width: 60vw;
 		/* Form outline */
 		padding: 1em;
 		border: 1px solid #ccc;
