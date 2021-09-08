@@ -25,7 +25,7 @@
     <p>Products:</p>
     <form action="">
         <ul>
-            {#each customer.subscription as { product }}
+            {#each customer.customers_subscriptions as { product }}
                 <li>
                     <label>
                         <input type="checkbox" bind:checked={product.name} />

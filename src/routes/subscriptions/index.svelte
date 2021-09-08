@@ -2,9 +2,9 @@
 	export async function load({ fetch }) {
 		const res = await fetch("/subscriptions.json");
 		if (res.ok) {
-			const subscriptions = await res.json();
+			const subscription = await res.json();
 			return {
-				props: { subscriptions },
+				props: { subscription },
 			};
 		}
         const { message } = await res.json();
@@ -15,11 +15,11 @@
 </script>
 
 <script>
-	export let subscriptions;
+	export let subscription;
 </script>
 
 <main>
-	{#each subscriptions as { name, emoji, id }}
+	{#each subscription as { name, emoji, id }}
 		<a sveltekit:prefetch href={`/subscriptions/${id}`} class="box">
 			<h2>{name} {emoji}</h2>
 		</a>
