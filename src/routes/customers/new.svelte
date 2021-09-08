@@ -8,31 +8,26 @@
 </script>
 
 <form class="new" action="/customers.json" method="post">
+	<label for="firstName">First Name</label>
 	<input
 		name="firstName"
 		aria-label="Add customer"
 		placeholder="First name"
 	/>
-	<input name="lastName" aria-label="Add customer" placeholder="Last name" />
+	<br>
+	<label for="lastName">Last Name</label>
+	<input
+		name="lastName"
+		aria-label="Add customer"
+		placeholder="Last name" />
+	<br />
+	{#each products as { name }}
+		<input
+			name="product"
+			type="checkbox"
+		/>
+		<label for="product">{name}</label>
+		<br />
+	{/each}
 	<input type="submit" value="submit" />
 </form>
-
-{#await products}
-	<p>...waiting</p>
-{:then products}
-	<p>Available products are: 
-	{#each products as {name}}
-		<p>{name}</p>
-	{/each}
-</p>
-{:catch error}
-	<p style="color: red">{error.message}</p>
-{/await}
-
-<style>
-	.new input {
-		font-size: 28px;
-		background: rgba(255, 255, 255, 0.05);
-		text-align: center;
-	}
-</style>
