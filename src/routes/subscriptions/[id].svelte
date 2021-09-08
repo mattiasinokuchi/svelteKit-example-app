@@ -3,9 +3,9 @@
         const { id } = page.params;
         const res = await fetch(`/subscriptions/${id}.json`);
         if (res.ok) {
-            const product = await res.json();
+            const subscription = await res.json();
             return {
-                props: { product },
+                props: { subscription },
             };
         }
         const { message } = await res.json();
@@ -16,14 +16,14 @@
 </script>
 
 <script>
-    export let product;
+    export let subscription;
 </script>
 
 <main>
-    <h1>{product.name}</h1>
+    <h1>{subscription.name}</h1>
     <div class="box">
         <ul>
-            <li>Price: $ {product.price}</li>
+            <li>Price: $ {subscription.price}</li>
         </ul>
     </div>
 </main>
