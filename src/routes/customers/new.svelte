@@ -1,10 +1,4 @@
 <script>
-	import { onMount } from "svelte";
-	let products = [];
-	onMount(async () => {
-		const res = await fetch(`/subscriptions.json`);
-		products = await res.json();
-	});
 </script>
 
 <form action="/customers.json" method="post">
