@@ -21,12 +21,11 @@ export const post = async (request) => {
         return {
             status: 303,
             headers: {
-                location: '/customers/'+request.body.get('lastName')
+                location: '/customers'
             }
         };
     }
-
     return {
-        body: data[0]
+        body: data
     };
 };

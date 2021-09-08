@@ -1,7 +1,7 @@
 <script context="module">
     export async function load({ fetch, page }) {
-        const { lastName } = page.params;
-        const res = await fetch(`/customers/${lastName}.json`);
+        const { id } = page.params;
+        const res = await fetch(`/customers/${id}.json`);
         if (res.ok) {
             const customer = await res.json();
             return {

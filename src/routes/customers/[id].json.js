@@ -1,7 +1,7 @@
 import supabase from '$lib/db';
 
 export const get = async ({ params }) => {
-    const { lastName } = params;
+    const { id } = params;
     let { data } = await supabase
         .from('customers')
         .select(`
@@ -9,7 +9,7 @@ export const get = async ({ params }) => {
             lastName,
             status (active),
             subscription ( product ( name ) )`)
-        .match({ lastName: lastName })
+        .match({ id: id })
         .single();
     return {
         body: data
