@@ -1,32 +1,26 @@
 <script>
 </script>
 
-<form action="/customers.json" method="post">
-	<ul>
-		<li>
-			<label for="firstName">First Name</label>
-			<input
-				type="text"
-				id="firstName"
-				name="firstName"
-				aria-label="Add customer"
-				placeholder="First name"
-			/>
-		</li>
-		<li>
-			<label for="lastName">Last Name</label>
-			<input
-				type="text"
-				id="lastName"
-				name="lastName"
-				aria-label="Add customer"
-				placeholder="Last name"
-			/>
-		</li>
-		<li class="button">
-			<button type="submit">Submit</button>
-		</li>
-	</ul>
+<form action="/customers_subscriptions.json" method="post">
+	<label for="subscription-select">Choose a subscription:</label>
+	<select name="subscriptions" id="subscription-select">
+		<option value="">- Please choose an option -</option>
+		<option value="dog">Dog</option>
+		<option value="cat">Cat</option>
+		<option value="hamster">Hamster</option>
+		<option value="parrot">Parrot</option>
+		<option value="spider">Spider</option>
+		<option value="goldfish">Goldfish</option>
+	</select>
+	<label for="lastName">Last Name</label>
+	<input
+		type="text"
+		id="lastName"
+		name="lastName"
+		aria-label="Add customer"
+		placeholder="Last name"
+	/>
+	<button type="submit">Submit</button>
 </form>
 
 <style>
