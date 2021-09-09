@@ -80,7 +80,8 @@
 		padding: 0.25rem;
 		margin: 1.5rem;
 		box-shadow: 4px 5px 11px 2px lightgray;
-		width: 30vw;
+		width: 40vw;
+		text-align: center;
 	}
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;

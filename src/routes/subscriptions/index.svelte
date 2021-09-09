@@ -47,6 +47,7 @@
 	}
 	ul {
 		list-style-type: none;
+		text-align: center;
 	}
 	h2 {
 		color: salmon;
