@@ -21,8 +21,8 @@
 <main>
 	<ul>
 		<li class="box">
-			<a sveltekit:prefetch href='/customers_subscriptions/new'>
-				<h2>Add Customers Subscriptions</h2>
+			<a sveltekit:prefetch href='/customers_subscriptions/edit'>
+				<h2>Edit Customers Subscriptions</h2>
 			</a>
 		</li>
 		{#each customers_subscriptions as { customer, subscription, id }}

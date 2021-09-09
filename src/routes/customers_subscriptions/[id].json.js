@@ -14,7 +14,7 @@ export const get = async ({ params }) => {
     };
 };
 
-/*export const patch = async (request) => {
+export const patch = async (request) => {
     if (!request.locals.user) {
         return { status: 401 };
     }
@@ -40,4 +40,4 @@ export const get = async ({ params }) => {
     return {
         body: data[0]
     };
-};*/
+};
