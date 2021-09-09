@@ -5,9 +5,8 @@ export const get = async ({ params }) => {
     let { data } = await supabase
         .from('customers_subscriptions')
         .select(`
-            customer ( customers ( first_name ) ),
-            customer ( customers ( last_name ) ),
-            subscription ( subscriptions ( name ) )`)
+            customer ( first_name ),
+            subscription ( name )`)
         .match({ id: id })
         .single();
     return {

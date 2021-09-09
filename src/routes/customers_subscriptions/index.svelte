@@ -28,7 +28,7 @@
 		{#each customers_subscriptions as { customer, subscription, id }}
 			<li class="box">
 				<h2>
-					{customer}: {subscription}
+					{customer.first_name} : {subscription}
 				</h2>
 			</li>
 		{/each}
