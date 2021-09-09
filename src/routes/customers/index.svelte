@@ -19,7 +19,10 @@
 </script>
 
 <main>
-	<form action="/customers.json" method="post">
+	<form class="box" action="/customers.json" method="post">
+		<h2>
+			New customer
+		</h2>
 		<ul>
 			<li>
 				<label for="firstName">First Name</label>
@@ -31,6 +34,7 @@
 					placeholder="First name"
 				/>
 			</li>
+			<br>
 			<li>
 				<label for="lastName">Last Name</label>
 				<input
@@ -41,6 +45,7 @@
 					placeholder="Last name"
 				/>
 			</li>
+			<br>
 			<li class="button">
 				<button type="submit">Submit</button>
 			</li>
@@ -66,7 +71,6 @@
 	.box {
 		padding: 0.25rem;
 		margin: 1.5rem;
-		color: salmon;
 		box-shadow: 4px 5px 11px 2px lightgray;
 	}
 	.box:hover {
@@ -74,6 +78,9 @@
 	}
 	ul {
 		list-style-type: none;
+	}
+	h2 {
+		color: salmon;
 	}
 	a {
 		text-decoration: none;
