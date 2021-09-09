@@ -1,16 +1,21 @@
 <script>
+	import { onMount } from "svelte";
+
+	let subscriptions = [];
+
+	onMount(async () => {
+		const res = await fetch(`/subscriptions.json`);
+		subscriptions = await res.json();
+	});
 </script>
 
 <form action="/customers_subscriptions.json" method="post">
 	<label for="subscription-select">Choose a subscription:</label>
 	<select name="subscriptions" id="subscription-select">
 		<option value="">- Please choose an option -</option>
-		<option value="dog">Dog</option>
-		<option value="cat">Cat</option>
-		<option value="hamster">Hamster</option>
-		<option value="parrot">Parrot</option>
-		<option value="spider">Spider</option>
-		<option value="goldfish">Goldfish</option>
+		{#each subscriptions as { name, emoji, id }}
+			<option value={name}>{name}</option>
+		{/each}
 	</select>
 	<label for="lastName">Last Name</label>
 	<input
@@ -34,16 +39,6 @@
 		border-radius: 1em;
 	}
 
-	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-	}
-
-	form li + li {
-		margin-top: 1em;
-	}
-
 	label {
 		/* Uniform size & alignment */
 		width: 20vw;
@@ -59,21 +54,9 @@
 		border: 1px solid #999;
 	}
 
-	#firstName,
-	#lastName {
-		/* Uniform text field size */
-		width: 300px;
-		box-sizing: border-box;
-	}
-
 	input:focus {
 		/* Additional highlight for focused elements */
 		border-color: #000;
-	}
-
-	.button {
-		/* Align buttons with the text fields */
-		padding-left: 90px; /* same size as the label elements */
 	}
 
 	button {
