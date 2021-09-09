@@ -17,14 +17,14 @@
 	<select name="customer" id="customer-select">
 		<option value="">- Please choose an option -</option>
 		{#each customers as { first_name, last_name, id }}
-			<option value={first_name}>{last_name}</option>
+			<option value={id}>{first_name} {last_name}</option>
 		{/each}
 	</select>
 	<label for="subscription-select">Choose a subscription:</label>
 	<select name="subscriptions" id="subscription-select">
 		<option value="">- Please choose an option -</option>
 		{#each subscriptions as { name, emoji, id }}
-			<option value={name}>{name}</option>
+			<option value={id}>{name}</option>
 		{/each}
 	</select>
 	<button type="submit">Submit</button>
