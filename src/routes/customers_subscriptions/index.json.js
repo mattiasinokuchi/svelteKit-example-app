@@ -4,6 +4,7 @@ export const get = async (_) => {
     let { data } = await supabase
         .from('customers_subscriptions')
         .select(`
+            id,
             customer (first_name, last_name),
             subscription (name)`);
     return {

@@ -21,15 +21,22 @@
 <main>
 	<ul>
 		<li class="box">
-			<a sveltekit:prefetch href='/customers_subscriptions/edit'>
+			<a sveltekit:prefetch href="/customers_subscriptions/edit">
 				<h2>Edit Customers Subscriptions</h2>
 			</a>
 		</li>
 		{#each customers_subscriptions as { customer, subscription, id }}
 			<li class="box">
 				<h2>
-					{customer.first_name} {customer.last_name}: {subscription.name}
+					{customer.first_name}
+					{customer.last_name}: {subscription.name}
 				</h2>
+				<form
+					action="/customers_subscriptions/{id}.json?_method=delete"
+					method="post"
+				>
+					<button type="submit">Delete</button>
+				</form>
 			</li>
 		{/each}
 	</ul>
