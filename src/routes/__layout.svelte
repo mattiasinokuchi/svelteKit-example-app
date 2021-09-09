@@ -11,6 +11,7 @@
 	<a sveltekit:prefetch href="/about">ABOUT</a>
 	<a sveltekit:prefetch href="/customers">CUSTOMERS</a>
 	<a sveltekit:prefetch href="/subscriptions">SUBSCRIPTIONS</a>
+	<a sveltekit:prefetch href="/customers_subscriptions">CUSTOMERS SUBSCRIPTIONS</a>
 </nav>
 
 <slot />
