@@ -24,7 +24,7 @@ export const post = async (request) => {
         return {
             status: 303,
             headers: {
-                location: '/customers_subscriptions'
+                location: '/customers/'+request.body.get('customer')
             }
         };
     }
