@@ -24,17 +24,21 @@
 		<ul>
 			<li>
 				<label for="firstName">First Name</label>
+			</li>
+			<li>
 				<input
-					type="text"
-					id="firstName"
-					name="firstName"
-					aria-label="Add customer"
-					placeholder="First name"
-				/>
+				type="text"
+				id="firstName"
+				name="firstName"
+				aria-label="Add customer"
+				placeholder="First name"
+			/>
 			</li>
 			<br />
 			<li>
 				<label for="lastName">Last Name</label>
+			</li>
+			<li>
 				<input
 					type="text"
 					id="lastName"
@@ -76,6 +80,7 @@
 		padding: 0.25rem;
 		margin: 1.5rem;
 		box-shadow: 4px 5px 11px 2px lightgray;
+		width: 30vw;
 	}
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;
