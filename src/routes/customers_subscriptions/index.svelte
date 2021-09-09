@@ -30,26 +30,38 @@
 </script>
 
 <main>
-	<fieldset>
-		<legend>Add Customers Subscriptions</legend>
-		<form action="/customers_subscriptions.json" method="post">
-			<label for="customer-select">Choose a customer:</label>
-			<select name="customer" id="customer-select">
-				<option value="">- Please choose an option -</option>
-				{#each customers as { first_name, last_name, id }}
-					<option value={id}>{first_name} {last_name}</option>
-				{/each}
-			</select>
-			<label for="subscription-select">Choose a subscription:</label>
-			<select name="subscription" id="subscription-select">
-				<option value="">- Please choose an option -</option>
-				{#each subscriptions as { name, emoji, id }}
-					<option value={id}>{name}</option>
-				{/each}
-			</select>
-			<button type="submit">Submit</button>
-		</form>
-	</fieldset>
+	<form class="box" action="/customers_subscriptions.json" method="post">
+		<ul>
+			<li>
+				<h2>
+					<label for="customer-select">Choose a customer:</label>
+				</h2>
+				<select name="customer" id="customer-select">
+					<option value="">- Please choose an option -</option>
+					{#each customers as { first_name, last_name, id }}
+						<option value={id}>{first_name} {last_name}</option>
+					{/each}
+				</select>
+			</li>
+			<li>
+				<h2>
+					<label for="subscription-select"
+						>Choose a subscription:</label
+					>
+				</h2>
+				<select name="subscription" id="subscription-select">
+					<option value="">- Please choose an option -</option>
+					{#each subscriptions as { name, emoji, id }}
+						<option value={id}>{name}</option>
+					{/each}
+				</select>
+			</li>
+			<li>
+				<br>
+				<button type="submit">Add Customers Subscription</button>
+			</li>
+		</ul>
+	</form>
 
 	<ul>
 		{#each customers_subscriptions as { customer, subscription, id }}
