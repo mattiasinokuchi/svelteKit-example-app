@@ -31,6 +31,7 @@
 
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
+    <p>Subscription: {customer.status.active}</p>
 
     <form class="box" action="/customers_subscriptions.json" method="post">
 		<h2>New Subscription</h2>
@@ -56,7 +57,6 @@
 		</ul>
 	</form>
 
-    <p>Subscription: {customer.status.active}</p>
     <p>Products:</p>
     <form action="">
         <ul>
