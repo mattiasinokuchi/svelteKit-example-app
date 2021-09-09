@@ -20,7 +20,7 @@
 </script>
 
 <main>
-    <h1>{customer.first_name} {customer.lastName}</h1>
+    <h1>{customer.first_name} {customer.last_name}</h1>
     <p>Subscription: {customer.status.active}</p>
     <p>Products:</p>
     <form action="">

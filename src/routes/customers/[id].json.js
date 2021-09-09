@@ -6,7 +6,7 @@ export const get = async ({ params }) => {
         .from('customers')
         .select(`
             first_name,
-            lastName,
+            last_name,
             status (active),
             customers_subscriptions ( subscription ( name ) )`)
         .match({ id: id })

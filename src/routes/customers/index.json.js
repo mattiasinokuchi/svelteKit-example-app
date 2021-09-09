@@ -14,7 +14,7 @@ export const post = async (request) => {
         .from('customers')
         .upsert({
             first_name: request.body.get('firstName'),
-            lastName: request.body.get('lastName'),
+            last_name: request.body.get('lastName'),
         });
 
     if (!error && request.headers.accept !== 'application/json') {
