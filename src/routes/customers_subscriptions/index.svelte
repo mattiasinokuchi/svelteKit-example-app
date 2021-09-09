@@ -16,15 +16,42 @@
 
 <script>
 	export let customers_subscriptions;
+	import { onMount } from "svelte";
+
+	let subscriptions = [];
+	let customers = [];
+
+	onMount(async () => {
+		let res = await fetch(`/subscriptions.json`);
+		subscriptions = await res.json();
+		res = await fetch(`/customers.json`);
+		customers = await res.json();
+	});
 </script>
 
 <main>
+	<fieldset>
+		<legend>Add Customers Subscriptions</legend>
+		<form action="/customers_subscriptions.json" method="post">
+			<label for="customer-select">Choose a customer:</label>
+			<select name="customer" id="customer-select">
+				<option value="">- Please choose an option -</option>
+				{#each customers as { first_name, last_name, id }}
+					<option value={id}>{first_name} {last_name}</option>
+				{/each}
+			</select>
+			<label for="subscription-select">Choose a subscription:</label>
+			<select name="subscription" id="subscription-select">
+				<option value="">- Please choose an option -</option>
+				{#each subscriptions as { name, emoji, id }}
+					<option value={id}>{name}</option>
+				{/each}
+			</select>
+			<button type="submit">Submit</button>
+		</form>
+	</fieldset>
+
 	<ul>
-		<li class="box">
-			<a sveltekit:prefetch href="/customers_subscriptions/edit">
-				<h2>Edit Customers Subscriptions</h2>
-			</a>
-		</li>
 		{#each customers_subscriptions as { customer, subscription, id }}
 			<li class="box">
 				<h2>
@@ -58,9 +85,5 @@
 	}
 	ul {
 		list-style-type: none;
-	}
-	a {
-		text-decoration: none;
-		color: salmon;
 	}
 </style>
