@@ -20,9 +20,7 @@
 
 <main>
 	<form class="box" action="/customers.json" method="post">
-		<h2>
-			New customer
-		</h2>
+		<h2>New customer</h2>
 		<ul>
 			<li>
 				<label for="firstName">First Name</label>
@@ -34,7 +32,7 @@
 					placeholder="First name"
 				/>
 			</li>
-			<br>
+			<br />
 			<li>
 				<label for="lastName">Last Name</label>
 				<input
@@ -45,7 +43,7 @@
 					placeholder="Last name"
 				/>
 			</li>
-			<br>
+			<br />
 			<li class="button">
 				<button type="submit">Submit</button>
 			</li>
@@ -58,6 +56,12 @@
 				<a sveltekit:prefetch href={`/customers/${id}`}>
 					<h2>{first_name} {last_name}</h2>
 				</a>
+				<form
+					action="/customers/{id}.json?_method=delete"
+					method="post"
+				>
+					<button type="submit">Delete</button>
+				</form>
 			</li>
 		{/each}
 	</ul>

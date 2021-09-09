@@ -16,30 +16,24 @@ export const get = async ({ params }) => {
     };
 };
 
-/*export const patch = async (request) => {
-    if (!request.locals.user) {
+export const del = async (request) => {
+    /*if (!request.locals.user) {
         return { status: 401 };
-    }
-
+    }*/
+    console.log(request.params);
     const { data, error } = await supabase
-    .from('customers_subscriptions')
-    .upsert({
-        id: request.params.id,
-        task: request.body.get('task'),
-        is_complete: request.body.get('is_complete'),
-        user_id: request.locals.user.id
-    });
+        .from('customers')
+        .delete().match({
+            id: request.params.id,
+            //user_id: request.locals.user.id
+        });
 
     if (!error && request.headers.accept !== 'application/json') {
         return {
             status: 303,
             headers: {
-                location: '/todos'
+                location: '/customers'
             }
         };
     }
-
-    return {
-        body: data[0]
-    };
-};*/
+};
