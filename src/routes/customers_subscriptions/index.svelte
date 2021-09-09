@@ -25,10 +25,10 @@
 				<h2>Add Customers Subscriptions</h2>
 			</a>
 		</li>
-		{#each customers_subscriptions as { customer_name, subscription, id }}
+		{#each customers_subscriptions as { customer, subscription, id }}
 			<li class="box">
 				<h2>
-					{customer_name}: {subscription}
+					{customer}: {subscription}
 				</h2>
 			</li>
 		{/each}
