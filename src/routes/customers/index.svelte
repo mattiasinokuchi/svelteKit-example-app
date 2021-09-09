@@ -19,12 +19,35 @@
 </script>
 
 <main>
+	<form action="/customers.json" method="post">
+		<ul>
+			<li>
+				<label for="firstName">First Name</label>
+				<input
+					type="text"
+					id="firstName"
+					name="firstName"
+					aria-label="Add customer"
+					placeholder="First name"
+				/>
+			</li>
+			<li>
+				<label for="lastName">Last Name</label>
+				<input
+					type="text"
+					id="lastName"
+					name="lastName"
+					aria-label="Add customer"
+					placeholder="Last name"
+				/>
+			</li>
+			<li class="button">
+				<button type="submit">Submit</button>
+			</li>
+		</ul>
+	</form>
+
 	<ul>
-		<li class="box">
-			<a sveltekit:prefetch href='/customers/new'>
-				<h2>Add Customer</h2>
-			</a>
-		</li>
 		{#each customers as { first_name, last_name, id }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${id}`}>
