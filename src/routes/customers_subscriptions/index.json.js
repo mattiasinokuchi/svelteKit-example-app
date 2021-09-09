@@ -16,7 +16,7 @@ export const post = async (request) => {
         .from('customers_subscriptions')
         .upsert({
             customer: request.body.get('customer'),
-            last_name: request.body.get('subscription'),
+            subscription: request.body.get('subscription'),
         });
 
     if (!error && request.headers.accept !== 'application/json') {
