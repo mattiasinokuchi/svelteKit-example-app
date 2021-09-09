@@ -8,7 +8,7 @@ export const get = async ({ params }) => {
             first_name,
             last_name,
             status (active),
-            customers_subscriptions ( subscription ( name ) )`)
+            customers_subscriptions (subscription(name))`)
         .match({ id: id })
         .single();
     return {
