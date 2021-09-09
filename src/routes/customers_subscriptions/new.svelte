@@ -21,7 +21,7 @@
 		{/each}
 	</select>
 	<label for="subscription-select">Choose a subscription:</label>
-	<select name="subscriptions" id="subscription-select">
+	<select name="subscription" id="subscription-select">
 		<option value="">- Please choose an option -</option>
 		{#each subscriptions as { name, emoji, id }}
 			<option value={id}>{name}</option>
