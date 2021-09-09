@@ -2,14 +2,24 @@
 	import { onMount } from "svelte";
 
 	let subscriptions = [];
+	let customers = [];
 
 	onMount(async () => {
-		const res = await fetch(`/subscriptions.json`);
+		let res = await fetch(`/subscriptions.json`);
 		subscriptions = await res.json();
+		res = await fetch(`/customers.json`);
+		customers = await res.json();
 	});
 </script>
 
 <form action="/customers_subscriptions.json" method="post">
+	<label for="customer-select">Choose a customer:</label>
+	<select name="customer" id="customer-select">
+		<option value="">- Please choose an option -</option>
+		{#each customers as { first_name, last_name, id }}
+			<option value={first_name}>{last_name}</option>
+		{/each}
+	</select>
 	<label for="subscription-select">Choose a subscription:</label>
 	<select name="subscriptions" id="subscription-select">
 		<option value="">- Please choose an option -</option>
@@ -17,14 +27,6 @@
 			<option value={name}>{name}</option>
 		{/each}
 	</select>
-	<label for="lastName">Last Name</label>
-	<input
-		type="text"
-		id="lastName"
-		name="lastName"
-		aria-label="Add customer"
-		placeholder="Last name"
-	/>
 	<button type="submit">Submit</button>
 </form>
 
@@ -43,20 +45,6 @@
 		/* Uniform size & alignment */
 		width: 20vw;
 		text-align: right;
-	}
-
-	input {
-		/* To make sure that all text fields have the same font settings
-     By default, textareas have a monospace font */
-		font: 1em sans-serif;
-
-		/* Match form field borders */
-		border: 1px solid #999;
-	}
-
-	input:focus {
-		/* Additional highlight for focused elements */
-		border-color: #000;
 	}
 
 	button {
