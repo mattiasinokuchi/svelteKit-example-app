@@ -18,7 +18,6 @@ export const del = async (request) => {
     /*if (!request.locals.user) {
         return { status: 401 };
     }*/
-    console.log(request.params);
     const { data, error } = await supabase
         .from('customers_subscriptions')
         .delete().match({
