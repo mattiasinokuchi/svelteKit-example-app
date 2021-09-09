@@ -2,8 +2,10 @@ import supabase from '$lib/db';
 
 export const get = async (_) => {
     let { data } = await supabase
-        .from('customers')
-        .select('*');
+        .from('customers_subscriptions')
+        .select(`
+            customer_name,
+            subscription`);
     return {
         body: data
     };
@@ -11,7 +13,7 @@ export const get = async (_) => {
 
 export const post = async (request) => {
     const { data, error } = await supabase
-        .from('customers')
+        .from('customers_subscriptions')
         .upsert({
             firstName: request.body.get('firstName'),
             lastName: request.body.get('lastName'),
@@ -21,7 +23,7 @@ export const post = async (request) => {
         return {
             status: 303,
             headers: {
-                location: '/customers'
+                location: '/customers_subscriptions'
             }
         };
     }

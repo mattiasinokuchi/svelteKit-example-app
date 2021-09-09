@@ -3,12 +3,11 @@ import supabase from '$lib/db';
 export const get = async ({ params }) => {
     const { id } = params;
     let { data } = await supabase
-        .from('customers')
+        .from('customers_subscriptions')
         .select(`
-            firstName,
-            lastName,
-            status (active),
-            customers_subscriptions ( subscription ( name ) )`)
+            customer_name ( customers ( firstName ) ),
+            customer_name ( customers ( LastName ) ),
+            subscription ( subscriptions ( name ) )`)
         .match({ id: id })
         .single();
     return {

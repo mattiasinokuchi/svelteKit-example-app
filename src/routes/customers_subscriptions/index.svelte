@@ -1,10 +1,10 @@
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/customers.json");
+		const res = await fetch("/customers_subscriptions.json");
 		if (res.ok) {
-			const customers = await res.json();
+			const customers_subscriptions = await res.json();
 			return {
-				props: { customers },
+				props: { customers_subscriptions },
 			};
 		}
 		const { message } = await res.json();
@@ -15,21 +15,21 @@
 </script>
 
 <script>
-	export let customers;
+	export let customers_subscriptions;
 </script>
 
 <main>
 	<ul>
 		<li class="box">
-			<a sveltekit:prefetch href='/customers/new'>
-				<h2>Add Customer</h2>
+			<a sveltekit:prefetch href='/customers_subscriptions/new'>
+				<h2>Add Customers Subscriptions</h2>
 			</a>
 		</li>
-		{#each customers as { firstName, lastName, id }}
+		{#each customers_subscriptions as { customer_name, subscription, id }}
 			<li class="box">
-				<a sveltekit:prefetch href={`/customers/${id}`}>
-					<h2>{firstName} {lastName}</h2>
-				</a>
+				<h2>
+					{customer_name}: {subscription}
+				</h2>
 			</li>
 		{/each}
 	</ul>
