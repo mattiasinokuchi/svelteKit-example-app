@@ -25,10 +25,10 @@
 				<h2>Add Customer</h2>
 			</a>
 		</li>
-		{#each customers as { firstName, lastName, id }}
+		{#each customers as { first_name, lastName, id }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${id}`}>
-					<h2>{firstName} {lastName}</h2>
+					<h2>{first_name} {lastName}</h2>
 				</a>
 			</li>
 		{/each}

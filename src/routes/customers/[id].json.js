@@ -5,7 +5,7 @@ export const get = async ({ params }) => {
     let { data } = await supabase
         .from('customers')
         .select(`
-            firstName,
+            first_name,
             lastName,
             status (active),
             customers_subscriptions ( subscription ( name ) )`)
