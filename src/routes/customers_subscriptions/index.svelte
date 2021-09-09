@@ -31,11 +31,12 @@
 
 <main>
 	<form class="box" action="/customers_subscriptions.json" method="post">
+		<h2>New Customers Subscription</h2>
 		<ul>
 			<li>
-				<h2>
-					<label for="customer-select">Choose a customer:</label>
-				</h2>
+				<label for="customer-select">Choose a customer:</label>
+			</li>
+			<li>
 				<select name="customer" id="customer-select">
 					<option value="">- Please choose an option -</option>
 					{#each customers as { first_name, last_name, id }}
@@ -43,12 +44,11 @@
 					{/each}
 				</select>
 			</li>
+			<br>
 			<li>
-				<h2>
-					<label for="subscription-select"
-						>Choose a subscription:</label
-					>
-				</h2>
+				<label for="subscription-select">Choose a subscription:</label>
+			</li>
+			<li>
 				<select name="subscription" id="subscription-select">
 					<option value="">- Please choose an option -</option>
 					{#each subscriptions as { name, emoji, id }}
@@ -57,7 +57,7 @@
 				</select>
 			</li>
 			<li>
-				<br>
+				<br />
 				<button type="submit">Add Customers Subscription</button>
 			</li>
 		</ul>
@@ -89,11 +89,13 @@
 	.box {
 		padding: 0.25rem;
 		margin: 1.5rem;
-		color: salmon;
 		box-shadow: 4px 5px 11px 2px lightgray;
 	}
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;
+	}
+	h2 {
+		color: salmon;
 	}
 	ul {
 		list-style-type: none;
