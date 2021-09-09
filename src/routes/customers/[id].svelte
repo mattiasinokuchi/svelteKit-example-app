@@ -36,7 +36,7 @@
 		<h2>New Subscription</h2>
 		<ul>
             <li>
-                <input type="text" value={customer.id} name="customer">
+                <input hidden type="text" value={customer.id} name="customer">
             </li>
 			<li>
 				<label for="subscription-select">Choose a subscription:</label>
