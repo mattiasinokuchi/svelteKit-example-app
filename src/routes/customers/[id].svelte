@@ -17,59 +17,47 @@
 
 <script>
     export let customer;
-    console.log(customer);
-	import { onMount } from "svelte";
+    import { onMount } from "svelte";
 
-	let subscriptions = [];
+    let subscriptions = [];
 
-	onMount(async () => {
-		let res = await fetch(`/subscriptions.json`);
-		subscriptions = await res.json();
-	});
-
+    onMount(async () => {
+        let res = await fetch(`/subscriptions.json`);
+        subscriptions = await res.json();
+    });
 </script>
 
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
-    <p>Subscription: {customer.status.active}</p>
-    <p>Products:</p>
-    <form action="">
-        <ul>
-            {#each customer.customers_subscriptions as { subscription }}
-                <li>
-                    <label>
-                        <input type="checkbox" bind:checked={subscription.name} />
-                        {subscription.name}
-                    </label>
-                </li>
-            {/each}
-        </ul>
-    </form>
-
-    <form class="box" action="/customers_subscriptions.json" method="post">
-		<p>New Subscription</p>
-		<ul>
+    <p>Subscription active: {customer.status.active}</p>
+    <p>Subscription:</p>
+    <ul>
+        {#each customer.customers_subscriptions as { subscription, id }}
             <li>
-                <input hidden type="text" value={customer.id} name="customer">
+                <form
+                    action="/customers_subscriptions/{id}.json?_method=delete"
+                    method="post"
+                >
+                    <label>
+                        {subscription.name}{id}
+                        <button type="submit">Delete</button>
+                    </label>
+                </form>
             </li>
-			<li>
-				<label for="subscription-select">Choose a subscription:</label>
-			</li>
-			<li>
-				<select name="subscription" id="subscription-select">
-					<option value="">- Please choose an option -</option>
-					{#each subscriptions as { name, id }}
-						<option value={id}>{name}</option>
-					{/each}
-				</select>
-			</li>
-			<li>
-				<br />
-				<button type="submit">Add Subscription</button>
-			</li>
-		</ul>
-	</form>
+        {/each}
+    </ul>
 
+    <form action="/customers_subscriptions.json" method="post">
+        <p>New Subscription:</p>
+        <input hidden type="text" value={customer.id} name="customer" />
+        <select name="subscription" id="subscription-select">
+            <option value="">- Please choose an option -</option>
+            {#each subscriptions as { name, id }}
+                <option value={id}>{name}</option>
+            {/each}
+        </select>
+        <button type="submit">Add Subscription</button>
+    </form>
 </main>
 
 <style>
@@ -82,8 +70,5 @@
     }
     h1 {
         color: salmon;
-    }
-    ul {
-        list-style-type: none;
     }
 </style>
