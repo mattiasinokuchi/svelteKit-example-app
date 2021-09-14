@@ -32,9 +32,22 @@
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
     <p>Subscription: {customer.status.active}</p>
+    <p>Products:</p>
+    <form action="">
+        <ul>
+            {#each customer.customers_subscriptions as { subscription }}
+                <li>
+                    <label>
+                        <input type="checkbox" bind:checked={subscription.name} />
+                        {subscription.name}
+                    </label>
+                </li>
+            {/each}
+        </ul>
+    </form>
 
     <form class="box" action="/customers_subscriptions.json" method="post">
-		<h2>New Subscription</h2>
+		<p>New Subscription</p>
 		<ul>
             <li>
                 <input hidden type="text" value={customer.id} name="customer">
@@ -57,19 +70,6 @@
 		</ul>
 	</form>
 
-    <p>Products:</p>
-    <form action="">
-        <ul>
-            {#each customer.customers_subscriptions as { subscription }}
-                <li>
-                    <label>
-                        <input type="checkbox" bind:checked={subscription.name} />
-                        {subscription.name}
-                    </label>
-                </li>
-            {/each}
-        </ul>
-    </form>
 </main>
 
 <style>
