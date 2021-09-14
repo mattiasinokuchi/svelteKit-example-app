@@ -39,7 +39,7 @@
                     method="post"
                 >
                     <label>
-                        {subscription.name}{id}
+                        {subscription.name}
                         <button type="submit">Delete</button>
                     </label>
                 </form>
