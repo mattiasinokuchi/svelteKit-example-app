@@ -29,7 +29,7 @@ export const del = async (request) => {
         return {
             status: 303,
             headers: {
-                location: '/customers_subscriptions'
+                location: request.headers.referer
             }
         };
     }
