@@ -16,22 +16,11 @@
 
 <script>
 	export let customers_subscriptions;
-	import { onMount } from "svelte";
-
-	let subscriptions = [];
-	let customers = [];
-
-	onMount(async () => {
-		let res = await fetch(`/subscriptions.json`);
-		subscriptions = await res.json();
-		res = await fetch(`/customers.json`);
-		customers = await res.json();
-	});
 </script>
 
 <main>
 	<ul>
-		{#each customers_subscriptions as { customer, subscription, id }}
+		{#each customers_subscriptions as { customer, subscription }}
 			<li class="box">
 				<h2>
 					{customer.first_name}
