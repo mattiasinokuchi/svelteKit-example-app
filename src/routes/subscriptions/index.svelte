@@ -20,10 +20,10 @@
 
 <main>
 	<ul>
-		{#each subscription as { name, emoji, id }}
+		{#each subscription as { name, emoji, id, customers_subscriptions }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/subscriptions/${id}`}>
-					<h2>{name}</h2>
+					<h2>{customers_subscriptions.length} x {name}</h2>
 					<h2>{emoji}</h2>
 				</a>
 			</li>
