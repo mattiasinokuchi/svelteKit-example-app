@@ -27,12 +27,12 @@
 			</li>
 			<li>
 				<input
-				type="text"
-				id="firstName"
-				name="firstName"
-				aria-label="Add customer"
-				placeholder="First name"
-			/>
+					type="text"
+					id="firstName"
+					name="firstName"
+					aria-label="Add customer"
+					placeholder="First name"
+				/>
 			</li>
 			<br />
 			<li>
@@ -65,6 +65,12 @@
 					method="post"
 				>
 					<button type="submit">Delete</button>
+				</form>
+				<form
+					action="/customers/{id}.json?_method=update"
+					method="post"
+				>
+					<button type="submit">Sooner delivery</button>
 				</form>
 			</li>
 		{/each}
