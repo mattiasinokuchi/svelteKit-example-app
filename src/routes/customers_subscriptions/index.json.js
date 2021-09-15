@@ -6,7 +6,8 @@ export const get = async (_) => {
         .select(`
             id,
             customer (first_name, last_name),
-            subscription (name)`);
+            subscription (name)`)
+        .order('customer', { ascending: true });
     return {
         body: data
     };
