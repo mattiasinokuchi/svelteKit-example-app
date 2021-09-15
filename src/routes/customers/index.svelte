@@ -55,10 +55,10 @@
 	</form>
 
 	<ul>
-		{#each customers as { first_name, last_name, id }}
+		{#each customers as { first_name, last_name, id, order }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${id}`}>
-					<h2>{first_name} {last_name}</h2>
+					<h2>{first_name} {last_name} {order}</h2>
 				</a>
 				<form
 					action="/customers/{id}.json?_method=delete"
