@@ -58,7 +58,8 @@
 		{#each customers as { first_name, last_name, id, order }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${id}`}>
-					<h2>{first_name} {last_name} {order}</h2>
+					<h2>{first_name} {last_name}</h2>
+					<input type="text" bind:value={order}>
 				</a>
 				<form
 					action="/customers/{id}.json?_method=delete"
@@ -70,7 +71,8 @@
 					action="/customers/{id}.json?_method=update"
 					method="post"
 				>
-					<button type="submit">Sooner delivery</button>
+					<input hidden name="order" value={order}>
+					<button type="submit">Up</button>
 				</form>
 			</li>
 		{/each}

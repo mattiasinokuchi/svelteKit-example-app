@@ -38,3 +38,29 @@ export const del = async (request) => {
     }
 };
 
+export const update = async (request) => {
+    console.log(request.body.get('order'));
+    /*if (!request.locals.user) {
+        return { status: 401 };
+    }*/
+    const { data, error } = await supabase
+        .from('customers')
+        .update({ order: 99 })
+        .eq('order', request.body.get('order'));
+    //.match({ user_id: request.locals.user.id);
+
+    console.log(error);
+
+    if (!error && request.headers.accept !== 'application/json') {
+        return {
+            status: 303,
+            headers: {
+                location: '/customers'
+            }
+        };
+    }
+
+    return {
+        body: data
+    }
+};
