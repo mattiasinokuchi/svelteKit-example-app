@@ -30,39 +30,6 @@
 </script>
 
 <main>
-	<form class="box" action="/customers_subscriptions.json" method="post">
-		<h2>New Customers Subscription</h2>
-		<ul>
-			<li>
-				<label for="customer-select">Choose a customer:</label>
-			</li>
-			<li>
-				<select name="customer" id="customer-select">
-					<option value="">- Please choose an option -</option>
-					{#each customers as { first_name, last_name, id }}
-						<option value={id}>{first_name} {last_name}</option>
-					{/each}
-				</select>
-			</li>
-			<br>
-			<li>
-				<label for="subscription-select">Choose a subscription:</label>
-			</li>
-			<li>
-				<select name="subscription" id="subscription-select">
-					<option value="">- Please choose an option -</option>
-					{#each subscriptions as { name, emoji, id }}
-						<option value={id}>{name}</option>
-					{/each}
-				</select>
-			</li>
-			<li>
-				<br />
-				<button type="submit">Add Customers Subscription</button>
-			</li>
-		</ul>
-	</form>
-
 	<ul>
 		{#each customers_subscriptions as { customer, subscription, id }}
 			<li class="box">
@@ -70,12 +37,6 @@
 					{customer.first_name}
 					{customer.last_name}: {subscription.name}
 				</h2>
-				<form
-					action="/customers_subscriptions/{id}.json?_method=delete"
-					method="post"
-				>
-					<button type="submit">Delete</button>
-				</form>
 			</li>
 		{/each}
 	</ul>
