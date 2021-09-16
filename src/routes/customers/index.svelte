@@ -59,7 +59,6 @@
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${id}`}>
 					<h2>{first_name} {last_name}</h2>
-					<input type="text" bind:value={delivery_order}>
 				</a>
 				<form
 					action="/customers/{id}.json?_method=delete"
