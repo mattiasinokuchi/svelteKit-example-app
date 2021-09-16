@@ -4,7 +4,7 @@ export const get = async (_) => {
     let { data } = await supabase
         .from('customers')
         .select('*')
-        .order('order', { ascending: true });;
+        .order('delivery_order', { ascending: true });;
     return {
         body: data
     };

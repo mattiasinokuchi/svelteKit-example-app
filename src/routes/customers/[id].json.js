@@ -39,17 +39,25 @@ export const del = async (request) => {
 };
 
 export const update = async (request) => {
-    console.log(request.body.get('order'));
-    /*if (!request.locals.user) {
-        return { status: 401 };
-    }*/
-    const { data, error } = await supabase
+    const order = parseInt(request.body.get('order'));
+    console.log(request.params.id, order, typeof (order));
+    /*const { data, error } = await supabase
         .from('customers')
-        .update({ order: 99 })
-        .eq('order', request.body.get('order'));
-    //.match({ user_id: request.locals.user.id);
-
-    console.log(error);
+        .upsert([
+            {'id': request.params.id, 'order': order-1}]);
+    console.log(data, error);*/
+    const { data } = await supabase
+        .from('customers')
+        .select('id, delivery_order')
+        .match({ delivery_order: order-1 })
+        .single();
+    console.log(data);
+    const { body, error } = await supabase
+        .from('customers')
+        .upsert([
+            {'id': request.params.id, 'delivery_order': order-1},
+            {'id': data.id, 'delivery_order': order}]);
+    console.log(body, error);
 
     if (!error && request.headers.accept !== 'application/json') {
         return {
