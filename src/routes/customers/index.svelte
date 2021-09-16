@@ -71,7 +71,12 @@
 					method="post"
 				>
 					<input hidden name="order" value={delivery_order}>
-					<button type="submit">Up</button>
+					<button
+						type="submit"
+						disabled={delivery_order<2}
+						hidden={delivery_order<2}>
+						Deliver Earlier
+					</button>
 				</form>
  
 			</li>
