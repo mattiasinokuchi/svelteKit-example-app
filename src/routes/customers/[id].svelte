@@ -18,7 +18,7 @@
 <script>
     export let customer;
 
-    //  This block loads options for the form to add a subscription
+    // This block loads options for the form to add a subscription
     import { onMount } from "svelte";
     let subscriptions = [];
     onMount(async () => {
@@ -26,28 +26,45 @@
         subscriptions = await res.json();
     });
 
-
+    // This block remove customer subscriptions
+    const remove = (id) =>
+        function () {
+            console.log("remove called");
+            try {
+                fetch(`/customers_subscriptions/${id}.json?_method=delete`);
+                customer.customers_subscriptions = [
+                    ...customer.customers_subscriptions.slice(0, id - 1),
+                    ...customer.customers_subscriptions.slice(id),
+                ];
+                console.log(customer.customers_subscriptions, id);
+            } catch (error) {
+                console.log(error);
+            }
+        };
 </script>
 
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
     <p>Subscription active: {customer.status.active}</p>
     <p>Subscription:</p>
-    <ul>
-        {#each customer.customers_subscriptions as { subscription, id }}
-            <li>
-                <form
-                    action="/customers_subscriptions/{id}.json?_method=delete"
-                    method="post"
-                >
-                    <label>
-                        {subscription.name}
-                        <button type="submit">Delete</button>
-                    </label>
-                </form>
-            </li>
-        {/each}
-    </ul>
+    {#each customer.customers_subscriptions as { subscription, id }, i}
+        {#if customer.customers_subscriptions[0].id}
+            <ul>
+                <li>
+                    <form>
+                        <label>
+                            {subscription.name}
+                            <button on:click|preventDefault={remove(id)}
+                                >Delete</button
+                            >
+                        </label>
+                    </form>
+                </li>
+            </ul>
+        {:else}
+            <p>No subscriptions</p>
+        {/if}
+    {/each}
 
     <form action="/customers_subscriptions.json" method="post">
         <p>New Subscription:</p>
