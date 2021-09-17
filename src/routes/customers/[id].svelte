@@ -17,14 +17,16 @@
 
 <script>
     export let customer;
+
+    //  This block loads options for the form to add a subscription
     import { onMount } from "svelte";
-
     let subscriptions = [];
-
     onMount(async () => {
         let res = await fetch(`/subscriptions.json`);
         subscriptions = await res.json();
     });
+
+
 </script>
 
 <main>
