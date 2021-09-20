@@ -26,17 +26,15 @@
         subscriptions = await res.json();
     });
 
-    // This block remove customer subscriptions
-    const remove = (id) =>
+    // This block removes customer subscriptions
+    const remove = (id, num) =>
         function () {
-            console.log("remove called");
             try {
                 fetch(`/customers_subscriptions/${id}.json?_method=delete`);
                 customer.customers_subscriptions = [
-                    ...customer.customers_subscriptions.slice(0, id - 1),
-                    ...customer.customers_subscriptions.slice(id),
+                    ...customer.customers_subscriptions.slice(0, num - 1),
+                    ...customer.customers_subscriptions.slice(num),
                 ];
-                console.log(customer.customers_subscriptions, id);
             } catch (error) {
                 console.log(error);
             }
@@ -54,7 +52,7 @@
                     <form>
                         <label>
                             {subscription.name}
-                            <button on:click|preventDefault={remove(id)}
+                            <button on:click|preventDefault={remove(id, i+1)}
                                 >Delete</button
                             >
                         </label>
