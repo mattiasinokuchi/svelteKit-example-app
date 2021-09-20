@@ -18,7 +18,7 @@
 <script>
     export let customer;
 
-    // This block loads options for the form to add a subscription
+    // This block loads options when adding subscriptions
     import { onMount } from "svelte";
     let subscriptions = [];
     onMount(async () => {
