@@ -40,9 +40,14 @@ export const del = async (request) => {
 
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
-    console.log(request.params.id);
+    console.log(request.params.id, order);
     const { data, error } = await supabase
-        .rpc('increment', { row_id: request.params.id });
+        .rpc('increment',
+            {
+                delivery_order_of_customer_to_advance: order,
+                id_of_customer_to_advance: request.params.id
+            }
+        );
     /*
     const { data } = await supabase
         .from('customers')
