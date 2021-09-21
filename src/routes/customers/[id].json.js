@@ -40,16 +40,20 @@ export const del = async (request) => {
 
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
+    console.log(request.params.id);
+    const { data, error } = await supabase
+        .rpc('increment', { row_id: request.params.id });
+    /*
     const { data } = await supabase
         .from('customers')
         .select('id, delivery_order')
-        .match({ delivery_order: order-1 })
+        .match({ delivery_order: order - 1 })
         .single();
     const { body, error } = await supabase
         .from('customers')
         .upsert([
-            {'id': request.params.id, 'delivery_order': order-1},
-            {'id': data.id, 'delivery_order': order}]);
+            { 'id': request.params.id, 'delivery_order': order - 1 },
+            { 'id': data.id, 'delivery_order': order }]);
 
     if (!error && request.headers.accept !== 'application/json') {
         return {
@@ -59,8 +63,9 @@ export const update = async (request) => {
             }
         };
     }
-
+*/
     return {
-        body: data
+        body: data,
+        error: error
     }
 };
