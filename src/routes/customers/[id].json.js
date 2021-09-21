@@ -41,14 +41,10 @@ export const del = async (request) => {
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
     console.log(request.params.id, order);
-    const { data, error } = await supabase
-        .rpc('increment',
-            {
-                delivery_order_of_customer_to_advance: order,
-                id_of_customer_to_advance: request.params.id
-            }
-        );
-    /*
+    const { data, error } = await supabase.rpc('carrot', { row_id: 2 })
+
+    //const { data, error } = await supabase.rpc('updateOrder', { order_to_advance: 2 });
+/*
     const { data } = await supabase
         .from('customers')
         .select('id, delivery_order')
@@ -59,7 +55,8 @@ export const update = async (request) => {
         .upsert([
             { 'id': request.params.id, 'delivery_order': order - 1 },
             { 'id': data.id, 'delivery_order': order }]);
-
+*/
+console.log(error);
     if (!error && request.headers.accept !== 'application/json') {
         return {
             status: 303,
@@ -68,7 +65,7 @@ export const update = async (request) => {
             }
         };
     }
-*/
+
     return {
         body: data,
         error: error
