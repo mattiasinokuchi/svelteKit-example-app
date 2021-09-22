@@ -40,22 +40,18 @@ export const del = async (request) => {
 
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
-    console.log(request.params.id, order);
-    const { data, error } = await supabase.rpc('updateorder', { row_id: order })
-    if (error) console.error(error)
-    else console.log(data)
-    //const { data, error } = await supabase.rpc('updateOrder', { order_to_advance: 2 });
-/*
-    const { data } = await supabase
-        .from('customers')
-        .select('id, delivery_order')
-        .match({ delivery_order: order - 1 })
-        .single();
-    const { body, error } = await supabase
-        .from('customers')
-        .upsert([
-            { 'id': request.params.id, 'delivery_order': order - 1 },
-            { 'id': data.id, 'delivery_order': order }]);
+    const { data, error } = await supabase.rpc('updateorder', { row_id: order });
+    if (error) console.error(error);
+/*  Stored procedure/function (rpc) as follows:
+update customers
+set delivery_order = 0
+where id = ( select id from customers where delivery_order = row_id-1 );
+update customers 
+set delivery_order = row_id-1
+where id = ( select id from customers where delivery_order = row_id );
+update customers
+set delivery_order = row_id
+where id = ( select id from customers where delivery_order = 0 );
 */
     if (!error && request.headers.accept !== 'application/json') {
         return {
