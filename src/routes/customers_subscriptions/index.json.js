@@ -4,8 +4,13 @@ export const get = async (_) => {
     const { data } = await supabase
         .from('customers_subscriptions')
         .select('customer (delivery_order, first_name, last_name), subscription (name)')
+        .order('customer');
+    const inDeliveryOrder = data.sort(function (a, b) {
+        return a.customer.delivery_order - b.customer.delivery_order;
+    });
+    console.log(inDeliveryOrder);
     return {
-        body: data
+        body: inDeliveryOrder
     };
 };
 
