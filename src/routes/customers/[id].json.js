@@ -41,8 +41,9 @@ export const del = async (request) => {
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
     console.log(request.params.id, order);
-    const { data, error } = await supabase.rpc('carrot', { row_id: 2 })
-
+    const { data, error } = await supabase.rpc('updateorder', { row_id: order })
+    if (error) console.error(error)
+    else console.log(data)
     //const { data, error } = await supabase.rpc('updateOrder', { order_to_advance: 2 });
 /*
     const { data } = await supabase
@@ -56,7 +57,6 @@ export const update = async (request) => {
             { 'id': request.params.id, 'delivery_order': order - 1 },
             { 'id': data.id, 'delivery_order': order }]);
 */
-console.log(error);
     if (!error && request.headers.accept !== 'application/json') {
         return {
             status: 303,
