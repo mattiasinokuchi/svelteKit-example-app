@@ -8,7 +8,6 @@ export const get = async (_) => {
     const inDeliveryOrder = data.sort(function (a, b) {
         return a.customer.delivery_order - b.customer.delivery_order;
     });
-    console.log(inDeliveryOrder);
     return {
         body: inDeliveryOrder
     };
