@@ -11,23 +11,12 @@ export const get = async (_) => {
 };
 
 export const post = async (request) => {
-    /*    const { data, error } = await supabase
-            .from('customers')
-            .upsert({
-                first_name: request.body.get('firstName'),
-                last_name: request.body.get('lastName'),
-            });*/
-
-    let { data, error } = await supabase
-        .rpc('addcustomer', {
+    const { data, error } = await supabase
+        .from('customers')
+        .upsert({
             first_name: request.body.get('firstName'),
-            last_name: request.body.get('lastName')
-        })
-
-    if (error) console.error(error)
-    else console.log(data)
-
-
+            last_name: request.body.get('lastName'),
+        });
     if (!error && request.headers.accept !== 'application/json') {
         return {
             status: 303,
