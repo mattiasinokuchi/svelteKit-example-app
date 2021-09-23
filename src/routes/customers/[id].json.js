@@ -40,7 +40,7 @@ export const del = async (request) => {
 
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
-    const id = parseInt(request.body.get('id'));
+    const id = request.params.id;
     const { data, error } = await supabase
         .from('customers')
         .update({ delivery_order: order })
