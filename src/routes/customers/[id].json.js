@@ -40,19 +40,26 @@ export const del = async (request) => {
 
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
-    const { data, error } = await supabase.rpc('updateorder', { row_id: order });
-    if (error) console.error(error);
-/*  Stored procedure/function (rpc) as follows:
-update customers
-set delivery_order = 0
-where id = ( select id from customers where delivery_order = row_id-1 );
-update customers 
-set delivery_order = row_id-1
-where id = ( select id from customers where delivery_order = row_id );
-update customers
-set delivery_order = row_id
-where id = ( select id from customers where delivery_order = 0 );
-*/
+    const id = parseInt(request.body.get('id'));
+    const { data, error } = await supabase
+        .from('customers')
+        .update({ delivery_order: order })
+        .eq(id, id);
+
+    //const { data, error } = await supabase
+    //    .rpc('updateorder', { row_id: order });
+    //if (error) console.error(error);
+    /*  Stored procedure/function (rpc) as follows:
+    update customers
+    set delivery_order = 0
+    where id = ( select id from customers where delivery_order = row_id-1 );
+    update customers 
+    set delivery_order = row_id-1
+    where id = ( select id from customers where delivery_order = row_id );
+    update customers
+    set delivery_order = row_id
+    where id = ( select id from customers where delivery_order = 0 );
+    */
     if (!error && request.headers.accept !== 'application/json') {
         return {
             status: 303,
