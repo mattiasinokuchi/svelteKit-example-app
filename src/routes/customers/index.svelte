@@ -67,16 +67,10 @@
 					<button type="submit">Delete</button>
 				</form>
 				<form
-					action="/customers/{id}.json?_method=update"
+					onchange="/customers/{id}.json?_method=update"
 					method="post"
 				>
-					<input hidden name="order" value={delivery_order}>
-					<button
-						type="submit"
-						disabled={delivery_order<2}
-						hidden={delivery_order<2}>
-						Deliver Earlier
-					</button>
+					<input name="order" bind:value={delivery_order}>
 				</form>
  
 			</li>
