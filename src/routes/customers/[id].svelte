@@ -25,44 +25,27 @@
         let res = await fetch(`/subscriptions.json`);
         subscriptions = await res.json();
     });
-
-    // This block removes customer subscriptions
-    const remove = (id, num) =>
-        function () {
-            try {
-                fetch(`/customers_subscriptions/${id}.json?_method=delete`);
-                customer.customers_subscriptions = [
-                    ...customer.customers_subscriptions.slice(0, num - 1),
-                    ...customer.customers_subscriptions.slice(num),
-                ];
-            } catch (error) {
-                console.log(error);
-            }
-        };
 </script>
 
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
     <p>Subscription active: {customer.status.active}</p>
     <p>Subscription:</p>
-    {#each customer.customers_subscriptions as { subscription, id }, i}
-        {#if customer.customers_subscriptions[0].id}
-            <ul>
-                <li>
-                    <form>
-                        <label>
-                            {subscription.name}
-                            <button on:click|preventDefault={remove(id, i+1)}
-                                >Delete</button
-                            >
-                        </label>
-                    </form>
-                </li>
-            </ul>
-        {:else}
-            <p>No subscriptions</p>
-        {/if}
-    {/each}
+    <ul>
+        {#each customer.customers_subscriptions as { subscription, id }}
+            <li>
+                <form
+                    action="/customers_subscriptions/{id}.json?_method=delete"
+                    method="post"
+                >
+                    <label>
+                        {subscription.name}
+                        <button type="submit">Delete</button>
+                    </label>
+                </form>
+            </li>
+        {/each}
+    </ul>
 
     <form action="/customers_subscriptions.json" method="post">
         <p>New Subscription:</p>

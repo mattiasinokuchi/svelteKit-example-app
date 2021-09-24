@@ -39,7 +39,6 @@ export const del = async (request) => {
 };
 
 export const update = async (request) => {
-    console.log('update called');
     const order = parseInt(request.body.get('order'));
     const id = request.params.id;
     const { data, error } = await supabase
