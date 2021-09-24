@@ -58,6 +58,11 @@
         </select>
         <button type="submit">Add Subscription</button>
     </form>
+
+    <form action="/customers/{customer.id}.json?_method=delete" method="post">
+        <button type="submit">Delete Customer</button>
+    </form>
+
 </main>
 
 <style>

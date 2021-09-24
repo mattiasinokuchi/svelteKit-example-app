@@ -61,12 +61,6 @@
 					<h2>{first_name} {last_name}</h2>
 				</a>
 				<form
-					action="/customers/{id}.json?_method=delete"
-					method="post"
-				>
-					<button type="submit">Delete</button>
-				</form>
-				<form
 					action="/customers/{id}.json?_method=update"
 					method="post"
 				>
