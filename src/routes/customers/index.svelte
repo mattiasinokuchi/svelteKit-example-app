@@ -64,7 +64,8 @@
 					action="/customers/{id}.json?_method=update"
 					method="post"
 				>
-					<input name="order" value={delivery_order}>
+					<label for="order">Delivery order</label>
+					<input size="2" name="order" value={delivery_order}>
 				</form>
  
 			</li>
