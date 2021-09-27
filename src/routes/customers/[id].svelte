@@ -35,7 +35,7 @@
         {#each customer.customers_subscriptions as { subscription, id }}
             <li>
                 <form
-                    action="/customers_subscriptions/{id}.json?_method=delete"
+                    action="/deliveries/{id}.json?_method=delete"
                     method="post"
                 >
                     <label>
@@ -47,7 +47,7 @@
         {/each}
     </ul>
 
-    <form action="/customers_subscriptions.json" method="post">
+    <form action="/deliveries.json" method="post">
         <p>New Subscription:</p>
         <input hidden type="text" value={customer.id} name="customer" />
         <select name="subscription" id="subscription-select">
