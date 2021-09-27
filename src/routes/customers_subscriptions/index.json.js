@@ -9,7 +9,7 @@ export const get = async (_) => {
             last_name,
             status (active),
             delivery_order,
-            customers_subscriptions (id, subscription(name))`);
+            customers_subscriptions (id, subscription(name, price))`);
     /*.from('customers_subscriptions')
     .select('customer (delivery_order, first_name, last_name), subscription (name)');*/
     const inDeliveryOrder = data.sort(function (a, b) {

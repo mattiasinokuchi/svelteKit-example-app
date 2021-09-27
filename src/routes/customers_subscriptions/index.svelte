@@ -20,23 +20,47 @@
 
 <main>
 	<ul>
-		{#each customers_subscriptions as { first_name, last_name, customers_subscriptions }}
-			<form action="">
-				<li class="box">
-					<h2>
-						<label for="">
-							{first_name}
-							{last_name}:
-						</label>
-					</h2>
-					{#each customers_subscriptions as { subscription }}
-						<input type="checkbox" checked="true" />
-						<label for="">{subscription.name}</label>
-					{/each}
-					<br>
-					<input type="submit" value="Deliver">
-				</li>
-			</form>
+		{#each customers_subscriptions as { id, first_name, last_name, customers_subscriptions }}
+			<li class="box">
+				<h2>
+					<input hidden name="id" value={id} />
+					<label for="">
+						{first_name}
+						{last_name}:
+					</label>
+				</h2>
+				{#each customers_subscriptions as { subscription }}
+					<ul>
+						<li>
+							<form action="/deliveries.json" method="post">
+								<input
+									type="text"
+									name="customer"
+									value={id}
+								/>
+								<input
+									hidden
+									type="text"
+									name="price"
+									value={subscription.price}
+								/>
+								<input
+									hidden
+									type="text"
+									name="subscription"
+									value={subscription.name}
+								/>
+								<input
+									type="submit"
+									value="Deliver"
+									name="subscription"
+								/>
+								<label for="">{subscription.name}</label>
+							</form>
+						</li>
+					</ul>
+				{/each}
+			</li>
 		{/each}
 	</ul>
 </main>
@@ -59,5 +83,8 @@
 	}
 	ul {
 		list-style-type: none;
+	}
+	li {
+		margin: 1rem;
 	}
 </style>

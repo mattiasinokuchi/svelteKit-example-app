@@ -15,10 +15,11 @@ export const get = async (_) => {
 
 export const post = async (request) => {
     const { data, error } = await supabase
-        .from('customers_subscriptions')
+        .from('deliveries')
         .upsert({
             customer: request.body.get('customer'),
             subscription: request.body.get('subscription'),
+            price: request.body.get('price')
         });
 
     if (!error && request.headers.accept !== 'application/json') {
