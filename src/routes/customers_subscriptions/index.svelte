@@ -32,7 +32,7 @@
 				{#each customers_subscriptions as { subscription }}
 					<ul>
 						<li>
-							<form action="/deliveries.json" method="post">
+							<form action="/invoicing.json" method="post">
 								<input
 									hidden
 									type="text"
