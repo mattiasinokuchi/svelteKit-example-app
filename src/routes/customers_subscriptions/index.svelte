@@ -20,12 +20,14 @@
 
 <main>
 	<ul>
-		{#each customers_subscriptions as { customer, subscription }}
+		{#each customers_subscriptions as { first_name, last_name, customers_subscriptions }}
 			<li class="box">
 				<h2>
-					{customer.first_name}
-					{customer.last_name}: {subscription.name}
+					{first_name} {last_name}: 
 				</h2>
+				{#each customers_subscriptions as {subscription}}
+					<p>- {subscription.name}</p>
+				{/each}
 			</li>
 		{/each}
 	</ul>
