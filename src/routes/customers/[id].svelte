@@ -61,7 +61,7 @@
 
     <form action="/customers/{customer.id}.json?_method=delete" method="post">
         <button type="submit" disabled={customer.customers_subscriptions.length>0}>Delete Customer</button>
-        <label for="button" hidden={customer.customers_subscriptions.length<1}>(delete subscriptions first)</label>
+        <label for="button" hidden={customer.customers_subscriptions.length<1}>(delete subscriptions and deliveries first)</label>
     </form>
 
 </main>
