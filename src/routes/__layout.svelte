@@ -12,6 +12,7 @@
 	<a sveltekit:prefetch href="/customers">CUSTOMERS</a>
 	<a sveltekit:prefetch href="/subscriptions">SUBSCRIPTIONS</a>
 	<a sveltekit:prefetch href="/customers_subscriptions">DELIVERIES</a>
+	<a sveltekit:prefetch href="/deliveries">INVOICING</a>
 </nav>
 
 <slot />
