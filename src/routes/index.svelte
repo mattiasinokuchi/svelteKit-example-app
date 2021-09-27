@@ -1,9 +1,8 @@
 <main>
-	<h1>
-		<a sveltekit:prefetch href="." class="box">HOME</a>
-		<a sveltekit:prefetch href="/about" class="box">ABOUT</a>
-		<a sveltekit:prefetch href="/customers" class="box">CUSTOMERS</a>
-	</h1>
+	<h1 class="box"><a sveltekit:prefetch href="/customers" >CUSTOMERS</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/customers" >SUBSCRIPTIONS</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/customers" >DELIVERIES</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/customers" >INVOICING</a></h1>
 </main>
 
 <style>
@@ -11,6 +10,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
+	}
+	h1 {
+		width: 60vw;
 	}
 	.box {
 		padding: 0.25rem;
@@ -20,5 +22,9 @@
 	}
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;
+	}
+	a {
+		text-decoration: none;
+		color: salmon;
 	}
 </style>
