@@ -1,8 +1,8 @@
 <main>
 	<h1 class="box"><a sveltekit:prefetch href="/customers" >CUSTOMERS</a></h1>
-	<h1 class="box"><a sveltekit:prefetch href="/customers" >SUBSCRIPTIONS</a></h1>
-	<h1 class="box"><a sveltekit:prefetch href="/customers" >DELIVERIES</a></h1>
-	<h1 class="box"><a sveltekit:prefetch href="/customers" >INVOICING</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/subscriptions" >SUBSCRIPTIONS</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/customers_subscriptions" >DELIVERIES</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/deliveries" >INVOICING</a></h1>
 </main>
 
 <style>
