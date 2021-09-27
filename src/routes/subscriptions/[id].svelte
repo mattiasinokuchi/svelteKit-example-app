@@ -23,7 +23,8 @@
     <h1>{subscription.name}</h1>
     <div class="box">
         <ul>
-            <li>Price: $ {subscription.price}</li>
+            <li>Price: ${subscription.price}</li>
+            <li>Interval: {subscription.time_interval} days</li>
         </ul>
     </div>
 </main>
