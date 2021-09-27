@@ -34,6 +34,7 @@
 						<li>
 							<form action="/deliveries.json" method="post">
 								<input
+									hidden
 									type="text"
 									name="customer"
 									value={id}
@@ -45,17 +46,10 @@
 									value={subscription.price}
 								/>
 								<input
-									hidden
-									type="text"
-									name="subscription"
-									value={subscription.name}
-								/>
-								<input
 									type="submit"
-									value="Deliver"
+									value={subscription.name}
 									name="subscription"
 								/>
-								<label for="">{subscription.name}</label>
 							</form>
 						</li>
 					</ul>
