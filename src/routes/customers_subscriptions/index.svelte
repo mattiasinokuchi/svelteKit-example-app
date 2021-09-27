@@ -21,23 +21,22 @@
 <main>
 	<ul>
 		{#each customers_subscriptions as { first_name, last_name, customers_subscriptions }}
-			<li class="box">
-				<form action="">
+			<form action="">
+				<li class="box">
 					<h2>
-						<input type="checkbox" />
 						<label for="">
 							{first_name}
 							{last_name}:
 						</label>
 					</h2>
-				</form>
-				{#each customers_subscriptions as { subscription }}
-					<form action="">
+					{#each customers_subscriptions as { subscription }}
 						<input type="checkbox" checked="true" />
 						<label for="">{subscription.name}</label>
-					</form>
-				{/each}
-			</li>
+					{/each}
+					<br>
+					<input type="submit" value="Deliver">
+				</li>
+			</form>
 		{/each}
 	</ul>
 </main>
