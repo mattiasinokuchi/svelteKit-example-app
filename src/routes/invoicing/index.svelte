@@ -29,9 +29,7 @@
 					</label>
 				</h2>
 				{#each deliveries as { created_at, subscription, price }}
-					<p>{created_at}</p>
-					<p>{subscription}</p>
-					<p>{price}</p>
+					<p>{created_at}, {subscription}, ${price}</p>
 				{/each}
 			</li>
 		{/each}
