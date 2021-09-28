@@ -4,9 +4,9 @@
 	export async function load({ fetch }) {
 		const res = await fetch("/customers.json");
 		if (res.ok) {
-			const customers = await res.json();
+			const customer = await res.json();
 			return {
-				props: { customers },
+				props: { customer },
 			};
 		}
 		const { message } = await res.json();
@@ -17,7 +17,7 @@
 </script>
 
 <script>
-	export let customers;
+	export let customer;
 </script>
 
 <main>
@@ -58,7 +58,7 @@
 	</form>
 	<!--- This is a list of customers -->
 	<ul>
-		{#each customers as { first_name, last_name, id, delivery_order }}
+		{#each customer as { first_name, last_name, id, delivery_order }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/customers/${id}`}>
 					<h2>{first_name} {last_name}</h2>
