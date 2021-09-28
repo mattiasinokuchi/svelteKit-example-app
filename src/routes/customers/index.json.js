@@ -1,5 +1,9 @@
+/*  This is a endpoint to the database
+    for handling customers  */
+
 import supabase from '$lib/db';
 
+/*  Reads all customers */
 export const get = async (_) => {
     let { data } = await supabase
         .from('customers')
@@ -10,6 +14,7 @@ export const get = async (_) => {
     };
 };
 
+/*  Adds a new customer */
 export const post = async (request) => {
     const { data, error } = await supabase
         .from('customers')
