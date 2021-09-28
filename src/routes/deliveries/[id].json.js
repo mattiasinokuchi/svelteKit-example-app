@@ -22,7 +22,6 @@ export const del = async (request) => {
         .from('customers_subscriptions')
         .delete().match({
             id: request.params.id,
-            //user_id: request.locals.user.id
         });
 
     if (!error && request.headers.accept !== 'application/json') {
