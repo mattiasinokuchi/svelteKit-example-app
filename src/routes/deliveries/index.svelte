@@ -17,7 +17,7 @@
 <script>
 	export let customers_subscriptions;
 </script>
-
+{#if false}<slot></slot>{/if}
 <main>
 	<ul>
 		{#each customers_subscriptions as { id, first_name, last_name, customers_subscriptions }}
@@ -29,16 +29,10 @@
 						{last_name}:
 					</label>
 				</h2>
-				{#each customers_subscriptions as { subscription }}
+				{#each customers_subscriptions as { id, subscription }}
 					<ul>
 						<li>
 							<form action="/invoicing.json" method="post">
-								<input
-									hidden
-									type="text"
-									name="customer"
-									value={id}
-								/>
 								<input
 									hidden
 									type="text"
@@ -47,8 +41,8 @@
 								/>
 								<input
 									type="submit"
-									value={subscription.name}
-									name="subscription"
+									value={id}
+									name="customers_subscriptions"
 								/>
 							</form>
 						</li>

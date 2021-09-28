@@ -13,7 +13,11 @@ export const get = async (_) => {
                 id,
                 subscription (
                     name,
-                    price))`);
+                    price,
+                    time_interval
+                )
+            )
+        `);
     const inDeliveryOrder = data.sort(function (a, b) {
         return a.delivery_order - b.delivery_order;
     });

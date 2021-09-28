@@ -26,7 +26,7 @@
         subscriptions = await res.json();
     });
 </script>
-
+{#if false}<slot></slot>{/if}
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
     <p>Subscription active: {customer.status.active}</p>

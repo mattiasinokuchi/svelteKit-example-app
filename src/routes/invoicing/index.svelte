@@ -2,9 +2,9 @@
 	export async function load({ fetch }) {
 		const res = await fetch("/invoicing.json");
 		if (res.ok) {
-			const deliveries = await res.json();
+			const delivery = await res.json();
 			return {
-				props: { deliveries },
+				props: { delivery },
 			};
 		}
 		const { message } = await res.json();
@@ -15,22 +15,15 @@
 </script>
 
 <script>
-	export let deliveries;
+	export let delivery;
 </script>
-
+{#if false}<slot></slot>{/if}
 <main>
 	<ul>
-		{#each deliveries as { first_name, last_name, deliveries }}
+		{#each delivery as { created_at, customers_subscriptions }}
 			<li class="box">
-				<h2>
-					<label for="">
-						{first_name}
-						{last_name}:
-					</label>
-				</h2>
-				{#each deliveries as { created_at, subscription, price }}
-					<p>{created_at}, {subscription}, ${price}</p>
-				{/each}
+				{created_at},
+				{customers_subscriptions}
 			</li>
 		{/each}
 	</ul>
@@ -48,9 +41,6 @@
 	}
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;
-	}
-	h2 {
-		color: salmon;
 	}
 	ul {
 		list-style-type: none;

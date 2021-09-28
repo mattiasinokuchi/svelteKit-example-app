@@ -17,7 +17,7 @@
 <script>
 	export let customers;
 </script>
-
+{#if false}<slot></slot>{/if}
 <main>
 	<form class="box" action="/customers.json" method="post">
 		<h2>New customer</h2>

@@ -14,7 +14,7 @@
 	<a sveltekit:prefetch href="/invoicing">INVOICING</a>
 </nav>
 
-<slot />
+<slot></slot>
 
 <style>
 	nav {

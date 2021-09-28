@@ -18,7 +18,7 @@
 <script>
     export let subscription;
 </script>
-
+{#if false}<slot></slot>{/if}
 <main>
     <h1>{subscription.name}</h1>
     <div class="box">

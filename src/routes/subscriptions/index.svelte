@@ -17,7 +17,7 @@
 <script>
 	export let subscription;
 </script>
-
+{#if false}<slot></slot>{/if}
 <main>
 	<ul>
 		{#each subscription as { name, emoji, id, customers_subscriptions }}
