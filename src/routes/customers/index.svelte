@@ -1,3 +1,5 @@
+<!-- This is page for the customers -->
+
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch("/customers.json");
@@ -17,8 +19,9 @@
 <script>
 	export let customers;
 </script>
-{#if false}<slot></slot>{/if}
+
 <main>
+	<!-- This is a form for adding new customers -->
 	<form class="box" action="/customers.json" method="post">
 		<h2>New customer</h2>
 		<ul>
@@ -53,7 +56,7 @@
 			</li>
 		</ul>
 	</form>
-
+	<!--- This is a list of customers -->
 	<ul>
 		{#each customers as { first_name, last_name, id, delivery_order }}
 			<li class="box">
@@ -65,9 +68,8 @@
 					method="post"
 				>
 					<label for="order">Delivery order</label>
-					<input size="2" name="order" value={delivery_order}>
+					<input size="2" name="order" value={delivery_order} />
 				</form>
- 
 			</li>
 		{/each}
 	</ul>
