@@ -1,5 +1,4 @@
-<!--	This is the overview page for customers 
-		and changing their delivery order		-->
+<!-- This is the overview page for customers -->
 
 <script context="module">
 	export async function load({ fetch }) {
@@ -57,7 +56,9 @@
 			</li>
 		</ul>
 	</form>
-	<!--- This is a list of customers -->
+	
+	<!---	This is a list of customers with a form
+			for changing their delivery order	-->
 	<ul>
 		{#each customer as { first_name, last_name, id, delivery_order }}
 			<li class="box">
