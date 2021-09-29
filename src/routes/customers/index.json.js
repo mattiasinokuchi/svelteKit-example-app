@@ -1,5 +1,5 @@
 /*  This file contains endpoints to the database
-    for handling customers  */
+    for the customers overview page */
 
 import supabase from '$lib/db';
 
