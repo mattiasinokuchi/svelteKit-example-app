@@ -1,22 +1,28 @@
 <!-- This is the page for subscription -->
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/subscription.json");
-		if (res.ok) {
+		let res = null;
+		try {
+			res = await fetch("/subscription.json");
 			const subscription = await res.json();
+			res = await fetch("/subscription/get_deliveries.json");
+			const delivery = await res.json();
 			return {
-				props: { subscription },
+				props: {
+					subscription,
+					delivery,
+				},
 			};
+		} catch (error) {
+			return error;
 		}
-		const { message } = await res.json();
-		return {
-			error: new Error(message),
-		};
 	}
 </script>
 
 <script>
 	export let subscription;
+	export let delivery;
+	console.log(delivery);
 </script>
 
 {#if false}<slot />{/if}
