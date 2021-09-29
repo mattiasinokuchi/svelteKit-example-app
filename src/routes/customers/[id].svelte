@@ -1,5 +1,5 @@
 <!--    This is a child page to
-        the overview page for customers -->
+        the customers parent page  -->
 
 <script context="module">
     export async function load({ fetch, page }) {
