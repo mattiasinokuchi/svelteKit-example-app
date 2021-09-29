@@ -2,7 +2,7 @@
 <main>
 	<h1 class="box"><a sveltekit:prefetch href="/customers" >CUSTOMERS</a></h1>
 	<h1 class="box"><a sveltekit:prefetch href="/product" >PRODUCTS</a></h1>
-	<h1 class="box"><a sveltekit:prefetch href="/deliveries" >DELIVERIES</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/subscription" >SUBSCRIPTIONS</a></h1>
 	<h1 class="box"><a sveltekit:prefetch href="/invoicing" >INVOICING</a></h1>
 </main>
 

@@ -39,7 +39,7 @@
         {#each customer.subscription as { product, id }}
             <li>
                 <form
-                    action="/deliveries/{id}.json?_method=delete"
+                    action="/subscription/{id}.json?_method=delete"
                     method="post"
                 >
                     <label>
@@ -52,7 +52,7 @@
     </ul>
 
     <!-- This is a form for adding products -->
-    <form action="/deliveries.json" method="post">
+    <form action="/subscription.json" method="post">
         <p>Add product:</p>
         <input hidden type="text" value={customer.id} name="customer" />
         <select name="product" id="product-select">
@@ -68,7 +68,7 @@
     <form action="/customers/{customer.id}.json?_method=delete" method="post">
         <button type="submit" disabled={customer.subscription.length>0}>Delete Customer</button>
         <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
-        <label for="button" hidden={customer.subscription.length<1}>(delete product and deliveries first)</label>
+        <label for="button" hidden={customer.subscription.length<1}>(delete product and subscription first)</label>
     </form>
 
 </main>

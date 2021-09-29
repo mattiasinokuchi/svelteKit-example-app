@@ -2,7 +2,7 @@ import supabase from '$lib/db';
 
 export const get = async (_) => {
     const { data } = await supabase
-        .from('deliveries')
+        .from('subscription')
         .select('*');
     return {
         body: data
@@ -11,7 +11,7 @@ export const get = async (_) => {
 
 export const post = async (request) => {
     const { data, error } = await supabase
-        .from('deliveries')
+        .from('subscription')
         .upsert({
             subscription: request.body.get('subscription'),
             price: request.body.get('price')

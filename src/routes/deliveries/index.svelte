@@ -1,8 +1,8 @@
-<!-- This is the page for deliveries -->
+<!-- This is the page for subscription -->
 
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/deliveries.json");
+		const res = await fetch("/subscription.json");
 		if (res.ok) {
 			const subscription = await res.json();
 			return {
