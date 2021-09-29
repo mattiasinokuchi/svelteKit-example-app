@@ -1,4 +1,4 @@
-/*  This is a endpoint to the database
+/*  This file contains endpoints to the database
     for handling customers  */
 
 import supabase from '$lib/db';
