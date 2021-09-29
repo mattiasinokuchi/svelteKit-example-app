@@ -6,10 +6,10 @@ import supabase from '$lib/db';
 export const get = async ({ params }) => {
     const { id } = params;
     let { data } = await supabase
-        .from('customers_subscriptions')
+        .from('subscription')
         .select(`
             customer ( first_name ),
-            subscription ( name )`)
+            product ( name )`)
         .match({ id: id })
         .single();
     return {
@@ -22,7 +22,7 @@ export const del = async (request) => {
         return { status: 401 };
     }*/
     const { data, error } = await supabase
-        .from('customers_subscriptions')
+        .from('subscription')
         .delete().match({
             id: request.params.id,
         });

@@ -1,10 +1,10 @@
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/subscriptions.json");
+		const res = await fetch("/product.json");
 		if (res.ok) {
-			const subscription = await res.json();
+			const product = await res.json();
 			return {
-				props: { subscription },
+				props: { product },
 			};
 		}
 		const { message } = await res.json();
@@ -15,15 +15,15 @@
 </script>
 
 <script>
-	export let subscription;
+	export let product;
 </script>
 {#if false}<slot></slot>{/if}
 <main>
 	<ul>
-		{#each subscription as { name, emoji, id, customers_subscriptions }}
+		{#each product as { name, emoji, id, subscription }}
 			<li class="box">
-				<a sveltekit:prefetch href={`/subscriptions/${id}`}>
-					<h2>{customers_subscriptions.length} x {name}</h2>
+				<a sveltekit:prefetch href={`/product/${id}`}>
+					<h2>{subscription.length} x {name}</h2>
 					<h2>{emoji}</h2>
 				</a>
 			</li>

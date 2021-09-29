@@ -4,9 +4,9 @@
 	export async function load({ fetch }) {
 		const res = await fetch("/deliveries.json");
 		if (res.ok) {
-			const customers_subscriptions = await res.json();
+			const subscription = await res.json();
 			return {
-				props: { customers_subscriptions },
+				props: { subscription },
 			};
 		}
 		const { message } = await res.json();
@@ -17,12 +17,12 @@
 </script>
 
 <script>
-	export let customers_subscriptions;
+	export let subscription;
 </script>
 {#if false}<slot></slot>{/if}
 <main>
 	<ul>
-		{#each customers_subscriptions as { id, first_name, last_name, customers_subscriptions }}
+		{#each subscription as { id, first_name, last_name, subscription }}
 			<li class="box">
 				<h2>
 					<input hidden name="id" value={id} />
@@ -31,7 +31,7 @@
 						{last_name}:
 					</label>
 				</h2>
-				{#each customers_subscriptions as { id, subscription }}
+				{#each subscription as { id, product }}
 					<ul>
 						<li>
 							<form action="/invoicing.json" method="post">
@@ -39,12 +39,12 @@
 									hidden
 									type="text"
 									name="price"
-									value={subscription.price}
+									value={product.price}
 								/>
 								<input
 									type="submit"
 									value={id}
-									name="customers_subscriptions"
+									name="subscription"
 								/>
 							</form>
 						</li>

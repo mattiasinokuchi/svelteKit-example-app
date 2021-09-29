@@ -12,9 +12,9 @@ export const get = async (_) => {
             last_name,
             status (active),
             delivery_order,
-            customers_subscriptions (
+            subscription (
                 id,
-                subscription (
+                product (
                     name,
                     price,
                     time_interval
@@ -31,10 +31,10 @@ export const get = async (_) => {
 
 export const post = async (request) => {
     const { data, error } = await supabase
-        .from('customers_subscriptions')
+        .from('subscription')
         .upsert({
             customer: request.body.get('customer'),
-            subscription: request.body.get('subscription'),
+            product: request.body.get('product'),
         });
 
     if (!error && request.headers.accept !== 'application/json') {

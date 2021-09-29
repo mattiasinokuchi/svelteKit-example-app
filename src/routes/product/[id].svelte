@@ -1,11 +1,11 @@
 <script context="module">
     export async function load({ fetch, page }) {
         const { id } = page.params;
-        const res = await fetch(`/subscriptions/${id}.json`);
+        const res = await fetch(`/product/${id}.json`);
         if (res.ok) {
-            const subscription = await res.json();
+            const product = await res.json();
             return {
-                props: { subscription },
+                props: { product },
             };
         }
         const { message } = await res.json();
@@ -16,15 +16,15 @@
 </script>
 
 <script>
-    export let subscription;
+    export let product;
 </script>
 {#if false}<slot></slot>{/if}
 <main>
-    <h1>{subscription.name}</h1>
+    <h1>{product.name}</h1>
     <div class="box">
         <ul>
-            <li>Price: ${subscription.price}</li>
-            <li>Interval: {subscription.time_interval} days</li>
+            <li>Price: ${product.price}</li>
+            <li>Interval: {product.time_interval} days</li>
         </ul>
     </div>
 </main>
