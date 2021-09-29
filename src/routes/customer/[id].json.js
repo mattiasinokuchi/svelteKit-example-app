@@ -7,7 +7,7 @@ import supabase from '$lib/db';
 export const get = async ({ params }) => {
     const { id } = params;
     let { data } = await supabase
-        .from('customers')
+        .from('customer')
         .select(`
             id,
             first_name,
@@ -27,7 +27,7 @@ export const del = async (request) => {
         return { status: 401 };
     }*/
     const { error } = await supabase
-        .from('customers')
+        .from('customer')
         .delete().match({
             id: request.params.id,
             //user_id: request.locals.user.id
@@ -37,7 +37,7 @@ export const del = async (request) => {
         return {
             status: 303,
             headers: {
-                location: '/customers'
+                location: '/customer'
             }
         };
     }
@@ -48,7 +48,7 @@ export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
     const id = request.params.id;
     const { data, error } = await supabase
-        .from('customers')
+        .from('customer')
         .upsert([{
             'id': id,
             'delivery_order': order
@@ -57,7 +57,7 @@ export const update = async (request) => {
         return {
             status: 303,
             headers: {
-                location: '/customers'
+                location: '/customer'
             }
         };
     }

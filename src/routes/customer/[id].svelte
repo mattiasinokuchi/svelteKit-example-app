@@ -4,7 +4,7 @@
 <script context="module">
     export async function load({ fetch, page }) {
         const { id } = page.params;
-        const res = await fetch(`/customers/${id}.json`);
+        const res = await fetch(`/customer/${id}.json`);
         if (res.ok) {
             const customer = await res.json();
             return {
@@ -65,7 +65,7 @@
     </form>
 
     <!-- This is a form for deleting customers -->
-    <form action="/customers/{customer.id}.json?_method=delete" method="post">
+    <form action="/customer/{customer.id}.json?_method=delete" method="post">
         <button type="submit" disabled={customer.subscription.length>0}>Delete Customer</button>
         <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
         <label for="button" hidden={customer.subscription.length<1}>(delete product and subscription first)</label>
