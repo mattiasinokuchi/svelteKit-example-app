@@ -1,3 +1,5 @@
+<!-- This is the page for deliveries -->
+
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch("/deliveries.json");

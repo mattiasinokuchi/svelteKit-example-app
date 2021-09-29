@@ -1,5 +1,5 @@
 /*  This module contains endpoints to the database
-    for the customers overview page (index.svelte) */
+    for the customers parent page   */
 
 import supabase from '$lib/db';
 

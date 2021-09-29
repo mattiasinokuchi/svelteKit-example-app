@@ -1,3 +1,6 @@
+/*  This module contains endpoints to the database
+    for the deliveries page   */
+
 import supabase from '$lib/db';
 
 export const get = async ({ params }) => {

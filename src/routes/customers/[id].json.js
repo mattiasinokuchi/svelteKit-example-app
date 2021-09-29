@@ -1,5 +1,5 @@
 /*  This module contains endpoints to the database
-    for handling customers  */
+    for the customers parent and child pages   */
 
 import supabase from '$lib/db';
 
