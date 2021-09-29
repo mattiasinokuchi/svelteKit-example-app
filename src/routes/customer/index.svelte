@@ -2,7 +2,7 @@
 
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/customers.json");
+		const res = await fetch("/customer.json");
 		if (res.ok) {
 			const customer = await res.json();
 			return {
@@ -22,7 +22,7 @@
 
 <main>
 	<!-- This is a form for adding new customers -->
-	<form class="box" action="/customers.json" method="post">
+	<form class="box" action="/customer.json" method="post">
 		<h2>New customer</h2>
 		<ul>
 			<li>
@@ -62,11 +62,11 @@
 	<ul>
 		{#each customer as { first_name, last_name, id, delivery_order }}
 			<li class="box">
-				<a sveltekit:prefetch href={`/customers/${id}`}>
+				<a sveltekit:prefetch href={`/customer/${id}`}>
 					<h2>{first_name} {last_name}</h2>
 				</a>
 				<form
-					action="/customers/{id}.json?_method=update"
+					action="/customer/{id}.json?_method=update"
 					method="post"
 				>
 					<label for="order">Delivery order</label>
