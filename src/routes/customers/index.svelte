@@ -1,4 +1,4 @@
-<!-- This is the overview page for customers -->
+<!-- This is the parent page for customers -->
 
 <script context="module">
 	export async function load({ fetch }) {
