@@ -1,5 +1,9 @@
+/*  This file contains endpoints to the database
+    for handling customers  */
+
 import supabase from '$lib/db';
 
+/* Reads all data for a specific customer */
 export const get = async ({ params }) => {
     const { id } = params;
     let { data } = await supabase
@@ -17,11 +21,12 @@ export const get = async ({ params }) => {
     };
 };
 
+/* Deletes a customer */
 export const del = async (request) => {
     /*if (!request.locals.user) {
         return { status: 401 };
     }*/
-    const { data, error } = await supabase
+    const { error } = await supabase
         .from('customers')
         .delete().match({
             id: request.params.id,
@@ -38,6 +43,7 @@ export const del = async (request) => {
     }
 };
 
+/* Updates the delivery order of a customer */
 export const update = async (request) => {
     const order = parseInt(request.body.get('order'));
     const id = request.params.id;
