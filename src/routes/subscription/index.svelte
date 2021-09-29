@@ -1,5 +1,4 @@
 <!-- This is the page for subscription -->
-
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch("/subscription.json");
@@ -19,24 +18,24 @@
 <script>
 	export let subscription;
 </script>
-{#if false}<slot></slot>{/if}
+
+{#if false}<slot />{/if}
 <main>
 	<ul>
 		{#each subscription as { id, first_name, last_name, subscription }}
 			<li class="box">
 				<h2>
-						{first_name}
-						{last_name}:
+					{first_name}
+					{last_name}:
 				</h2>
 				{#each subscription as { product }}
 					<ul>
 						<li>
-							<form action="/subscription/deliver.json" method="post">
-								<input
-									hidden
-									name="customer"
-									value={id}
-								/>
+							<form
+								action="/subscription/deliver.json"
+								method="post"
+							>
+								<input hidden name="customer" value={id} />
 								<input
 									hidden
 									type="text"
@@ -49,10 +48,7 @@
 									name="price"
 									value={product.price}
 								/>
-								<input
-									type="submit"
-									value={product.name}
-								/>
+								<input type="submit" value={product.name} />
 							</form>
 						</li>
 					</ul>
