@@ -31,7 +31,7 @@
 				{#each subscription as { product }}
 					<ul>
 						<li>
-							<form action="/delivery.json" method="post">
+							<form action="/subscription/deliver.json" method="post">
 								<input
 									hidden
 									name="customer"
