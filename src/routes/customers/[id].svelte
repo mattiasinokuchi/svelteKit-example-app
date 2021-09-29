@@ -1,5 +1,5 @@
-<!--    This is a page for deleting a customer and
-        adding or deleting their subscriptions  -->
+<!--    This is a child page to
+        the overview page for customers -->
 
 <script context="module">
     export async function load({ fetch, page }) {
