@@ -20,10 +20,10 @@
 {#if false}<slot></slot>{/if}
 <main>
 	<ul>
-		{#each delivery as { created_at, subscription }}
+		{#each delivery as { created_at, product }}
 			<li class="box">
 				{created_at},
-				{subscription}
+				{product}
 			</li>
 		{/each}
 	</ul>

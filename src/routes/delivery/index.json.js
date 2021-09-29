@@ -11,9 +11,10 @@ export const get = async (_) => {
 
 export const post = async (request) => {
     const { data, error } = await supabase
-        .from('subscription')
+        .from('delivery')
         .upsert({
-            subscription: request.body.get('subscription'),
+            customer: request.body.get('customer'),
+            product: request.body.get('product'),
             price: request.body.get('price')
         });
     console.log(error);

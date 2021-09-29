@@ -25,16 +25,24 @@
 		{#each subscription as { id, first_name, last_name, subscription }}
 			<li class="box">
 				<h2>
-					<input hidden name="id" value={id} />
-					<label for="">
 						{first_name}
 						{last_name}:
-					</label>
 				</h2>
-				{#each subscription as { id, product }}
+				{#each subscription as { product }}
 					<ul>
 						<li>
 							<form action="/delivery.json" method="post">
+								<input
+									hidden
+									name="customer"
+									value={id}
+								/>
+								<input
+									hidden
+									type="text"
+									name="product"
+									value={product.name}
+								/>
 								<input
 									hidden
 									type="text"
@@ -43,8 +51,7 @@
 								/>
 								<input
 									type="submit"
-									value={id}
-									name="subscription"
+									value={product.name}
 								/>
 							</form>
 						</li>
