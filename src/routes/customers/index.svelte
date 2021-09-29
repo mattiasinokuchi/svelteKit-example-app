@@ -1,4 +1,5 @@
-<!-- This is the page for handling customers -->
+<!--	This is the overview page for customers 
+		and changing their delivery order		-->
 
 <script context="module">
 	export async function load({ fetch }) {
