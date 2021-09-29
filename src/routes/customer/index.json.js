@@ -6,7 +6,7 @@ import supabase from '$lib/db';
 /*  Reads all customers */
 export const get = async (_) => {
     let { data } = await supabase
-        .from('customers')
+        .from('customer')
         .select('*')
         .order('delivery_order', { ascending: true });;
     return {
@@ -17,7 +17,7 @@ export const get = async (_) => {
 /*  Adds a new customer */
 export const post = async (request) => {
     const { data, error } = await supabase
-        .from('customers')
+        .from('customer')
         .upsert({
             first_name: request.body.get('firstName'),
             last_name: request.body.get('lastName'),
@@ -26,7 +26,7 @@ export const post = async (request) => {
         return {
             status: 303,
             headers: {
-                location: '/customers'
+                location: '/customer'
             }
         };
     }
