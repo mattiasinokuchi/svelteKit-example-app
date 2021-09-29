@@ -5,7 +5,7 @@ import supabase from '$lib/db';
 
 export const get = async (_) => {
     const { data } = await supabase
-        .from('customers')
+        .from('customer')
         .select(`
             id,
             first_name,
