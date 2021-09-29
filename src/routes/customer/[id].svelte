@@ -1,35 +1,32 @@
 <!--    This is a child page to
         the customers parent page  -->
-
 <script context="module">
     export async function load({ fetch, page }) {
         const { id } = page.params;
-        const res = await fetch(`/customer/${id}.json`);
-        if (res.ok) {
+        let res = null;
+        try {
+            res = await fetch(`/customer/${id}.json`);
             const customer = await res.json();
+            res = await fetch(`/customer/get_product_options.json`);
+            const product = await res.json();
             return {
-                props: { customer },
+                props: {
+                    customer,
+                    product
+                },
             };
+        } catch (error) {
+            return error;
         }
-        const { message } = await res.json();
-        return {
-            error: new Error(message),
-        };
     }
 </script>
 
 <script>
     export let customer;
-
-    // This block loads options when adding products
-    import { onMount } from "svelte";
-    let product = [];
-    onMount(async () => {
-        let res = await fetch(`/product.json`);
-        product = await res.json();
-    });
+    export let product;
 </script>
-{#if false}<slot></slot>{/if}
+
+{#if false}<slot />{/if}
 <main>
     <!-- This is a list of products with delete buttons-->
     <h1>{customer.first_name} {customer.last_name}</h1>
@@ -66,11 +63,14 @@
 
     <!-- This is a form for deleting customers -->
     <form action="/customer/{customer.id}.json?_method=delete" method="post">
-        <button type="submit" disabled={customer.subscription.length>0}>Delete Customer</button>
+        <button type="submit" disabled={customer.subscription.length > 0}
+            >Delete Customer</button
+        >
         <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
-        <label for="button" hidden={customer.subscription.length<1}>(delete product and subscription first)</label>
+        <label for="button" hidden={customer.subscription.length < 1}
+            >(delete product and subscription first)</label
+        >
     </form>
-
 </main>
 
 <style>
