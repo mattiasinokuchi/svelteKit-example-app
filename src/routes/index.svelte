@@ -1,6 +1,6 @@
 {#if false}<slot></slot>{/if}
 <main>
-	<h1 class="box"><a sveltekit:prefetch href="/customers" >CUSTOMERS</a></h1>
+	<h1 class="box"><a sveltekit:prefetch href="/customer" >CUSTOMERS</a></h1>
 	<h1 class="box"><a sveltekit:prefetch href="/product" >PRODUCTS</a></h1>
 	<h1 class="box"><a sveltekit:prefetch href="/subscription" >SUBSCRIPTIONS</a></h1>
 	<h1 class="box"><a sveltekit:prefetch href="/delivery" >DELIVERIES</a></h1>
