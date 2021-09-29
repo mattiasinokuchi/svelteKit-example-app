@@ -1,5 +1,5 @@
-/*  This file contains endpoints to the database
-    for the customers overview page */
+/*  This module contains endpoints to the database
+    for the customers overview page (index.svelte) */
 
 import supabase from '$lib/db';
 
