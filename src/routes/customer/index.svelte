@@ -66,7 +66,7 @@
 					<h2>{first_name} {last_name}</h2>
 				</a>
 				<form
-					action="/customer/{id}.json?_method=update"
+					action="/customer/reorder_delivery/{id}.json?_method=update"
 					method="post"
 				>
 					<label for="order">Delivery order</label>
