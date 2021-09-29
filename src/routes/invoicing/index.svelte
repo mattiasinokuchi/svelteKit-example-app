@@ -1,6 +1,6 @@
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/invoicing.json");
+		const res = await fetch("/delivery.json");
 		if (res.ok) {
 			const delivery = await res.json();
 			return {
