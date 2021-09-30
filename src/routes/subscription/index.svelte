@@ -5,12 +5,12 @@
 		try {
 			res = await fetch("/subscription.json");
 			const subscription = await res.json();
-			res = await fetch("/subscription/get_deliveries.json");
-			const delivery = await res.json();
+			//res = await fetch("/subscription/get_deliveries.json");
+			//const delivery = await res.json();
 			return {
 				props: {
 					subscription,
-					delivery,
+					//delivery,
 				},
 			};
 		} catch (error) {
@@ -20,8 +20,9 @@
 </script>
 
 <script>
-	export let subscription, delivery;
-	console.log(delivery);
+	export let subscription
+	//, delivery;
+	console.log(subscription);
 </script>
 
 {#if false}<slot />{/if}

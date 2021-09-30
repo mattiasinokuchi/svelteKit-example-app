@@ -7,8 +7,13 @@ import supabase from '$lib/db';
 export const get = async (_) => {
     let { data } = await supabase
         .from('customer')
-        .select('*')
-        .order('delivery_order', { ascending: true });;
+        //.select('*')
+        //.order('delivery_order', { ascending: true });;
+        .select(`
+            first_name,
+            subscription (id),
+            delivery (id)
+        `);
     return {
         body: data
     };

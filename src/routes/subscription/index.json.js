@@ -20,6 +20,11 @@ export const get = async (_) => {
                     price,
                     time_interval
                 )
+            ),
+            delivery (
+                product_id,
+                product_name,
+                created_at
             )
         `);
     const inDeliveryOrder = data.sort(function (a, b) {
