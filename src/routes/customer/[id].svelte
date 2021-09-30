@@ -35,7 +35,7 @@
         {#each customer.subscription as { product, id }}
             <li>
                 <form
-                    action="/subscription/{id}.json?_method=delete"
+                    action="/customer/remove_product/{id}.json?_method=delete"
                     method="post"
                 >
                     <label>
@@ -48,7 +48,7 @@
     </ul>
 
     <!-- This is a form for adding products -->
-    <form action="/subscription.json" method="post">
+    <form action="/customer/add_product.json" method="post">
         <p>Add product:</p>
         <input hidden type="text" value={customer.id} name="customer" />
         <select name="product" id="product-select">
