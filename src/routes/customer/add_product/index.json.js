@@ -1,5 +1,5 @@
 /*  This module contains endpoints to the database
-    for the subscription page   */
+    for adding a product to a customer   */
 
 import supabase from '$lib/db';
 
