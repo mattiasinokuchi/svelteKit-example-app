@@ -41,7 +41,10 @@ export const get = async (_) => {
     }
 
     console.log(data);
-    data[0].delivery = groupBy(data[0].delivery, 'product_id');
+    for (let i = 0; i < data.length; i++) {
+        data[i].delivery = groupBy(data[i].delivery, 'product_id');
+    }
+
     console.log(data);
 
     // This block might be useful later...
