@@ -28,12 +28,15 @@
 {#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each subscription as { id, first_name, last_name, subscription }}
+		{#each subscription as { id, first_name, last_name, subscription, delivery }}
 			<li class="box">
 				<h2>
 					{first_name}
 					{last_name}:
 				</h2>
+				{#each delivery as {created_at}}
+					<p>{created_at}</p>	
+				{/each}
 				{#each subscription as { product }}
 					<ul>
 						<li>
