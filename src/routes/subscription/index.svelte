@@ -22,7 +22,7 @@
 <script>
 	export let subscription
 	//, delivery;
-	console.log(subscription);
+	//console.log(subscription);
 </script>
 
 {#if false}<slot />{/if}
