@@ -45,7 +45,13 @@
 								<input
 									hidden
 									type="text"
-									name="product"
+									name="productId"
+									value={product.id}
+								/>
+								<input
+									hidden
+									type="text"
+									name="productName"
 									value={product.name}
 								/>
 								<input

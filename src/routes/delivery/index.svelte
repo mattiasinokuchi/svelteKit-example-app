@@ -20,12 +20,12 @@
 {#if false}<slot></slot>{/if}
 <main>
 	<ul>
-		{#each delivery as { customer, created_at, product, price }}
+		{#each delivery as { customer, created_at, product_name, price }}
 			<li class="box">
 				{created_at},
 				{customer.first_name} {customer.last_name},
-				{product},
-				{price}
+				{product_name},
+				${price}
 			</li>
 		{/each}
 	</ul>

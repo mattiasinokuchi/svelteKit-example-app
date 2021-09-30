@@ -16,6 +16,7 @@ export const get = async (_) => {
                 id,
                 product (
                     name,
+                    id,
                     price,
                     time_interval
                 )

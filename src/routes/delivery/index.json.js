@@ -6,7 +6,8 @@ export const get = async (_) => {
         .select(`
             id,
             created_at,
-            product,
+            product_id,
+            product_name,
             price,
             customer(
                 first_name,

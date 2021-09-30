@@ -5,7 +5,8 @@ export const post = async (request) => {
         .from('delivery')
         .upsert({
             customer: request.body.get('customer'),
-            product: request.body.get('product'),
+            product_name: request.body.get('productName'),
+            product_id: request.body.get('productId'),
             price: request.body.get('price')
         });
     console.log(error);

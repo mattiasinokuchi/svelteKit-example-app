@@ -4,14 +4,9 @@ export const get = async (_) => {
     const { data } = await supabase
         .from('delivery')
         .select(`
-            id,
             created_at,
-            product,
-            price,
-            customer(
-                first_name,
-                last_name
-            )
+            product_id,
+            customer(id)
         `);
     return {
         body: data
