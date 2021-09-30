@@ -20,8 +20,7 @@
 </script>
 
 <script>
-	export let subscription;
-	export let delivery;
+	export let subscription, delivery;
 	console.log(delivery);
 </script>
 
@@ -41,7 +40,10 @@
 								action="/subscription/deliver.json"
 								method="post"
 							>
-								<input hidden name="customer" value={id} />
+								<input
+									hidden name="customer"
+									value={id}
+								/>
 								<input
 									hidden
 									type="text"

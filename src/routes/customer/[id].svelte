@@ -22,8 +22,7 @@
 </script>
 
 <script>
-    export let customer;
-    export let product;
+    export let customer, product;
 </script>
 
 {#if false}<slot />{/if}
