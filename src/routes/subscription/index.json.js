@@ -29,8 +29,6 @@ export const get = async (_) => {
         `);
 
     // This block group deliveries by product_id
-    const deliveries = data[0].delivery;
-    
     function groupBy(objectArray, property) {
         return objectArray.reduce(function (acc, obj) {
             let key = obj[property];
@@ -41,9 +39,9 @@ export const get = async (_) => {
             return acc;
         }, {});
     }
-    const groupedDeliveries = groupBy(deliveries, 'product_id');
 
-    data[0].delivery = groupedDeliveries;
+    console.log(data);
+    data[0].delivery = groupBy(data[0].delivery, 'product_id');
     console.log(data);
 
     // This block might be useful later...
