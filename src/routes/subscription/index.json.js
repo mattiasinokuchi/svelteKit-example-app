@@ -39,22 +39,28 @@ export const get = async (_) => {
             return acc;
         }, {});
     }
-
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
         data[i].delivery = groupBy(data[i].delivery, 'product_id');
     }
 
-    console.log(data);
-
-    // This block might be useful later...
+    // This block finds the latest deliveries...
     let initialValue = 0
+    function findLatest(objectArray, property) {
+        return objectArray.reduce(function (previousValue, currentValue) {
+            return Math.max(previousValue, currentValue.x)
+        }, initialValue);
+    }
+
+    console.log(findLatest([{ x: 1 }, { x: 20 }, { x: 3 }]));
+    //console.log(findLatest(data[0].delivery));
+
     let max = [{ x: 1 }, { x: 20 }, { x: 3 }].reduce(
         (previousValue, currentValue) => Math.max(previousValue, currentValue.x)
         , initialValue
     )
-    
+
     //console.log(max) // logs 20
+
 
     // Sort subscriptions in delivery order
     const inDeliveryOrder = data.sort(function (a, b) {
@@ -62,6 +68,7 @@ export const get = async (_) => {
     });
 
     return {
-        body: inDeliveryOrder
+        //body: inDeliveryOrder
+        body: data
     };
 };
