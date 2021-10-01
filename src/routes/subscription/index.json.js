@@ -39,19 +39,21 @@ export const get = async (_) => {
             return acc;
         }, {});
     }
-    for (let i = 0; i < data.length; i++) {
-        data[i].delivery = groupBy(data[i].delivery, 'product_id');
-    }
 
     // This block flatten the delivery object
-    function flatten(objectArray) {
+    /*function flatten(objectArray) {
         return Object.keys(objectArray).reduce(function (r, k) {
             return r.concat(objectArray[k]);
         }, []);
     }
-    var object = { 0: [1, 2, 3, 4] };
+    var object = { 0: [1, 2, 3, 4] };*/
 
-    console.log(flatten(object));
+    for (let i = 0; i < data.length; i++) {
+        data[i].delivery = groupBy(data[i].delivery, 'product_id');
+        data[i].delivery = Object.values(data[i].delivery);
+    }
+
+    //console.log(flatten(object));
 
     // This block finds the latest deliveries
     let initialValue = new Date('1900-01-01');
