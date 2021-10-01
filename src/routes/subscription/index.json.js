@@ -66,6 +66,13 @@ export const get = async (_) => {
         return date;
     }
     for (let i = 0; i < data.length; i++) {
+        console.log('data[i]: ', data[i]);
+        //console.log(`data[i]['deliver']: `, data[i]['deliver']);
+        //for (let j = 0; j < data[i].deliver.length; j++) {
+            //console.log('j: ', j);
+            //console.log(data[i].delivery[j]);
+            //console.log(data[0].delivery[0]);
+        //}
         //data[i].delivery = findLatest(data[i].delivery, 'created_at');
     }
 
