@@ -33,8 +33,8 @@ export const get = async (_) => {
         return objectArray.reduce(function (acc, obj) {
             let key = obj[property];
             if (!acc[key]) {
-                acc[key] = []
-            };
+                acc[key] = [];
+            }
             acc[key].push(obj);
             return acc;
         }, {});
@@ -46,12 +46,12 @@ export const get = async (_) => {
     // This block finds the latest deliveries...
     let initialValue = 0
     function findLatest(objectArray, property) {
-        return objectArray.reduce(function (previousValue, currentValue) {
-            return Math.max(previousValue, currentValue.x)
+        return objectArray.reduce(function (acc, obj) {
+            return Math.max(acc, obj[property])
         }, initialValue);
     }
 
-    console.log(findLatest([{ x: 1 }, { x: 20 }, { x: 3 }]));
+    console.log(findLatest([{ x: 1 }, { x: 20 }, { x: 3 }], 'x'));
     //console.log(findLatest(data[0].delivery));
 
     let max = [{ x: 1 }, { x: 20 }, { x: 3 }].reduce(
