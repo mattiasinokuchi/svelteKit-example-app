@@ -43,7 +43,17 @@ export const get = async (_) => {
         data[i].delivery = groupBy(data[i].delivery, 'product_id');
     }
 
-    // This block finds the latest deliveries...
+    // This block flatten the delivery object
+    function flatten(objectArray) {
+        return Object.keys(objectArray).reduce(function (r, k) {
+            return r.concat(objectArray[k]);
+        }, []);
+    }
+    var object = { 0: [1, 2, 3, 4] };
+
+    console.log(flatten(object));
+
+    // This block finds the latest deliveries
     let initialValue = new Date('1900-01-01');
     function findLatest(objectArray, property) {
         const unix_timestamp = objectArray.reduce(function (acc, obj) {
@@ -53,10 +63,9 @@ export const get = async (_) => {
         const date = new Date(unix_timestamp);
         return date;
     }
-
-    //console.log(initialValue, findLatest([{ x: 1 }, { x: 20 }, { x: 3 }], 'x'));
-    //console.log(data[0].delivery[1]);
-    console.log(findLatest(data[0].delivery[1], 'created_at'));
+    for (let i = 0; i < data.length; i++) {
+        //data[i].delivery = findLatest(data[i].delivery, 'created_at');
+    }
 
     let max = [{ x: 1 }, { x: 20 }, { x: 3 }].reduce(
         (previousValue, currentValue) => Math.max(previousValue, currentValue.x)
