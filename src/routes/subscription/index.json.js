@@ -44,15 +44,19 @@ export const get = async (_) => {
     }
 
     // This block finds the latest deliveries...
-    let initialValue = 0
+    let initialValue = new Date('1900-01-01');
     function findLatest(objectArray, property) {
-        return objectArray.reduce(function (acc, obj) {
-            return Math.max(acc, obj[property])
+        const unix_timestamp = objectArray.reduce(function (acc, obj) {
+            const date = new Date(obj[property]);
+            return Math.max(acc, date);
         }, initialValue);
+        const date = new Date(unix_timestamp);
+        return date;
     }
 
-    console.log(findLatest([{ x: 1 }, { x: 20 }, { x: 3 }], 'x'));
-    //console.log(findLatest(data[0].delivery));
+    //console.log(initialValue, findLatest([{ x: 1 }, { x: 20 }, { x: 3 }], 'x'));
+    //console.log(data[0].delivery[1]);
+    console.log(findLatest(data[0].delivery[1], 'created_at'));
 
     let max = [{ x: 1 }, { x: 20 }, { x: 3 }].reduce(
         (previousValue, currentValue) => Math.max(previousValue, currentValue.x)
