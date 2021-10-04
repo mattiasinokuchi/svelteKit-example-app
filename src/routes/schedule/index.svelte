@@ -33,9 +33,8 @@
                     action="/schedule/{id}.json?_method=delete"
                     method="post"
                 >
-                    <label for="">{id}</label>
                     <label>
-                        {delivery_date}: {product}
+                        {delivery_date}: {product.name}
                         <button type="submit">Delete</button>
                     </label>
                 </form>

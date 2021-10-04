@@ -7,7 +7,11 @@ import supabase from '$lib/db';
 export const get = async (_) => {
     let { data } = await supabase
         .from('schedule')
-        .select('*');
+        .select(`
+            id,
+            delivery_date,
+            product (name)
+        `);
     return {
         body: data
     };
