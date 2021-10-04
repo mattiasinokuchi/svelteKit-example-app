@@ -12,8 +12,8 @@ export const get = async ({ params }) => {
             id,
             first_name,
             last_name,
-            status (active),
-            ordering (id, product(name))`)
+            active,
+            order_book (id, product(name))`)
         .match({ id: id })
         .single();
     return {

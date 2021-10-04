@@ -5,7 +5,7 @@ import supabase from '$lib/db';
 
 export const post = async (request) => {
     const { data, error } = await supabase
-        .from('ordering')
+        .from('order_book')
         .upsert({
             customer: request.body.get('customer'),
             product: request.body.get('product'),

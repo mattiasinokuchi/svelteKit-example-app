@@ -3,14 +3,11 @@
 	export async function load({ fetch }) {
 		let res = null;
 		try {
-			res = await fetch("/ordering.json");
-			const ordering = await res.json();
-			//res = await fetch("/ordering/get_deliveries.json");
-			//const delivery = await res.json();
+			res = await fetch("/order.json");
+			const order = await res.json();
 			return {
 				props: {
-					ordering,
-					//delivery,
+					order,
 				},
 			};
 		} catch (error) {
@@ -20,15 +17,13 @@
 </script>
 
 <script>
-	export let ordering
-	//, delivery;
-	//console.log(ordering);
+	export let order
 </script>
 
 {#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each ordering as { id, first_name, last_name, order, delivery }}
+		{#each order as { id, first_name, last_name, order_book, delivery }}
 			<li class="box">
 				<h2>
 					{first_name}
@@ -37,11 +32,11 @@
 				{#each delivery as {created_at}}
 					<p>{created_at}</p>	
 				{/each}
-				{#each ordering as { product }}
+				{#each order_book as { product }}
 					<ul>
 						<li>
 							<form
-								action="/ordering/deliver.json"
+								action="/order/deliver.json"
 								method="post"
 							>
 								<input

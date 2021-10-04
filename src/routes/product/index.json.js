@@ -7,7 +7,7 @@ export const get = async (_) => {
             name,
             emoji,
             id,
-            ordering (id, product(name))`);
+            order_book (id, product(name))`);
     return {
         body: data
     };
