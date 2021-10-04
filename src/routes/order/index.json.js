@@ -1,5 +1,5 @@
 /*  This module contains endpoints to the database
-    for the ordering page   */
+    for the deliver page   */
 
 import supabase from '$lib/db';
 
@@ -21,7 +21,7 @@ export const get = async (_) => {
                     time_interval
                 )
             ),
-            delivery (
+            billing (
                 product_id,
                 product_name,
                 created_at

@@ -1,4 +1,4 @@
-<!-- This is the page for order -->
+<!-- This is the page for delivery -->
 <script context="module">
 	export async function load({ fetch }) {
 		let res = null;
@@ -23,13 +23,13 @@
 {#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each order as { id, first_name, last_name, order_book, delivery }}
+		{#each order as { id, first_name, last_name, order_book, billing }}
 			<li class="box">
 				<h2>
 					{first_name}
 					{last_name}:
 				</h2>
-				{#each delivery as {created_at}}
+				{#each billing as {created_at}}
 					<p>{created_at}</p>	
 				{/each}
 				{#each order_book as { product }}

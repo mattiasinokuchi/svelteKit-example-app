@@ -17,12 +17,12 @@ export const get = async (_) => {
     };
 };
 
-/*  Adds a new delivery */
+/*  Adds a new billing */
 export const post = async (request) => {
     const { data, error } = await supabase
         .from('schedule')
         .upsert({
-            delivery_date: request.body.get('deliveryDate'),
+            billing_date: request.body.get('billingDate'),
             product: request.body.get('product'),
         });
     if (!error && request.headers.accept !== 'application/json') {

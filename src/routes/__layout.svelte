@@ -12,7 +12,7 @@
 	<a class:active={$page.path === '/customer'} sveltekit:prefetch href="/customer">CUSTOMERS</a>
 	<a class:active={$page.path === '/schedule'} sveltekit:prefetch href="/schedule">SCHEDULE</a>
 	<a class:active={$page.path === '/order'} sveltekit:prefetch href="/order">ORDERS</a>
-	<a class:active={$page.path === '/delivery'} sveltekit:prefetch href="/delivery">DELIVERIES</a>
+	<a class:active={$page.path === '/billing'} sveltekit:prefetch href="/billing">BILLING</a>
 </nav>
 
 <slot></slot>

@@ -1,10 +1,10 @@
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/delivery.json");
+		const res = await fetch("/billing.json");
 		if (res.ok) {
-			const delivery = await res.json();
+			const billing = await res.json();
 			return {
-				props: { delivery },
+				props: { billing },
 			};
 		}
 		const { message } = await res.json();
@@ -15,12 +15,12 @@
 </script>
 
 <script>
-	export let delivery;
+	export let billing;
 </script>
 {#if false}<slot></slot>{/if}
 <main>
 	<ul>
-		{#each delivery as { customer, created_at, product_name, price }}
+		{#each billing as { customer, created_at, product_name, price }}
 			<li class="box">
 				{created_at},
 				{customer.first_name} {customer.last_name},

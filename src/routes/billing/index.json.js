@@ -2,7 +2,7 @@ import supabase from '$lib/db';
 
 export const get = async (_) => {
     const { data } = await supabase
-        .from('delivery')
+        .from('billing')
         .select(`
             id,
             created_at,
