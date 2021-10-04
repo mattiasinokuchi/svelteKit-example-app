@@ -1,5 +1,6 @@
 <script>
 	import "../app.css";
+	import { page } from '$app/stores';
 </script>
 
 <svelte:head>
@@ -7,12 +8,12 @@
 </svelte:head>
 
 <nav>
-	<a sveltekit:prefetch href=".">HOME</a>
-	<a sveltekit:prefetch href="/customer">CUSTOMERS</a>
-	<a sveltekit:prefetch href="/product">PRODUCTS</a>
-	<a sveltekit:prefetch href="/schedule">SCHEDULE</a>
-	<a sveltekit:prefetch href="/order">ORDERS</a>
-	<a sveltekit:prefetch href="/delivery">DELIVERIES</a>
+	<a class:active={$page.path === '/'} sveltekit:prefetch href="/">HOME</a>
+	<a class:active={$page.path === '/customer'} sveltekit:prefetch href="/customer">CUSTOMERS</a>
+	<a class:active={$page.path === '/product'} sveltekit:prefetch href="/product">PRODUCTS</a>
+	<a class:active={$page.path === '/schedule'} sveltekit:prefetch href="/schedule">SCHEDULE</a>
+	<a class:active={$page.path === '/order'} sveltekit:prefetch href="/order">ORDERS</a>
+	<a class:active={$page.path === '/delivery'} sveltekit:prefetch href="/delivery">DELIVERIES</a>
 </nav>
 
 <slot></slot>
@@ -25,6 +26,11 @@
 	a {
 		text-decoration: none;
 		color: gray;
+		margin-right: 1rem;
+	}
+	a.active {
+		text-decoration: none;
+		color: salmon;
 		margin-right: 1rem;
 	}
 </style>
