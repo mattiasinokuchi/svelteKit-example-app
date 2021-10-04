@@ -1,15 +1,15 @@
-<!-- This is the page for subscription -->
+<!-- This is the page for order -->
 <script context="module">
 	export async function load({ fetch }) {
 		let res = null;
 		try {
-			res = await fetch("/subscription.json");
-			const subscription = await res.json();
-			//res = await fetch("/subscription/get_deliveries.json");
+			res = await fetch("/ordering.json");
+			const ordering = await res.json();
+			//res = await fetch("/ordering/get_deliveries.json");
 			//const delivery = await res.json();
 			return {
 				props: {
-					subscription,
+					ordering,
 					//delivery,
 				},
 			};
@@ -20,15 +20,15 @@
 </script>
 
 <script>
-	export let subscription
+	export let ordering
 	//, delivery;
-	//console.log(subscription);
+	//console.log(ordering);
 </script>
 
 {#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each subscription as { id, first_name, last_name, subscription, delivery }}
+		{#each ordering as { id, first_name, last_name, order, delivery }}
 			<li class="box">
 				<h2>
 					{first_name}
@@ -37,11 +37,11 @@
 				{#each delivery as {created_at}}
 					<p>{created_at}</p>	
 				{/each}
-				{#each subscription as { product }}
+				{#each ordering as { product }}
 					<ul>
 						<li>
 							<form
-								action="/subscription/deliver.json"
+								action="/ordering/deliver.json"
 								method="post"
 							>
 								<input

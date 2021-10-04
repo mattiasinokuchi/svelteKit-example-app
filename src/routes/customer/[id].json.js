@@ -13,7 +13,7 @@ export const get = async ({ params }) => {
             first_name,
             last_name,
             status (active),
-            subscription (id, product(name))`)
+            ordering (id, product(name))`)
         .match({ id: id })
         .single();
     return {

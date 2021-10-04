@@ -20,10 +20,10 @@
 {#if false}<slot></slot>{/if}
 <main>
 	<ul>
-		{#each product as { name, emoji, id, subscription }}
+		{#each product as { name, emoji, id, ordering }}
 			<li class="box">
 				<a sveltekit:prefetch href={`/product/${id}`}>
-					<h2>{subscription.length} x {name}</h2>
+					<h2>{ordering.length} x {name}</h2>
 					<h2>{emoji}</h2>
 				</a>
 			</li>

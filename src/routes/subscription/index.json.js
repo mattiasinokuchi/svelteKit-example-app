@@ -1,5 +1,5 @@
 /*  This module contains endpoints to the database
-    for the subscription page   */
+    for the ordering page   */
 
 import supabase from '$lib/db';
 
@@ -12,7 +12,7 @@ export const get = async (_) => {
             last_name,
             status (active),
             delivery_order,
-            subscription (
+            ordering (
                 id,
                 product (
                     name,
@@ -84,7 +84,7 @@ export const get = async (_) => {
     //console.log(max) // logs 20
 
 
-    // Sort subscriptions in delivery order
+    // Sort orders in delivery order
     const inDeliveryOrder = data.sort(function (a, b) {
         return a.delivery_order - b.delivery_order;
     });

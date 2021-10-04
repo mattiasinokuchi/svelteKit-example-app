@@ -10,7 +10,7 @@
 	<a sveltekit:prefetch href=".">HOME</a>
 	<a sveltekit:prefetch href="/customer">CUSTOMERS</a>
 	<a sveltekit:prefetch href="/product">PRODUCTS</a>
-	<a sveltekit:prefetch href="/subscription">SUBSCRIPTIONS</a>
+	<a sveltekit:prefetch href="/ordering">ORDERS</a>
 	<a sveltekit:prefetch href="/delivery">DELIVERIES</a>
 </nav>
 

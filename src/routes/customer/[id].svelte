@@ -30,9 +30,9 @@
     <!-- This is a list of products with delete buttons-->
     <h1>{customer.first_name} {customer.last_name}</h1>
     <p>Subscription active: {customer.status.active}</p>
-    <p>Subscription:</p>
+    <p>Subscription/Orders:</p>
     <ul>
-        {#each customer.subscription as { product, id }}
+        {#each customer.ordering as { product, id }}
             <li>
                 <form
                     action="/customer/remove_product/{id}.json?_method=delete"
@@ -62,11 +62,11 @@
 
     <!-- This is a form for deleting customers -->
     <form action="/customer/{customer.id}.json?_method=delete" method="post">
-        <button type="submit" disabled={customer.subscription.length > 0}
+        <button type="submit" disabled={customer.ordering.length > 0}
             >Delete Customer</button
         >
         <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
-        <label for="button" hidden={customer.subscription.length < 1}
+        <label for="button" hidden={customer.ordering.length < 1}
             >(delete product and subscription first)</label
         >
     </form>

@@ -7,7 +7,7 @@ export const get = async (_) => {
             name,
             emoji,
             id,
-            subscription (id, product(name))`);
+            ordering (id, product(name))`);
     return {
         body: data
     };
