@@ -23,15 +23,12 @@
 {#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each deliver as { id, first_name, last_name, order_book, billing }}
+		{#each deliver as { id, first_name, last_name, order_book }}
 			<li class="box">
 				<h2>
 					{first_name}
 					{last_name}:
 				</h2>
-				{#each billing as {created_at}}
-					<p>{created_at}</p>	
-				{/each}
 				{#each order_book as { product }}
 					<ul>
 						<li>

@@ -18,13 +18,9 @@ export const get = async (_) => {
                     name,
                     id,
                     price,
-                    time_interval
+                    time_interval,
+                    schedule (delivery_date)
                 )
-            ),
-            billing (
-                product_id,
-                product_name,
-                created_at
             )
         `);
 
