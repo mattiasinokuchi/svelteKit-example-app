@@ -25,39 +25,21 @@ export const get = async (_) => {
             )
         `);
 
-    // Current date
+    // Filter for current date
     const currentDate = new Date().toISOString().split("T")[0];
 
-    // Filter template
-    var foodsILike = ['gluten-free', 'carb-free', 'flavor-free'];
-    var foodsAvailable = [{ name: 'pasta', tags: ['delicious', 'has carbs'] }, { name: 'gluten-free-pizza', tags: ['gluten-free'] }, { name: 'pizza', tags: ['delicious', 'best meal of the year'] }, { name: 'rice cakes', tags: ['flavor-free'] }]
-
-    var result = foodsAvailable.filter(function (food) {
-        return food.tags.some(function (tag) {
-            return foodsILike.includes(tag);
+    const dueToday = data.filter(function (customer) {
+        return customer.order_book.some(function (orders) {
+            return orders.product.schedule.find(schedule => schedule.delivery_date === currentDate) !== undefined;
         });
     });
-
-    console.log(result);
-
-    // Filter for current date
-    const wantedId = 1;
-    const customersAvailable = data;
-    const res = customersAvailable.filter(function (customer) {
-        return customer.order_book.some(function (arrVal) {
-            return wantedId === arrVal.product.id;
-        });
-    });
-    console.log(res);
 
     // Sort in delivery order
-    //const inDeliveryOrder = data.sort(function (a, b) {
-    //    return a.delivery_order - b.delivery_order;
-    //});
+    const inDeliveryOrder = dueToday.sort(function (a, b) {
+        return a.delivery_order - b.delivery_order;
+    });
 
     return {
-        //    body: inDeliveryOrder
-        //    body: dueToday
-            body: data
+        body: inDeliveryOrder
     };
 };
