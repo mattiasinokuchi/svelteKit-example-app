@@ -18,11 +18,19 @@
 
 <script>
 	export let customer;
+
+	for (let i = 0; i < customer.length; i++) {
+		const sum = customer[i].order_.reduce(function (acc, cur) {
+			return acc + cur.past_delivery.length * cur.product.price;
+		}, 0);
+		customer[i]['toPay'] = sum;
+		console.log(customer[i]);
+	}
 </script>
 
 <main>
 	<ul>
-		{#each customer as { first_name, last_name, order_ }}
+		{#each customer as { first_name, last_name, order_, toPay }}
 			<li class="box">
 				<h2>
 					{first_name}
@@ -46,12 +54,12 @@
 									{/if}
 								</li>
 							</ul>
-							Sum: ${product.price * past_delivery.length}
 							<input type="submit" value="Clear" />
 						</form>
 						<br />
 					{/if}
 				{/each}
+				Sum: ${toPay}
 			</li>
 		{/each}
 	</ul>
