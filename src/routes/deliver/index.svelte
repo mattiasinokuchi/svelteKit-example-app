@@ -4,10 +4,10 @@
 		let res = null;
 		try {
 			res = await fetch("/deliver.json");
-			const deliver = await res.json();
+			const delivery = await res.json();
 			return {
 				props: {
-					deliver,
+					delivery,
 				},
 			};
 		} catch (error) {
@@ -17,13 +17,13 @@
 </script>
 
 <script>
-	export let deliver
+	export let delivery;
+	if (delivery.message) window.location.replace('/deliver.json');
 </script>
 
-{#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each deliver as { id, first_name, last_name, order_ }}
+		{#each delivery as { id, first_name, last_name, order_ }}
 			<li class="box">
 				<h2>
 					{first_name}

@@ -2,7 +2,6 @@
     for the deliver page   */
 
 import supabase from '$lib/db';
-import { database } from 'faker/locale/de';
 
 export const get = async (_) => {
 
@@ -22,8 +21,10 @@ export const get = async (_) => {
                 )
             )
         `);
-
-    console.log(error,data);
+    
+        if(error) return {
+            body: error
+        }
 
     // Sort in delivery order
     const inDeliveryOrder = data.sort(function (a, b) {
