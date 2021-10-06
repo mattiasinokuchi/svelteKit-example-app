@@ -30,7 +30,7 @@
 				</h2>
 				{#each order_ as { id, past_delivery, product }}
 					{#if past_delivery.length > 0}
-						{past_delivery.length}x{product.name}, ${product.price}
+						{product.name}, ${product.price}:
 						<form action="/billing.json" method="post">
 							<ul>
 								<li>
@@ -45,10 +45,8 @@
 										{/each}
 									{/if}
 								</li>
-								<li>
-									Sum ${product.price * past_delivery.length}
-								</li>
 							</ul>
+							Sum: ${product.price * past_delivery.length}
 							<input type="submit" value="Clear" />
 						</form>
 						<br />
