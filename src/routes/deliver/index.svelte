@@ -18,12 +18,12 @@
 
 <script>
 	export let delivery;
-	if (delivery.message) window.location.replace("/deliver.json");
+	export let currentDate = new Date().toISOString().split("T")[0];
 </script>
 
 <main>
 	<ul>
-		{#each delivery as { id, first_name, last_name, order_ }}
+		{#each delivery as { first_name, last_name, order_ }}
 			<li class="box">
 				<h2>
 					{first_name}
@@ -32,8 +32,9 @@
 				{#each order_ as { id, past_delivery, product }}
 					<ul>
 						<li>
-							<form action="/deliver/deliver.json" method="post">
+							<form action="/deliver.json" method="post">
 								<input
+									hidden
 									name="past_delivery"
 									value={past_delivery}
 								/>
@@ -43,6 +44,7 @@
 									value={id}
 								/>
 								<input
+									hidden={past_delivery!=null && past_delivery.includes(currentDate)}
 									type="submit"
 									value={product.name}
 								/>
