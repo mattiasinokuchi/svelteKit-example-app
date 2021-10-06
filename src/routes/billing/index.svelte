@@ -4,10 +4,10 @@
 		let res = null;
 		try {
 			res = await fetch("/billing.json");
-			const delivery = await res.json();
+			const customer = await res.json();
 			return {
 				props: {
-					delivery,
+					customer,
 				},
 			};
 		} catch (error) {
@@ -17,12 +17,12 @@
 </script>
 
 <script>
-	export let delivery;
+	export let customer;
 </script>
 
 <main>
 	<ul>
-		{#each delivery as { first_name, last_name, order_ }}
+		{#each customer as { first_name, last_name, order_ }}
 			<li class="box">
 				<h2>
 					{first_name}
