@@ -17,6 +17,8 @@
 </script>
 
 <script>
+	import { is_function } from "svelte/internal";
+
 	export let delivery;
 </script>
 
@@ -30,25 +32,27 @@
 					{last_name}:
 				</h2>
 				{#each order_ as { id, past_delivery, product }}
-					{product.name}, ${product.price}
-					<form action="/billing/{id}.json?_method=update" method="post">
-						<ul>
-							<li>
-								<input hidden name="id" value={id} />
-								{#if past_delivery != null}
-									{#each past_delivery as date}
-										<ul>
-											<li>
-												{date}
-											</li>
-										</ul>
-									{/each}
-								{/if}
-							</li>
-						</ul>
-						<input type="submit" value="Clear" />
-					</form>
-					<br>
+					{#if past_delivery.length > 0}
+						{product.name}, ${product.price}
+						<form action="/billing.json" method="post">
+							<ul>
+								<li>
+									<input hidden name="id" value={id} />
+									{#if past_delivery != null}
+										{#each past_delivery as date}
+											<ul>
+												<li>
+													{date}
+												</li>
+											</ul>
+										{/each}
+									{/if}
+								</li>
+							</ul>
+							<input type="submit" value="Clear" />
+						</form>
+						<br />
+					{/if}
 				{/each}
 			</li>
 		{/each}
