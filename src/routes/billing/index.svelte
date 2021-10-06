@@ -24,7 +24,6 @@
 			return acc + cur.past_delivery.length * cur.product.price;
 		}, 0);
 		customer[i]['toPay'] = sum;
-		console.log(customer[i]);
 	}
 </script>
 
@@ -59,7 +58,7 @@
 						<br />
 					{/if}
 				{/each}
-				Sum: ${toPay}
+				Total: ${toPay}
 			</li>
 		{/each}
 	</ul>
