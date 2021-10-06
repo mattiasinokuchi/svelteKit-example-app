@@ -13,7 +13,7 @@ export const get = async (_) => {
             first_name,
             last_name,
             delivery_order,
-            orders (
+            order_ (
                 id,
                 product (
                     name,

@@ -8,7 +8,7 @@ export const del = async (request) => {
         return { status: 401 };
     }*/
     const { data, error } = await supabase
-        .from('orders')
+        .from('order_')
         .delete().match({
             id: request.params.id,
         });
