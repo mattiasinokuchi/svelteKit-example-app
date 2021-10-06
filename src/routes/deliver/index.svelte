@@ -18,7 +18,7 @@
 
 <script>
 	export let delivery;
-	if (delivery.message) window.location.replace('/deliver.json');
+	if (delivery.message) window.location.replace("/deliver.json");
 </script>
 
 <main>
@@ -29,36 +29,23 @@
 					{first_name}
 					{last_name}:
 				</h2>
-				{#each order_ as { product }}
+				{#each order_ as { id, past_delivery, product }}
 					<ul>
 						<li>
-							<form
-								action="/deliver/deliver.json"
-								method="post"
-							>
+							<form action="/deliver/deliver.json" method="post">
 								<input
-									hidden name="customer"
+									name="past_delivery"
+									value={past_delivery}
+								/>
+								<input
+									hidden
+									name="id"
 									value={id}
 								/>
 								<input
-									hidden
-									type="text"
-									name="productId"
-									value={product.id}
-								/>
-								<input
-									hidden
-									type="text"
-									name="productName"
+									type="submit"
 									value={product.name}
 								/>
-								<input
-									hidden
-									type="text"
-									name="price"
-									value={product.price}
-								/>
-								<input type="submit" value={product.name} />
 							</form>
 						</li>
 					</ul>

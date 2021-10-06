@@ -14,6 +14,7 @@ export const get = async (_) => {
             delivery_order,
             order_ (
                 id,
+                past_delivery,
                 product (
                     name,
                     id,
@@ -21,10 +22,10 @@ export const get = async (_) => {
                 )
             )
         `);
-    
-        if(error) return {
-            body: error
-        }
+
+    if (error) return {
+        body: error
+    }
 
     // Sort in delivery order
     const inDeliveryOrder = data.sort(function (a, b) {

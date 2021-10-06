@@ -1,23 +1,25 @@
 import supabase from '$lib/db';
 
 export const post = async (request) => {
-    const { data, error } = await supabase
-        .from('billing')
-        .upsert({
-            customer: request.body.get('customer'),
-            product_name: request.body.get('productName'),
-            product_id: request.body.get('productId'),
-            price: request.body.get('price')
-        });
-    console.log(error);
-    if (!error && request.headers.accept !== 'application/json') {
-        return {
-            status: 303,
-            headers: {
-                location: request.headers.referer
-            }
-        };
+    const currentDate = new Date().toISOString().split("T")[0];
+    // Fix for incorrect date format
+    if (request.body.get('past_delivery') === '') {
+        past_delivery = [currentDate];
+    } else {
+        past_delivery = request.body.get('past_delivery').split(',');
+        past_delivery.push(currentDate);
     }
+    const { data, error } = await supabase
+        .from('order_')
+        .update({
+            past_delivery: past_delivery
+        })
+        .eq('id', request.body.get('id'));
+
+    if (error) return {
+        body: error
+    }
+
     return {
         body: data
     };
