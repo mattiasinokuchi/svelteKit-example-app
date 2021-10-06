@@ -6,7 +6,7 @@ import supabase from '$lib/db';
 /* Reads all data for a specific customer */
 export const get = async ({ params }) => {
     const { id } = params;
-    let { data } = await supabase
+    const { error, data } = await supabase
         .from('customer')
         .select(`
             id,
@@ -16,6 +16,7 @@ export const get = async ({ params }) => {
             order_ (id, product(name))`)
         .match({ id: id })
         .single();
+    if(error) console.log(error);
     return {
         body: data
     };
