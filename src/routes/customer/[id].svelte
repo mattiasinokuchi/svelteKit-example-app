@@ -32,7 +32,7 @@
     <p>Subscription active: {customer.active}</p>
     <p>Subscription/Orders:</p>
     <ul>
-        {#each customer.order_book as { product, id }}
+        {#each customer.orders as { product, id }}
             <li>
                 <form
                     action="/customer/remove_product/{id}.json?_method=delete"
@@ -62,11 +62,11 @@
 
     <!-- This is a form for deleting customers -->
     <form action="/customer/{customer.id}.json?_method=delete" method="post">
-        <button type="submit" disabled={customer.order_book.length > 0}
+        <button type="submit" disabled={customer.orders.length > 0}
             >Delete Customer</button
         >
         <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
-        <label for="button" hidden={customer.order_book.length < 1}
+        <label for="button" hidden={customer.orders.length < 1}
             >(delete product and subscription first)</label
         >
     </form>

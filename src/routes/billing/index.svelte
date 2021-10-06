@@ -1,31 +1,68 @@
+<!-- This is the page for delivery -->
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/billing.json");
-		if (res.ok) {
-			const billing = await res.json();
+		let res = null;
+		try {
+			res = await fetch("/billing.json");
+			const deliver = await res.json();
 			return {
-				props: { billing },
+				props: {
+					deliver,
+				},
 			};
+		} catch (error) {
+			return error;
 		}
-		const { message } = await res.json();
-		return {
-			error: new Error(message),
-		};
 	}
 </script>
 
 <script>
-	export let billing;
+	export let deliver
 </script>
-{#if false}<slot></slot>{/if}
+
+{#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each billing as { customer, created_at, product_name, price }}
+		{#each deliver as { id, first_name, last_name, orders }}
 			<li class="box">
-				{created_at},
-				{customer.first_name} {customer.last_name},
-				{product_name},
-				${price}
+				<h2>
+					{first_name}
+					{last_name}:
+				</h2>
+				{#each orders as { product }}
+					<ul>
+						<li>
+							<form
+								action="/deliver/deliver.json"
+								method="post"
+							>
+								<input
+									hidden name="customer"
+									value={id}
+								/>
+								<input
+									hidden
+									type="text"
+									name="productId"
+									value={product.id}
+								/>
+								<input
+									hidden
+									type="text"
+									name="productName"
+									value={product.name}
+								/>
+								<input
+									hidden
+									type="text"
+									name="price"
+									value={product.price}
+								/>
+								<input type="submit" value={product.name} />
+							</form>
+						</li>
+					</ul>
+				{/each}
 			</li>
 		{/each}
 	</ul>
@@ -44,7 +81,13 @@
 	.box:hover {
 		box-shadow: 4px 5px 11px 10px lightgray;
 	}
+	h2 {
+		color: salmon;
+	}
 	ul {
 		list-style-type: none;
+	}
+	li {
+		margin: 1rem;
 	}
 </style>

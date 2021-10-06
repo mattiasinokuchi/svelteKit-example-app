@@ -1,21 +1,36 @@
+/*  This module contains endpoints to the database
+    for the deliver page   */
+
 import supabase from '$lib/db';
+import { database } from 'faker/locale/de';
 
 export const get = async (_) => {
-    const { data } = await supabase
-        .from('billing')
+
+    const { error, data } = await supabase
+        .from('customer')
         .select(`
             id,
-            created_at,
-            product_id,
-            product_name,
-            price,
-            customer(
-                first_name,
-                last_name
+            first_name,
+            last_name,
+            delivery_order,
+            orders (
+                id,
+                product (
+                    name,
+                    id,
+                    price
+                )
             )
         `);
+
+    console.log(error,data);
+
+    // Sort in delivery order
+    const inDeliveryOrder = data.sort(function (a, b) {
+        return a.delivery_order - b.delivery_order;
+    });
+
     return {
-        body: data
+        body: inDeliveryOrder
     };
 };
-

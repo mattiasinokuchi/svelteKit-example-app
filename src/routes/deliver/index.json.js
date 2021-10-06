@@ -2,6 +2,7 @@
     for the deliver page   */
 
 import supabase from '$lib/db';
+import { database } from 'faker/locale/de';
 
 export const get = async (_) => {
 
@@ -11,31 +12,21 @@ export const get = async (_) => {
             id,
             first_name,
             last_name,
-            active,
             delivery_order,
-            order_book (
+            orders (
                 id,
                 product (
                     name,
                     id,
-                    price,
-                    time_interval,
-                    schedule (delivery_date)
+                    price
                 )
             )
         `);
 
-    // Filter for current date
-    const currentDate = new Date().toISOString().split("T")[0];
-
-    const dueToday = data.filter(function (customer) {
-        return customer.order_book.some(function (orders) {
-            return orders.product.schedule.find(schedule => schedule.delivery_date === currentDate) !== undefined;
-        });
-    });
+    console.log(error,data);
 
     // Sort in delivery order
-    const inDeliveryOrder = dueToday.sort(function (a, b) {
+    const inDeliveryOrder = data.sort(function (a, b) {
         return a.delivery_order - b.delivery_order;
     });
 

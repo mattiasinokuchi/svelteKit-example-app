@@ -13,7 +13,7 @@ export const get = async ({ params }) => {
             first_name,
             last_name,
             active,
-            order_book (id, product(name))`)
+            orders (id, product(name))`)
         .match({ id: id })
         .single();
     return {
