@@ -30,8 +30,13 @@
     <!-- This is a list of products with delete buttons-->
     <h1>{customer.first_name} {customer.last_name}</h1>
     <p>Subscription active: {customer.active}</p>
-    <p>Subscription/order_:</p>
+    <p>Subscriptions/orders:</p>
     <ul>
+        <li
+            hidden={customer.order_.length>0}
+        >
+            Nothing
+        </li>
         {#each customer.order_ as { product, id }}
             <li>
                 <form
