@@ -1,4 +1,4 @@
-<!-- This is the page for delivery -->
+<!-- This is the page for billing -->
 <script context="module">
 	export async function load({ fetch }) {
 		let res = null;
@@ -17,12 +17,9 @@
 </script>
 
 <script>
-	import { is_function } from "svelte/internal";
-
 	export let delivery;
 </script>
 
-{#if false}<slot />{/if}
 <main>
 	<ul>
 		{#each delivery as { first_name, last_name, order_ }}
@@ -33,7 +30,7 @@
 				</h2>
 				{#each order_ as { id, past_delivery, product }}
 					{#if past_delivery.length > 0}
-						{product.name}, ${product.price}
+						{past_delivery.length}x{product.name}, ${product.price}
 						<form action="/billing.json" method="post">
 							<ul>
 								<li>
@@ -47,6 +44,9 @@
 											</ul>
 										{/each}
 									{/if}
+								</li>
+								<li>
+									Sum ${product.price * past_delivery.length}
 								</li>
 							</ul>
 							<input type="submit" value="Clear" />
