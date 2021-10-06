@@ -4,10 +4,10 @@
 		let res = null;
 		try {
 			res = await fetch("/billing.json");
-			const deliver = await res.json();
+			const delivery = await res.json();
 			return {
 				props: {
-					deliver,
+					delivery,
 				},
 			};
 		} catch (error) {
@@ -17,51 +17,38 @@
 </script>
 
 <script>
-	export let deliver
+	export let delivery;
 </script>
 
 {#if false}<slot />{/if}
 <main>
 	<ul>
-		{#each deliver as { id, first_name, last_name, order_ }}
+		{#each delivery as { first_name, last_name, order_ }}
 			<li class="box">
 				<h2>
 					{first_name}
 					{last_name}:
 				</h2>
-				{#each order_ as { product }}
-					<ul>
-						<li>
-							<form
-								action="/deliver/deliver.json"
-								method="post"
-							>
-								<input
-									hidden name="customer"
-									value={id}
-								/>
-								<input
-									hidden
-									type="text"
-									name="productId"
-									value={product.id}
-								/>
-								<input
-									hidden
-									type="text"
-									name="productName"
-									value={product.name}
-								/>
-								<input
-									hidden
-									type="text"
-									name="price"
-									value={product.price}
-								/>
-								<input type="submit" value={product.name} />
-							</form>
-						</li>
-					</ul>
+				{#each order_ as { id, past_delivery, product }}
+					{product.name}, ${product.price}
+					<form action="/billing/{id}.json?_method=update" method="post">
+						<ul>
+							<li>
+								<input hidden name="id" value={id} />
+								{#if past_delivery != null}
+									{#each past_delivery as date}
+										<ul>
+											<li>
+												{date}
+											</li>
+										</ul>
+									{/each}
+								{/if}
+							</li>
+						</ul>
+						<input type="submit" value="Clear" />
+					</form>
+					<br>
 				{/each}
 			</li>
 		{/each}

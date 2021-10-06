@@ -19,7 +19,8 @@ export const get = async (_) => {
                     name,
                     id,
                     price
-                )
+                ),
+                past_delivery
             )
         `);
 
