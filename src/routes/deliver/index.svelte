@@ -23,7 +23,7 @@
 
 <main>
 	<h2 hidden={customer.length>0}>
-		No delivery to do today. Relax!
+		No delivery to do. Relax!
 	</h2>
 	<ul>
 		{#each customer as { first_name, last_name, order_ }}
