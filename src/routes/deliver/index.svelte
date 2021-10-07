@@ -1,4 +1,4 @@
-<!-- This is the page for delivery -->
+<!-- This is the delivery page -->
 <script context="module">
 	export async function load({ fetch }) {
 		let res = null;
@@ -19,12 +19,29 @@
 <script>
 	export let customer;
 	export let currentDate = new Date().toISOString().split("T")[0];
+
+	// Count products
+	export let products = {};
+	for (let i = 0; i < customer.length; i++) {
+		customer[i].order_.reduce(function (
+			allNames,
+			name
+		) {
+			if (name.product.name in allNames) {
+				allNames[name.product.name]++;
+			} else {
+				allNames[name.product.name] = 1;
+			}
+			return allNames;
+		},
+		products);
+	}
+	console.log(products);
 </script>
 
 <main>
-	<h2 hidden={customer.length>0}>
-		No delivery to do. Relax!
-	</h2>
+	<h2 hidden={customer.length > 0}>No delivery to do. Relax!</h2>
+	<h2>{Object.entries(products)}</h2>
 	<ul>
 		{#each customer as { first_name, last_name, order_ }}
 			<li class="box">

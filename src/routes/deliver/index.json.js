@@ -1,5 +1,5 @@
 /*  This module contains endpoints to the database
-    for the deliver page   */
+    for the delivery page   */
 
 import supabase from '$lib/db';
 
@@ -26,7 +26,7 @@ export const get = async (_) => {
         body: error
     }
     
-    // Filter customer already delivered today
+    // Remove customer already delivered today
     const currentDate = new Date().toISOString().split("T")[0];
 	const notDelivered = data.filter(({ order_ }) =>
 		order_.some(({ past_delivery }) =>
