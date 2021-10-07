@@ -4,10 +4,10 @@
 		let res = null;
 		try {
 			res = await fetch("/deliver.json");
-			const delivery = await res.json();
+			const customer = await res.json();
 			return {
 				props: {
-					delivery,
+					customer,
 				},
 			};
 		} catch (error) {
@@ -17,13 +17,16 @@
 </script>
 
 <script>
-	export let delivery;
+	export let customer;
 	export let currentDate = new Date().toISOString().split("T")[0];
 </script>
 
 <main>
+	<h2 hidden={customer.length>0}>
+		No deliveries (left) to do today
+	</h2>
 	<ul>
-		{#each delivery as { first_name, last_name, order_ }}
+		{#each customer as { first_name, last_name, order_ }}
 			<li class="box">
 				<h2>
 					{first_name}
