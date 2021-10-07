@@ -3,7 +3,7 @@
 
 import supabase from '$lib/db';
 
-// Reads all deliveries
+// Read deliveries
 export const get = async (_) => {
     const { error, data } = await supabase
         .from('customer')
@@ -22,10 +22,17 @@ export const get = async (_) => {
                 past_delivery
             )
         `);
-
     if (error) console.log(error);
+
+    // Remove customer without deliveries
+    const delivered = data.filter(({ order_ }) =>
+        order_.some(({ past_delivery }) =>
+            past_delivery.length>0
+        )
+    );
+
     // Sort in delivery order
-    const inDeliveryOrder = data.sort(function (a, b) {
+    const inDeliveryOrder = delivered.sort(function (a, b) {
         return a.delivery_order - b.delivery_order;
     });
     return {
@@ -33,7 +40,7 @@ export const get = async (_) => {
     };
 };
 
-// Clears a delivery
+// Clear delivery
 export const post = async (request) => {
     const past_delivery = [];
     const { data, error } = await supabase

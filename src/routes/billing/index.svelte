@@ -30,6 +30,9 @@
 </script>
 
 <main>
+	<h2 hidden={customer.length>0}>
+		No billing (left) to do today
+	</h2>
 	<ul>
 		{#each customer as { first_name, last_name, order_, toPay }}
 		{#if toPay != null && toPay !== 0}
