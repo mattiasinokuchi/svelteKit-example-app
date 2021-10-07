@@ -25,10 +25,20 @@ export const get = async (_) => {
     if (error) return {
         body: error
     }
+    
+    // Filter customer already delivered today
+    const currentDate = new Date().toISOString().split("T")[0];
+	const notDelivered = data.filter(({ order_ }) =>
+		order_.some(({ past_delivery }) =>
+			!past_delivery.includes(currentDate)
+		)
+	);
+
     // Sort in delivery order
-    const inDeliveryOrder = data.sort(function (a, b) {
+    const inDeliveryOrder = notDelivered.sort(function (a, b) {
         return a.delivery_order - b.delivery_order;
     });
+    
     return {
         body: inDeliveryOrder
     };

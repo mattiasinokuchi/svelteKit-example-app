@@ -38,13 +38,10 @@
 									name="past_delivery"
 									value={past_delivery}
 								/>
+								<input hidden name="id" value={id} />
 								<input
-									hidden
-									name="id"
-									value={id}
-								/>
-								<input
-									hidden={past_delivery!=null && past_delivery.includes(currentDate)}
+									hidden={past_delivery != null &&
+										past_delivery.includes(currentDate)}
 									type="submit"
 									value={product.name}
 								/>
