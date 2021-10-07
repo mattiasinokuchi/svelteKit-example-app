@@ -32,7 +32,7 @@
 <main>
 	<ul>
 		{#each customer as { first_name, last_name, order_, toPay }}
-		{#if toPay != null}
+		{#if toPay != null && toPay !== 0}
 		<li class="box">
 			<h2>
 				{first_name}
