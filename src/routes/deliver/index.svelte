@@ -21,27 +21,34 @@
 	export let currentDate = new Date().toISOString().split("T")[0];
 
 	// Count products
-	export let products = {};
+	let count = {};
 	for (let i = 0; i < customer.length; i++) {
-		customer[i].order_.reduce(function (
-			allNames,
-			name
-		) {
+		customer[i].order_.reduce(function (allNames, name) {
 			if (name.product.name in allNames) {
 				allNames[name.product.name]++;
 			} else {
 				allNames[name.product.name] = 1;
 			}
 			return allNames;
-		},
-		products);
+		}, count);
 	}
+	export let products = [];
+	Object.entries(count).forEach((entry) => {
+		const [key, value] = entry;
+		const obj = { name: key, quantity: value };
+		products.push(obj);
+	});
 	console.log(products);
 </script>
 
 <main>
 	<h2 hidden={customer.length > 0}>No delivery to do. Relax!</h2>
-	<h2>{Object.entries(products)}</h2>
+	<ul class="box">
+		<h2>To deliver:</h2>
+		{#each products as { name, quantity }}
+			<li>{quantity} x {name}</li>
+		{/each}
+	</ul>
 	<ul>
 		{#each customer as { first_name, last_name, order_ }}
 			<li class="box">
