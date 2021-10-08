@@ -38,13 +38,12 @@
 		const obj = { name: key, quantity: value };
 		products.push(obj);
 	});
-	console.log(products);
 </script>
 
 <main>
 	<h2 hidden={customer.length > 0}>No delivery to do. Relax!</h2>
-	<ul class="box">
-		<h2>To deliver:</h2>
+	<ul hidden={products.length < 1} class="box">
+		<h2 >To deliver:</h2>
 		{#each products as { name, quantity }}
 			<li>{quantity} x {name}</li>
 		{/each}
