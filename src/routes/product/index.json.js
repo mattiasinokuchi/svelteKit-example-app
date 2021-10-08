@@ -1,5 +1,9 @@
+/*  This module contains endpoints to the database
+    for the product page   */
+
 import supabase from '$lib/db';
 
+// Reads all products
 export const get = async (_) => {
     let { data } = await supabase
         .from('product')
@@ -8,6 +12,28 @@ export const get = async (_) => {
             emoji,
             id,
             order_ (id, product(name))`);
+    return {
+        body: data
+    };
+};
+
+// Add a new product
+export const post = async (request) => {
+    const { data, error } = await supabase
+        .from('product')
+        .upsert({
+            name: request.body.get('name'),
+            price: request.body.get('price'),
+            emoji: request.body.get('emoji'),
+        });
+    if (!error && request.headers.accept !== 'application/json') {
+        return {
+            status: 303,
+            headers: {
+                location: '/product'
+            }
+        };
+    }
     return {
         body: data
     };

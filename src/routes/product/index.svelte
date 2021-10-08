@@ -17,8 +17,59 @@
 <script>
 	export let product;
 </script>
-{#if false}<slot></slot>{/if}
+
+{#if false}<slot />{/if}
 <main>
+	<!-- This is a form for adding new products -->
+	<form class="box" action="/product.json" method="post">
+		<h2>New product</h2>
+		<ul>
+			<li>
+				<label for="name">Product Name</label>
+			</li>
+			<li>
+				<input
+					type="text"
+					id="name"
+					name="name"
+					aria-label="Add product"
+					placeholder="Product name"
+				/>
+			</li>
+			<br />
+			<li>
+				<label for="price">Price ($)</label>
+			</li>
+			<li>
+				<input
+					type="number"
+					id="price"
+					name="price"
+					aria-label="Add product"
+					placeholder="10"
+				/>
+			</li>
+			<br />
+			<li>
+				<label for="emoji">Emoji</label>
+			</li>
+			<li>
+				<input
+					type="text"
+					id="emoji"
+					name="emoji"
+					aria-label="Add product"
+					placeholder="🌽"
+				/>
+			</li>
+			<br />
+			<li class="button">
+				<button type="submit">Submit</button>
+			</li>
+		</ul>
+	</form>
+
+	<!-- This a list of all products -->
 	<ul>
 		{#each product as { name, emoji, id }}
 			<li class="box">
