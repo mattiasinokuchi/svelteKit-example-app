@@ -21,30 +21,32 @@
 	export let currentDate = new Date().toISOString().split("T")[0];
 
 	// Count products
-	let count = {};
+	let countObject = {};
 	for (let i = 0; i < customer.length; i++) {
-		customer[i].order_.reduce(function (allNames, name) {
-			if (name.product.name in allNames) {
-				allNames[name.product.name]++;
+		customer[i].order_.reduce(function (allProductsObject, order) {
+			if (order.past_delivery.includes(currentDate)) {
+				allProductsObject[order.product.name];
+			} else if (order.product.name in allProductsObject) {
+				allProductsObject[order.product.name]++;
 			} else {
-				allNames[name.product.name] = 1;
+				allProductsObject[order.product.name] = 1;
 			}
-			return allNames;
-		}, count);
+			return allProductsObject;
+		}, countObject);
 	}
-	export let products = [];
-	Object.entries(count).forEach((entry) => {
+	export let count = [];
+	Object.entries(countObject).forEach((entry) => {
 		const [key, value] = entry;
-		const obj = { name: key, quantity: value };
-		products.push(obj);
+		const newObject = { name: key, quantity: value };
+		count.push(newObject);
 	});
 </script>
 
 <main>
 	<h2 hidden={customer.length > 0}>No delivery to do. Relax!</h2>
-	<ul hidden={products.length < 1} class="box">
+	<ul hidden={count.length < 1} class="box">
 		<h2 >To deliver:</h2>
-		{#each products as { name, quantity }}
+		{#each count as { name, quantity }}
 			<li>{quantity} x {name}</li>
 		{/each}
 	</ul>
