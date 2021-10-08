@@ -18,7 +18,8 @@ export const get = async (_) => {
                 product (
                     name,
                     id,
-                    price
+                    price,
+                    emoji
                 )
             )
         `);

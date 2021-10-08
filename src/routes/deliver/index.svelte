@@ -43,6 +43,7 @@
 </script>
 
 <main>
+	<!-- This a list with counts of products to deliver -->
 	<h2 hidden={customer.length > 0}>No delivery to do. Relax!</h2>
 	<ul hidden={count.length < 1} class="box">
 		<h2 >To deliver:</h2>
@@ -50,6 +51,7 @@
 			<li>{quantity} x {name}</li>
 		{/each}
 	</ul>
+	<!-- This is a list of customers and products -->
 	<ul>
 		{#each customer as { first_name, last_name, order_ }}
 			<li class="box">
