@@ -3,15 +3,13 @@
 
 import supabase from '$lib/db';
 
-export const update = async (request) => {
-    const order = parseInt(request.body.get('order'));
-    const id = request.params.id;
+export const post = async (request) => {
+    console.log('endpoint called');
     const { data, error } = await supabase
         .from('customer')
-        .upsert([{
-            'id': id,
-            'delivery_order': order
-        }]);
+        .update({ 'delivery_order': request.body.order })
+        .eq('id', request.body.id);
+    console.log(data, error);
     if (!error && request.headers.accept !== 'application/json') {
         return {
             status: 303,
@@ -20,7 +18,7 @@ export const update = async (request) => {
             }
         };
     }
-    console.log(error);
+    console.log(data, error);
     return {
         body: data,
         error: error
