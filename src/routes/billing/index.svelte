@@ -31,62 +31,56 @@
 
 <main>
 	<h2 hidden={customer.length > 0}>No billing to do. Relax!</h2>
-	<ul>
-		{#each customer as { first_name, last_name, order_, toPay }}
-			{#if toPay != null && toPay !== 0}
-				<li class="box">
-					<h2>
-						{first_name}
-						{last_name}:
-					</h2>
-					{#each order_ as { id, past_delivery, product }}
-						{#if past_delivery != null && past_delivery.length > 0}
-							{product.name}, ${product.price}:
-							<form action="/billing.json" method="post">
+	{#each customer as { first_name, last_name, order_, toPay }}
+		{#if toPay != null && toPay !== 0}
+			<div class="box">
+				<h2>
+					{first_name}
+					{last_name}:
+				</h2>
+				{#each order_ as { id, past_delivery, product }}
+					{#if past_delivery != null && past_delivery.length > 0}
+						{product.name}, ${product.price}:
+						<form action="/billing.json" method="post">
+							<input hidden name="id" value={id} />
+							{#each past_delivery as date}
 								<ul>
 									<li>
-										<input hidden name="id" value={id} />
-										{#each past_delivery as date}
-											<ul>
-												<li>
-													{date}
-												</li>
-											</ul>
-										{/each}
+										{date}
 									</li>
 								</ul>
-								<input type="submit" value="Clear" />
-							</form>
-							<br />
-						{/if}
-					{/each}
-					Total: ${toPay}
-				</li>
-			{/if}
-		{/each}
-	</ul>
+							{/each}
+							<input type="submit" value="Clear" />
+						</form>
+						<br />
+					{/if}
+				{/each}
+				Total: ${toPay}
+			</div>
+		{/if}
+	{/each}
 </main>
 
 <style>
 	main {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: center;
+		text-align: center;
 	}
 	.box {
-		padding: 0.25rem;
-		margin: 1.5rem;
-		box-shadow: 4px 5px 11px 2px lightgray;
+		padding: 1vw;
+		margin-top: 4vw;
+		box-shadow: 1vw 1vw 2vw 0.2vw lightgray;
+		width: 90vw;
 	}
 	.box:hover {
-		box-shadow: 4px 5px 11px 10px lightgray;
+		box-shadow: 1vw 1vw 2vw 1vw lightgray;
 	}
 	h2 {
 		color: salmon;
 	}
-	ul {
-		list-style-type: none;
-	}
-	li {
-		margin: 1rem;
+	input {
+		margin: 1vw;
 	}
 </style>

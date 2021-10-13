@@ -18,7 +18,7 @@
 <script>
 	export let customer;
 
-	// This block requests a delivery order to be updated 
+	// This block requests a delivery order to be updated
 	async function reorder(id, delivery_order) {
 		try {
 			const url = "/customer/reorder_delivery.json";
@@ -70,74 +70,58 @@
 	<!-- This is a form for adding new customers -->
 	<form class="box" action="/customer.json" method="post">
 		<h2>New customer</h2>
-		<ul>
-			<li>
-				<label for="firstName">First Name</label>
-			</li>
-			<li>
-				<input
-					type="text"
-					id="firstName"
-					name="firstName"
-					aria-label="Add customer"
-					placeholder="First name"
-				/>
-			</li>
-			<br />
-			<li>
-				<label for="lastName">Last Name</label>
-			</li>
-			<li>
-				<input
-					type="text"
-					id="lastName"
-					name="lastName"
-					aria-label="Add customer"
-					placeholder="Last name"
-				/>
-			</li>
-			<br />
-			<li class="button">
-				<button type="submit">Submit</button>
-			</li>
-		</ul>
+		<label for="firstName">First Name</label>
+		<input
+			type="text"
+			id="firstName"
+			name="firstName"
+			aria-label="Add customer"
+			placeholder="First name"
+		/>
+		<br />
+		<label for="lastName">Last Name</label>
+		<input
+			type="text"
+			id="lastName"
+			name="lastName"
+			aria-label="Add customer"
+			placeholder="Last name"
+		/>
+		<br />
+		<button type="submit">Submit</button>
 	</form>
 
 	<!---	This is a list of customers with a form
 			for changing their delivery order	-->
-	<ul>
-		{#each customer as { first_name, last_name, id, delivery_order }}
-			<li class="box">
-				<a sveltekit:prefetch href={`/customer/${id}`}>
-					<h2>{first_name} {last_name}</h2>
-				</a>
-				<form on:submit|preventDefault={reorder(id, delivery_order)}>
-					<label for="order">Delivery order</label>
-					<input size="2" bind:value={delivery_order} />
-					<input type="submit" value="Reorder" />
-				</form>
-			</li>
-		{/each}
-	</ul>
+	{#each customer as { first_name, last_name, id, delivery_order }}
+		<div class="box">
+			<a sveltekit:prefetch href={`/customer/${id}`}>
+				<h2>{first_name} {last_name}</h2>
+			</a>
+			<form on:submit|preventDefault={reorder(id, delivery_order)}>
+				<label for="order">Delivery order</label>
+				<input size="2" bind:value={delivery_order} />
+				<input type="submit" value="Reorder" />
+			</form>
+		</div>
+	{/each}
 </main>
 
 <style>
 	main {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: center;
-	}
-	.box {
-		padding: 0.25rem;
-		margin: 1.5rem;
-		box-shadow: 4px 5px 11px 2px lightgray;
-		width: 40vw;
 		text-align: center;
 	}
-	.box:hover {
-		box-shadow: 4px 5px 11px 10px lightgray;
+	.box {
+		padding: 1vw;
+		margin-top: 4vw;
+		box-shadow: 1vw 1vw 2vw 0.2vw lightgray;
+		width: 90vw;
 	}
-	ul {
-		list-style-type: none;
+	.box:hover {
+		box-shadow: 1vw 1vw 2vw 1vw lightgray;
 	}
 	h2 {
 		color: salmon;
@@ -145,5 +129,8 @@
 	a {
 		text-decoration: none;
 		color: salmon;
+	}
+	input {
+		margin: 1vw;
 	}
 </style>

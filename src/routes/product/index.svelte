@@ -86,4 +86,7 @@
 		text-decoration: none;
 		color: salmon;
 	}
+	input {
+		margin: 1vw;
+	}
 </style>

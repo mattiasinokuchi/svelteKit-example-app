@@ -18,32 +18,21 @@
 <script>
     export let product;
 </script>
-{#if false}<slot></slot>{/if}
+
 <main>
     <h1>{product.name}</h1>
-    <div class="box">
-        <ul>
-            <li>Price: ${product.price}</li>
-       </ul>
-    </div>
+    <h2>Price: ${product.price}</h2>
 </main>
 
 <style>
     main {
-        margin: 4rem;
-        padding: 2rem;
-        color: gray;
-        justify-content: center;
-        box-shadow: 4px 5px 11px 10px lightgray;
+        margin-top: 4rem;
+        text-align: center;
     }
     h1 {
         color: salmon;
     }
-    .box {
-        display: flex;
-        font-size: 1.5rem;
-    }
-    li {
-        margin-bottom: 1rem;
+    h2 {
+        color: gray;
     }
 </style>
