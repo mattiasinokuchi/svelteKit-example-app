@@ -37,7 +37,7 @@
             name="subscribe"
             bind:checked={customer.active}
         />
-        <label for="subscribe">Subscription</label>
+        <label for="subscribe">Active subscription</label>
         <button type="submit">Update</button>
     </form>
 
