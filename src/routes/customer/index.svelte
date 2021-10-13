@@ -18,10 +18,8 @@
 <script>
 	export let customer;
 
+	// This block requests a delivery order to be updated 
 	async function reorder(id, delivery_order) {
-		console.log(
-			"reorder of id " + id + " and order " + delivery_order + " called"
-		);
 		try {
 			const url = "/customer/reorder_delivery.json";
 			await fetch(url, {
@@ -42,7 +40,7 @@
 
 	import { onMount } from "svelte";
 
-	// This block handles duplicate delivery order numbers
+	// This block handles duplicate numbers in the delivery order
 	onMount(async () => {
 		for (let index = 0; index < customer.length; index++) {
 			if (
@@ -50,27 +48,14 @@
 				customer[index].delivery_order ===
 					customer[index - 1].delivery_order
 			) {
-				console.log("duplicates");
-				console.log(
-					customer[index - 1].first_name +
-						" updated " +
-						customer[index - 1].updated_at
-				);
-				console.log(
-					customer[index].first_name +
-						" updated " +
-						customer[index].updated_at
-				);
 				if (
 					customer[index].updated_at < customer[index - 1].updated_at
 				) {
-					console.log("defer " + customer[index].first_name);
 					let deliveryOrder = customer[index].delivery_order;
 					deliveryOrder++;
 					const id = customer[index].id;
 					reorder(id, deliveryOrder);
 				} else {
-					console.log("defer " + customer[index - 1].first_name);
 					let deliveryOrder = customer[index - 1].delivery_order;
 					deliveryOrder++;
 					const id = customer[index - 1].id;
@@ -126,18 +111,11 @@
 				<a sveltekit:prefetch href={`/customer/${id}`}>
 					<h2>{first_name} {last_name}</h2>
 				</a>
-				<!--	<form
-
-					action="/customer/reorder_delivery/{id}.json?_method=update"
-					method="post"
-					id='reorder'
-				>	-->
 				<form on:submit|preventDefault={reorder(id, delivery_order)}>
 					<label for="order">Delivery order</label>
 					<input size="2" bind:value={delivery_order} />
 					<input type="submit" value="Reorder" />
 				</form>
-				<!--	</form>	-->
 			</li>
 		{/each}
 	</ul>
