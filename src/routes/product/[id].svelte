@@ -24,8 +24,7 @@
     <div class="box">
         <ul>
             <li>Price: ${product.price}</li>
-            <li>Interval: {product.time_interval} days</li>
-        </ul>
+       </ul>
     </div>
 </main>
 
