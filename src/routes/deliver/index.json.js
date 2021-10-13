@@ -12,6 +12,7 @@ export const get = async (_) => {
             first_name,
             last_name,
             delivery_order,
+            active,
             order_ (
                 id,
                 past_delivery,
@@ -21,8 +22,8 @@ export const get = async (_) => {
                     price,
                     emoji
                 )
-            )
-        `);
+            )`)
+        .eq('active', true);
     if (error) return {
         body: error
     }
