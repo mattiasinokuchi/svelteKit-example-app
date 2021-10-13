@@ -4,7 +4,6 @@
 import supabase from '$lib/db';
 
 export const post = async (request) => {
-    console.log('Hej! ', request.body.get('subscribe'));
     const { data, error } = await supabase
         .from('customer')
         .update({ active: request.body.get('subscribe') })
