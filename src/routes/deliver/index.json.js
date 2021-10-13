@@ -31,7 +31,7 @@ export const get = async (_) => {
     const currentDate = new Date().toISOString().split("T")[0];
 	const notDelivered = data.filter(({ order_ }) =>
 		order_.some(({ past_delivery }) =>
-			!past_delivery.includes(currentDate)
+			!past_delivery || !past_delivery.includes(currentDate)
 		)
 	);
 
