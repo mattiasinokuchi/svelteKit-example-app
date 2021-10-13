@@ -1,5 +1,4 @@
-<!--    This is a child page to
-        the customers parent page  -->
+<!--    This is a specific customers page  -->
 <script context="module">
     export async function load({ fetch, page }) {
         const { id } = page.params;
@@ -12,7 +11,7 @@
             return {
                 props: {
                     customer,
-                    product
+                    product,
                 },
             };
         } catch (error) {
@@ -25,32 +24,44 @@
     export let customer, product;
 </script>
 
-{#if false}<slot />{/if}
 <main>
-    <!-- This is a list of products with delete buttons-->
     <h1>{customer.first_name} {customer.last_name}</h1>
-    <p>Subscription active: {customer.active}</p>
-    <p>Subscriptions/orders:</p>
-    <ul>
-        <li
-            hidden={customer.order_.length>0}
-        >
-            Nothing
-        </li>
-        {#each customer.order_ as { product, id }}
-            <li>
-                <form
-                    action="/customer/remove_product/{id}.json?_method=delete"
-                    method="post"
-                >
-                    <label>
-                        {product.name}
-                        <button type="submit">Delete</button>
-                    </label>
-                </form>
-            </li>
-        {/each}
-    </ul>
+
+    <!-- This is a form for setting the subscription status -->
+    <form action="/customer/set_status.json" method="post">
+        <input type="hidden" name="customer" value={customer.id} />
+        <input type="hidden" name="subscribe" value={customer.active} />
+        <input
+            type="checkbox"
+            id="subscribe"
+            name="subscribe"
+            bind:checked={customer.active}
+        />
+        <label for="subscribe">Subscription</label>
+        <button type="submit">Update</button>
+    </form>
+
+    <!-- This is a list of subscriptions/orders with delete buttons -->
+    <section id="list">
+        <p>Subscriptions/orders:</p>
+        <ul>
+            <li hidden={customer.order_.length > 0}>Nothing</li>
+            {#each customer.order_ as { product, id }}
+                <li>
+                    <form
+                        action="/customer/remove_product/{id}.json?_method=delete"
+                        method="post"
+                        disabled={!customer.active}
+                    >
+                        <label>
+                            {product.name}
+                            <button type="submit" disabled={!customer.active}>Delete</button>
+                        </label>
+                    </form>
+                </li>
+            {/each}
+        </ul>
+    </section>
 
     <!-- This is a form for adding products -->
     <form action="/customer/add_product.json" method="post">
