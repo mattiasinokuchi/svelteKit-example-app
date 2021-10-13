@@ -19,7 +19,9 @@
 	export let customer;
 
 	async function reorder(id, delivery_order) {
-		console.log("reorder of id " + id + " and order " + delivery_order + " called");
+		console.log(
+			"reorder of id " + id + " and order " + delivery_order + " called"
+		);
 		try {
 			const url = "/customer/reorder_delivery.json";
 			await fetch(url, {
@@ -38,39 +40,45 @@
 		}
 	}
 
+	import { onMount } from "svelte";
+
 	// This block handles duplicate delivery order numbers
-	for (let index = 0; index < customer.length; index++) {
-		if (
-			index !== 0 &&
-			customer[index].delivery_order ===
-				customer[index - 1].delivery_order
-		) {
-			console.log("duplicates");
-			console.log(
-				customer[index - 1].first_name +
-					" updated " +
-					customer[index - 1].updated_at
-			);
-			console.log(
-				customer[index].first_name +
-					" updated " +
-					customer[index].updated_at
-			);
-			if (customer[index].updated_at < customer[index - 1].updated_at) {
-				console.log("defer " + customer[index].first_name);
-				let deliveryOrder = customer[index].delivery_order;
-				deliveryOrder++;
-				const id = customer[index].id;
-				reorder(id, deliveryOrder);
-			} else {
-				console.log("defer " + customer[index - 1].first_name);
-				let deliveryOrder = customer[index - 1].delivery_order;
-				deliveryOrder++;
-				const id = customer[index - 1].id;
-				reorder(id, deliveryOrder);
+	onMount(async () => {
+		for (let index = 0; index < customer.length; index++) {
+			if (
+				index !== 0 &&
+				customer[index].delivery_order ===
+					customer[index - 1].delivery_order
+			) {
+				console.log("duplicates");
+				console.log(
+					customer[index - 1].first_name +
+						" updated " +
+						customer[index - 1].updated_at
+				);
+				console.log(
+					customer[index].first_name +
+						" updated " +
+						customer[index].updated_at
+				);
+				if (
+					customer[index].updated_at < customer[index - 1].updated_at
+				) {
+					console.log("defer " + customer[index].first_name);
+					let deliveryOrder = customer[index].delivery_order;
+					deliveryOrder++;
+					const id = customer[index].id;
+					reorder(id, deliveryOrder);
+				} else {
+					console.log("defer " + customer[index - 1].first_name);
+					let deliveryOrder = customer[index - 1].delivery_order;
+					deliveryOrder++;
+					const id = customer[index - 1].id;
+					reorder(id, deliveryOrder);
+				}
 			}
 		}
-	}
+	});
 </script>
 
 <main>
