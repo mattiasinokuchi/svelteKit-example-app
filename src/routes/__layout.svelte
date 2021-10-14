@@ -18,13 +18,18 @@
 
 <style>
 	nav {
-		padding: 1rem;
+		padding: 2vh;
 		box-shadow: -1px 1px 11px 4px #898989;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+
 	}
 	a {
 		text-decoration: none;
 		color: gray;
-		margin-right: 1rem;
+		margin: 1vh;
+		font-weight: bold;
 	}
 	a.active {
 		text-decoration: none;

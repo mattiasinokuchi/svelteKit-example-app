@@ -23,82 +23,61 @@
 	<!-- This is a form for adding new products -->
 	<form class="box" action="/product.json" method="post">
 		<h2>New product</h2>
-		<ul>
-			<li>
-				<label for="name">Product Name</label>
-			</li>
-			<li>
-				<input
-					type="text"
-					id="name"
-					name="name"
-					aria-label="Add product"
-					placeholder="Product name"
-				/>
-			</li>
-			<br />
-			<li>
-				<label for="price">Price ($)</label>
-			</li>
-			<li>
-				<input
-					type="number"
-					id="price"
-					name="price"
-					aria-label="Add product"
-					placeholder="10"
-				/>
-			</li>
-			<br />
-			<li>
-				<label for="emoji">Emoji</label>
-			</li>
-			<li>
-				<input
-					type="text"
-					id="emoji"
-					name="emoji"
-					aria-label="Add product"
-					placeholder="🌽"
-				/>
-			</li>
-			<br />
-			<li class="button">
-				<button type="submit">Submit</button>
-			</li>
-		</ul>
+		<label for="name">Name</label>
+		<input
+			type="text"
+			id="name"
+			name="name"
+			aria-label="Add product"
+			placeholder="Product name"
+		/>
+		<br />
+		<label for="price">Price ($)</label>
+		<input
+			type="number"
+			id="price"
+			name="price"
+			aria-label="Add product"
+			placeholder="10"
+		/>
+		<br />
+		<label for="emoji">Emoji</label>
+		<input
+			type="text"
+			id="emoji"
+			name="emoji"
+			aria-label="Add product"
+			placeholder="🌽"
+		/>
+		<br />
+		<button type="submit">Submit</button>
 	</form>
 
 	<!-- This a list of all products -->
-	<ul>
-		{#each product as { name, emoji, id }}
-			<li class="box">
-				<a sveltekit:prefetch href={`/product/${id}`}>
-					<h2>{name}</h2>
-					<h2>{emoji}</h2>
-				</a>
-			</li>
-		{/each}
-	</ul>
+	{#each product as { name, emoji, id }}
+		<a class="box" sveltekit:prefetch href={`/product/${id}`}>
+			<h2>{name}</h2>
+			<h2>{emoji}</h2>
+		</a>
+		<br />
+	{/each}
 </main>
 
 <style>
 	main {
 		display: flex;
+		flex-wrap: wrap;
 		justify-content: center;
+		text-align: center;
 	}
 	.box {
-		padding: 0.25rem;
-		margin: 1.5rem;
-		box-shadow: 4px 5px 11px 2px lightgray;
-		width: 40vw;
+		padding: 1vw;
+		margin-top: 4vw;
+		box-shadow: 1vw 1vw 2vw 0.2vw lightgray;
+		width: 90vw;
 	}
 	.box:hover {
-		box-shadow: 4px 5px 11px 10px lightgray;
-	}
-	ul {
-		list-style-type: none;
-		text-align: center;
+		box-shadow: 1vw 1vw 2vw 1vw lightgray;
 	}
 	h2 {
 		color: salmon;
@@ -106,5 +85,8 @@
 	a {
 		text-decoration: none;
 		color: salmon;
+	}
+	input {
+		margin: 1vw;
 	}
 </style>
