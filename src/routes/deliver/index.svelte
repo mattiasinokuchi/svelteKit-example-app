@@ -25,8 +25,7 @@
 	for (let i = 0; i < customer.length; i++) {
 		customer[i].order_.reduce(function (allProductsObject, order) {
 			if (
-				!order.past_delivery ||
-				order.past_delivery.includes(currentDate)
+				order.past_delivery && order.past_delivery.includes(currentDate)
 			) {
 				allProductsObject[order.product.name];
 			} else if (order.product.name in allProductsObject) {
