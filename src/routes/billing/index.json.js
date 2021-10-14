@@ -26,9 +26,9 @@ export const get = async (_) => {
 
     // Remove customer without deliveries
     const delivered = data.filter(({ order_ }) =>
-        order_.some(({ past_delivery }) =>
-            !past_delivery || past_delivery.length>0
-        )
+        order_.some(({ past_delivery }) => {
+            if (past_delivery) past_delivery.length>0
+        })
     );
 
     // Sort in delivery order
