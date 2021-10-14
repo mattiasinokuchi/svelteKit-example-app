@@ -19,10 +19,13 @@
 <script>
 	export let customer;
 
+	// This block sums the amount customers should pay
 	for (let i = 0; i < customer.length; i++) {
 		const sum = customer[i].order_.reduce(function (acc, cur) {
-			if (cur.past_delivery != null) {
+			if (cur.past_delivery !== null) {
 				return acc + cur.past_delivery.length * cur.product.price;
+			} else {
+				return acc;
 			}
 		}, 0);
 		customer[i]["toPay"] = sum;
