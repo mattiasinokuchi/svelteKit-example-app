@@ -44,8 +44,7 @@
 						<form action="/billing.json" method="post">
 							<input hidden name="id" value={id} />
 							{#each past_delivery as date}
-								- {date}
-								<br />
+								<p>- {date}</p>
 							{/each}
 							<input type="submit" value="Clear" />
 						</form>
