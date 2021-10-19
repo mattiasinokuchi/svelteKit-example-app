@@ -1,5 +1,5 @@
 # 🥦   🌽  🥬️🍆 What is this? 🍅🥒  🥕   🥔
 
-This is a miniature ERP meant for helping small-scale vegetable farmers like my sister and brother-in-law.
+This is a miniature ERP meant for helping small-scale farmers like my sister and brother-in-law.
 
 Feel free to contribute!
