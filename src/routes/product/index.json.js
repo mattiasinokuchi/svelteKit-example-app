@@ -1,7 +1,14 @@
 /*  This module contains endpoints to the database
     for the product page   */
 
-import supabase from '$lib/db';
+import supabase, { pool } from '$lib/db';
+
+// Hello database
+(async () => {
+    const res = await pool.query('SELECT $1::text as message', ['Hello world!'])
+    console.log(res.rows[0].message) // Hello world!
+    await pool.end()
+})();
 
 // Reads all products
 export const get = async (_) => {
