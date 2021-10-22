@@ -1,36 +1,38 @@
-/*  This module contains endpoints to the database
-    for the customers parent page   */
+/*  This module contains endpoints to the
+    database for the customers parent page   */
 
-import supabase from '$lib/db';
+import { pool } from '$lib/db';
 
-/*  Reads all customers */
+//  Reads all customers
 export const get = async (_) => {
-    let { data } = await supabase
-        .from('customer')
-        .select('*')
-        .order('delivery_order', { ascending: true });;
+    const res = await pool.query(
+        'SELECT * FROM customer ORDER BY delivery_order ASC'
+    );
     return {
-        body: data
+        body: res.rows
     };
 };
 
-/*  Adds a new customer */
+//  Adds a new customer
 export const post = async (request) => {
-    const { data, error } = await supabase
-        .from('customer')
-        .upsert({
-            first_name: request.body.get('firstName'),
-            last_name: request.body.get('lastName'),
-        });
-    if (!error && request.headers.accept !== 'application/json') {
+    const values = [
+        request.body.get('firstName'),
+        request.body.get('lastName')
+    ];
+    try {
+        await pool.query(
+            /*  Avoids string concatenating parameters into the
+                query text directly to prevent sql injection    */
+            'INSERT INTO customer(first_name, last_name) VALUES($1, $2) RETURNING *',
+            values
+        );
         return {
             status: 303,
             headers: {
                 location: '/customer'
             }
         };
+    } catch (error) {
+        console.log(error)
     }
-    return {
-        body: data
-    };
 };

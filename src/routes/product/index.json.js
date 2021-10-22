@@ -3,7 +3,7 @@
 
 import { pool } from '$lib/db';
 
-// Reads all products
+//  Read all products
 export const get = async (_) => {
     const res = await pool.query('SELECT * FROM product');
     return {
@@ -11,7 +11,7 @@ export const get = async (_) => {
     };
 };
 
-// Add a new product
+//  Add a new product
 export const post = async (request) => {
     const values = [
         request.body.get('name'),
