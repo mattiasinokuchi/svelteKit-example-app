@@ -35,7 +35,9 @@ export const post = async (request) => {
     ];
     try {
         await pool.query(
-            'INSERT INTO product(name, price, emoji) VALUES($1, $2, $3) RETURNING *',
+        /*  Avoids string concatenating parameters into the
+            query text directly to prevent sql injection    */ 
+        'INSERT INTO product(name, price, emoji) VALUES($1, $2, $3) RETURNING *',
             values
         );
         return {
