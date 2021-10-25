@@ -2,9 +2,27 @@
     for the customers parent and child pages   */
 
 import supabase from '$lib/db';
+import { pool } from '$lib/db';
 
-/* Reads all data for a specific customer */
+
+//  Reads all data for a specific customer
 export const get = async ({ params }) => {
+    try {
+        const { id } = params;
+        const res = await pool.query(
+            `SELECT * FROM customer
+            WHERE id = $1`,
+            [id]
+        );
+        return {
+            body: res.rows[0]
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+/*export const get = async ({ params }) => {
     const { id } = params;
     const { error, data } = await supabase
         .from('customer')
@@ -20,7 +38,7 @@ export const get = async ({ params }) => {
     return {
         body: data
     };
-};
+};*/
 
 /* Deletes a customer */
 export const del = async (request) => {
