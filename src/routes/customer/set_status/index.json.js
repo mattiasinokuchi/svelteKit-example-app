@@ -1,22 +1,31 @@
 /*  This module contains an endpoint to the database
     for changing subscription status of a customer   */
 
-import supabase from '$lib/db';
+import { pool } from '$lib/db';
 
+//  Update customer subscription status
 export const post = async (request) => {
-    const { data, error } = await supabase
-        .from('customer')
-        .update({ active: request.body.get('subscribe') })
-        .eq('id', request.body.get('customer'));
-    if (!error && request.headers.accept !== 'application/json') {
+    const values = [
+        request.body.get('subscribe'),
+        request.body.get('customer')
+    ];
+    try {
+        /*  Avoids string concatenating parameters into the
+            query text directly to prevent sql injection    */
+        await pool.query(`
+            UPDATE customer
+            SET active = ($1)
+            WHERE id = ($2)
+            RETURNING *
+            `, values
+        );
         return {
             status: 303,
             headers: {
                 location: request.headers.referer
             }
         };
+    } catch (error) {
+        console.log(error)
     }
-    return {
-        body: data
-    };
 };
