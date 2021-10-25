@@ -5,7 +5,7 @@ import supabase from '$lib/db';
 import { pool } from '$lib/db';
 
 
-//  Reads all data for a specific customer
+//  Reads data for a specific customer
 export const get = async ({ params }) => {
     try {
         const { id } = params;
