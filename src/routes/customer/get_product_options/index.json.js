@@ -1,17 +1,16 @@
 /*  This module contains endpoints to the database
     for getting product options for a customer   */
 
-import supabase from '$lib/db';
+import { pool } from '$lib/db';
 
+//  Reads all products
 export const get = async (_) => {
-    let { data } = await supabase
-        .from('product')
-        .select(`
-            name,
-            emoji,
-            id,
-            order_ (id, product(name))`);
+    const res = await pool.query(`
+        SELECT name, id
+        FROM product
+        ORDER BY name ASC`
+    );
     return {
-        body: data
+        body: res.rows
     };
 };
