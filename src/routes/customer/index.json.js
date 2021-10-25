@@ -20,10 +20,12 @@ export const post = async (request) => {
         request.body.get('lastName')
     ];
     try {
-        await pool.query(
-            /*  Avoids string concatenating parameters into the
-                query text directly to prevent sql injection    */
-            'INSERT INTO customer(first_name, last_name) VALUES($1, $2) RETURNING *',
+        /*  Avoids string concatenating parameters into the
+            query text directly to prevent sql injection    */
+        await pool.query(`
+            INSERT INTO customer(first_name, last_name)
+            VALUES($1, $2)
+            RETURNING *`,
             values
         );
         return {
