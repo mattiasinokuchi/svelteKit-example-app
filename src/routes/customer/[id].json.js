@@ -22,24 +22,6 @@ export const get = async ({ params }) => {
     }
 }
 
-/*export const get = async ({ params }) => {
-    const { id } = params;
-    const { error, data } = await supabase
-        .from('customer')
-        .select(`
-            id,
-            first_name,
-            last_name,
-            active,
-            order_ (id, product(name))`)
-        .match({ id: id })
-        .single();
-    if(error) console.log(error);
-    return {
-        body: data
-    };
-};*/
-
 /* Deletes a customer */
 export const del = async (request) => {
     /*if (!request.locals.user) {
