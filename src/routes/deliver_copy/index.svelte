@@ -18,7 +18,7 @@
 
 <script>
 	export let customer;
-/*	export let currentDate = new Date().toISOString().split("T")[0];
+	/*	export let currentDate = new Date().toISOString().split("T")[0];
 
 	// Count products
 	let countObject = {};
@@ -55,20 +55,19 @@
 		{/each}
 	</div>	 -->
 	<!-- This is a list of customers and products -->
-	{#each customer as { first_name, last_name, orders }}
+	{#each customer as { customer_id, first_name, last_name, orders }}
 		<div class="box">
 			<h2>
 				{first_name}
 				{last_name}:
 			</h2>
-			{#each orders as { id, product, price }}
-				<form action="/deliver.json" method="post">
-					<input hidden name="id" value={id} />
+			{#each orders as { order_id, product, price }}
+				<form action="/deliver_copy.json" method="post">
+					<input hidden name="customer_id" value={customer_id} />
+					<input hidden name="order_id" value={order_id} />
 					<input hidden name="price" value={price} />
-					<input
-						type="submit"
-						value={product}
-					/>
+					<input hidden name="product_name" value={product} />
+					<input type="submit" value={product} />
 				</form>
 			{/each}
 		</div>

@@ -31,11 +31,11 @@ export const get = async (_) => {
                 });
             } else {
                 acc.push({
-                    id: obj.id,
+                    customer_id: obj.customer_id,
                     first_name: obj.first_name,
                     last_name: obj.last_name,
                     orders: [{
-                        id: obj.order_id,
+                        order_id: obj.order_id,
                         product: obj.product_name,
                         price: obj.product_price
                     }]
@@ -54,22 +54,24 @@ export const get = async (_) => {
 //  Register a delivery
 export const post = async (request) => {
     const values = [
-        request.body.get('order'),
-        request.body.get('product')
+        request.body.get('customer_id'),
+        request.body.get('price'),
+        request.body.get('product_name'),
+        request.body.get('order_id')
     ];
     try {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            INSERT INTO delivery(customer, product)
-            VALUES($1, $2)
+            INSERT INTO delivery(customer_id, price, product_name, order_id)
+            VALUES($1, $2, $3, $4)
             RETURNING *`,
             values
         );
         return {
             status: 303,
             headers: {
-                location: request.headers.referer
+                location: '/deliver_copy'
             }
         };
     } catch (error) {
