@@ -7,7 +7,13 @@ import { pool } from '$lib/db';
 export const get = async (_) => {
     try {
         const res = await pool.query(`
-            SELECT order_.id, customer.id, first_name, last_name, name
+            SELECT
+                customer.id AS customer_id,
+                first_name,
+                last_name,
+                order_.id AS order_id,
+                name AS product_name,
+                price AS product_price
             FROM order_
             INNER JOIN customer
             ON customer.id = order_.customer
@@ -17,18 +23,27 @@ export const get = async (_) => {
         const result = res.rows.reduce((acc, obj) => {
             if (acc.find(object => object.first_name === obj.first_name)) {
                 const index = acc.findIndex(object => object.first_name === obj.first_name);
-                acc[index].orders.push(obj.name);
+                acc[index].orders.push({
+                    id: obj.order_id,
+                    product: obj.product_name,
+                    price: obj.product_price
+                });
             } else {
                 acc.push({
                     id: obj.id,
                     first_name: obj.first_name,
                     last_name: obj.last_name,
-                    orders: [obj.name]
+                    orders: [{
+                        id: obj.order_id,
+                        product: obj.product_name,
+                        price: obj.product_price
+                    }]
                 });
             }
             return acc;
         }, []);
         return {
+            //            body: res.rows
             body: result
         }
     } catch (error) {
