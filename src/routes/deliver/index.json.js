@@ -1,77 +1,80 @@
 /*  This module contains endpoints to the database
     for the delivery page   */
 
-import supabase from '$lib/db';
+import { pool } from '$lib/db';
 
-// Reads all deliveries
+//  Reads all orders
 export const get = async (_) => {
-    const { error, data } = await supabase
-        .from('customer')
-        .select(`
-            id,
-            first_name,
-            last_name,
-            delivery_order,
-            active,
-            order_ (
-                id,
-                past_delivery,
-                product (
-                    name,
-                    id,
-                    price,
-                    emoji
-                )
-            )`)
-        .eq('active', true);
-    if (error) return {
-        body: error
+    try {
+        const res = await pool.query(`
+            SELECT
+                customer.id AS customer_id,
+                first_name,
+                last_name,
+                order_.id AS order_id,
+                name AS product_name,
+                price AS product_price
+            FROM order_
+            INNER JOIN customer
+            ON customer.id = order_.customer
+            INNER JOIN product
+            ON product.id = order_.product
+        `);
+        //  Group orders by customer
+        const ordersByCustomer = res.rows.reduce((acc, obj) => {
+            if (acc.find(accObject => accObject.first_name === obj.first_name)) {
+                const index = acc.findIndex(accObject => accObject.first_name === obj.first_name);
+                acc[index].orders.push({
+                    id: obj.order_id,
+                    product: obj.product_name,
+                    price: obj.product_price
+                });
+            } else {
+                acc.push({
+                    customer_id: obj.customer_id,
+                    first_name: obj.first_name,
+                    last_name: obj.last_name,
+                    orders: [{
+                        order_id: obj.order_id,
+                        product: obj.product_name,
+                        price: obj.product_price
+                    }]
+                });
+            }
+            return acc;
+        }, []);
+        return {
+            body: ordersByCustomer
+        }
+    } catch (error) {
+        console.log(error);
     }
-    
-    // Remove customer already delivered today
-    const currentDate = new Date().toISOString().split("T")[0];
-	const notDelivered = data.filter(({ order_ }) =>
-		order_.some(({ past_delivery }) =>
-			!past_delivery || !past_delivery.includes(currentDate)
-		)
-	);
+}
 
-    // Sort in delivery order
-    const inDeliveryOrder = notDelivered.sort(function (a, b) {
-        return a.delivery_order - b.delivery_order;
-    });
-    
-    return {
-        body: inDeliveryOrder
-    };
-};
-
-// Register a delivery
+//  Register a delivery
 export const post = async (request) => {
-    const currentDate = new Date().toISOString().split("T")[0];
-    // Fix for incorrect date format
-    if (request.body.get('past_delivery') === '') {
-        past_delivery = [currentDate];
-    } else {
-        past_delivery = request.body.get('past_delivery').split(',');
-        past_delivery.push(currentDate);
-    }
-    const { data, error } = await supabase
-        .from('order_')
-        .update({
-            past_delivery: past_delivery
-        })
-        .eq('id', request.body.get('id'));
-
-    if (!error && request.headers.accept !== 'application/json') {
+    const values = [
+        request.body.get('customer_id'),
+        request.body.get('price'),
+        request.body.get('product_name'),
+        request.body.get('order_id')
+    ];
+    try {
+        /*  Avoids string concatenating parameters into the
+            query text directly to prevent sql injection    */
+        await pool.query(`
+            INSERT INTO delivery(customer_id, price, product_name, order_id)
+            VALUES($1, $2, $3, $4)
+            RETURNING *`,
+            values
+        );
         return {
             status: 303,
             headers: {
                 location: '/deliver'
             }
         };
+    } catch (error) {
+        console.log(error)
     }
-    return {
-        body: data
-    };
 };
