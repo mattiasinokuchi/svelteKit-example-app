@@ -5,8 +5,10 @@ import { pool } from '$lib/db';
 
 //  Reads all customers
 export const get = async (_) => {
-    const res = await pool.query(
-        'SELECT * FROM customer ORDER BY delivery_order ASC'
+    const res = await pool.query(`
+        SELECT *
+        FROM customer
+        ORDER BY delivery_order ASC`
     );
     return {
         body: res.rows
