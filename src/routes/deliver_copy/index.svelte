@@ -1,13 +1,17 @@
-<!-- This is the delivery page -->
+<!--	This is the delivery page	-->
+
 <script context="module">
 	export async function load({ fetch }) {
 		let res = null;
 		try {
 			res = await fetch("/deliver_copy.json");
 			const customer = await res.json();
+			res = await fetch("/deliver_copy/get_counts.json");
+			const count = await res.json();
 			return {
 				props: {
 					customer,
+					count,
 				},
 			};
 		} catch (error) {
@@ -17,43 +21,19 @@
 </script>
 
 <script>
-	export let customer;
-	/*	export let currentDate = new Date().toISOString().split("T")[0];
-
-	// Count products
-	let countObject = {};
-	for (let i = 0; i < customer.length; i++) {
-		customer[i].order_.reduce(function (allProductsObject, order) {
-			if (
-				order.past_delivery && order.past_delivery.includes(currentDate)
-			) {
-				allProductsObject[order.product.name];
-			} else if (order.product.name in allProductsObject) {
-				allProductsObject[order.product.name]++;
-			} else {
-				allProductsObject[order.product.name] = 1;
-			}
-			return allProductsObject;
-		}, countObject);
-	}
-	export let count = [];
-	Object.entries(countObject).forEach((entry) => {
-		const [key, value] = entry;
-		const newObject = { name: key, quantity: value };
-		count.push(newObject);
-	});	*/
+	export let customer, count;
 </script>
 
 <main>
-	<!-- This a list with counts of products to deliver
-	<h2 hidden={customer.length > 0}>No delivery to do. Relax!</h2>
+	<!-- This a list with counts of products to deliver	-->
+	<h2 hidden={count.length > 0}>No delivery to do. Relax!</h2>
 	<div hidden={count.length < 1} class="box">
 		<h2>To deliver:</h2>
-		{#each count as { name, quantity }}
-			{quantity} x {name}
+		{#each count as { product, count }}
+			{count} x {product}
 			<br>
 		{/each}
-	</div>	 -->
+	</div>
 	<!-- This is a list of customers and products -->
 	{#each customer as { customer_id, first_name, last_name, orders }}
 		<div class="box">
