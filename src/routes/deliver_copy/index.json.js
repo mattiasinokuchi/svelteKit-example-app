@@ -20,9 +20,10 @@ export const get = async (_) => {
             INNER JOIN product
             ON product.id = order_.product
         `);
-        const result = res.rows.reduce((acc, obj) => {
-            if (acc.find(object => object.first_name === obj.first_name)) {
-                const index = acc.findIndex(object => object.first_name === obj.first_name);
+        //  Group orders by customer
+        const ordersByCustomer = res.rows.reduce((acc, obj) => {
+            if (acc.find(accObject => accObject.first_name === obj.first_name)) {
+                const index = acc.findIndex(accObject => accObject.first_name === obj.first_name);
                 acc[index].orders.push({
                     id: obj.order_id,
                     product: obj.product_name,
@@ -43,8 +44,7 @@ export const get = async (_) => {
             return acc;
         }, []);
         return {
-            //            body: res.rows
-            body: result
+            body: ordersByCustomer
         }
     } catch (error) {
         console.log(error);
