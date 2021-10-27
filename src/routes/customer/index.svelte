@@ -1,5 +1,4 @@
 <!--	This is the parent page for customers	-->
-
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch("/customer.json");
@@ -18,53 +17,6 @@
 
 <script>
 	export let customer;
-
-	// This block requests a delivery order to be updated
-	async function reorder(id, delivery_order) {
-		try {
-			const url = "/customer/reorder_delivery_copy.json";
-			await fetch(url, {
-				method: "POST",
-				body: JSON.stringify({
-					id: id,
-					order: delivery_order,
-				}),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
-			window.location.reload();
-		} catch (error) {
-			console.log(error);
-		}
-	}
-/*
-	import { onMount } from "svelte";
-
-	// This block handles duplicate numbers in the delivery order
-	onMount(async () => {
-		for (let index = 0; index < customer.length; index++) {
-			if (
-				index !== 0 &&
-				customer[index].delivery_order ===
-					customer[index - 1].delivery_order
-			) {
-				if (
-					customer[index].updated_at < customer[index - 1].updated_at
-				) {
-					let deliveryOrder = customer[index].delivery_order;
-					deliveryOrder++;
-					const id = customer[index].id;
-					reorder(id, deliveryOrder);
-				} else {
-					let deliveryOrder = customer[index - 1].delivery_order;
-					deliveryOrder++;
-					const id = customer[index - 1].id;
-					reorder(id, deliveryOrder);
-				}
-			}
-		}
-	});	*/
 </script>
 
 <main>
@@ -72,22 +24,10 @@
 	<form class="box" action="/customer.json" method="post">
 		<h2>New customer</h2>
 		<label for="firstName">First Name</label>
-		<input
-			type="text"
-			id="firstName"
-			name="firstName"
-			aria-label="Add customer"
-			placeholder="First name"
-		/>
+		<input type="text" id="firstName" name="firstName" />
 		<br />
 		<label for="lastName">Last Name</label>
-		<input
-			type="text"
-			id="lastName"
-			name="lastName"
-			aria-label="Add customer"
-			placeholder="Last name"
-		/>
+		<input type="text" id="lastName" name="lastName" />
 		<br />
 		<button type="submit">Submit</button>
 	</form>
@@ -99,9 +39,10 @@
 			<a sveltekit:prefetch href={`/customer/${id}`}>
 				<h2>{first_name} {last_name}</h2>
 			</a>
-			<form on:submit|preventDefault={reorder(id, delivery_order)}>
+			<form action="/customer/reorder_delivery.json" method="post">
 				<label for="order">Delivery order</label>
-				<input size="2" bind:value={delivery_order} />
+				<input hidden name="id" value={id} />
+				<input name="order" size="2" value={delivery_order} />
 				<input type="submit" value="Reorder" />
 			</form>
 		</div>
