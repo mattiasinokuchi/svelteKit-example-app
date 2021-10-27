@@ -8,12 +8,7 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                customer.id AS customer_id,
-                first_name,
-                last_name,
-                order_.id AS order_id,
-                name AS product_name,
-                price AS product_price
+                customer.id AS customer_id, *
             FROM order_
             INNER JOIN customer
             ON customer.id = order_.customer
@@ -22,12 +17,16 @@ export const get = async (_) => {
         `);
         //  Group orders by customer
         const ordersByCustomer = res.rows.reduce((acc, obj) => {
-            if (acc.find(accObject => accObject.first_name === obj.first_name)) {
-                const index = acc.findIndex(accObject => accObject.first_name === obj.first_name);
+            if (acc.find(
+                accObject => accObject.customer_id === obj.customer_id
+            )) {
+                const index = acc.findIndex(
+                    accObject => accObject.customer_id === obj.customer_id
+                );
                 acc[index].orders.push({
-                    id: obj.order_id,
-                    product: obj.product_name,
-                    price: obj.product_price
+                    id: obj.id,
+                    product: obj.name,
+                    price: obj.price
                 });
             } else {
                 acc.push({
@@ -35,9 +34,9 @@ export const get = async (_) => {
                     first_name: obj.first_name,
                     last_name: obj.last_name,
                     orders: [{
-                        order_id: obj.order_id,
-                        product: obj.product_name,
-                        price: obj.product_price
+                        order_id: obj.id,
+                        product: obj.name,
+                        price: obj.price
                     }]
                 });
             }
