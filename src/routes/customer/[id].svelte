@@ -85,6 +85,7 @@
 
     <!-- This is a form for deleting customers -->
     <form action="/customer/{customer.id}.json?_method=delete" method="post">
+        <input hidden value={customer.delivery_order} name="order" />
         <button type="submit" disabled={order.length > 0}
             >Delete Customer</button
         >
