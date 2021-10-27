@@ -7,7 +7,7 @@ import { pool } from '$lib/db';
 export const get = async (_) => {
     const res = await pool.query(`
         SELECT *
-        FROM customer
+        FROM customer_duplicate
         ORDER BY delivery_order ASC`
     );
     return {

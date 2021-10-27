@@ -1,4 +1,5 @@
-<!-- This is the parent page for customers -->
+<!--	This is the parent page for customers	-->
+
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch("/customer.json");
@@ -21,7 +22,7 @@
 	// This block requests a delivery order to be updated
 	async function reorder(id, delivery_order) {
 		try {
-			const url = "/customer/reorder_delivery.json";
+			const url = "/customer/reorder_delivery_copy.json";
 			await fetch(url, {
 				method: "POST",
 				body: JSON.stringify({
@@ -37,7 +38,7 @@
 			console.log(error);
 		}
 	}
-
+/*
 	import { onMount } from "svelte";
 
 	// This block handles duplicate numbers in the delivery order
@@ -63,7 +64,7 @@
 				}
 			}
 		}
-	});
+	});	*/
 </script>
 
 <main>
