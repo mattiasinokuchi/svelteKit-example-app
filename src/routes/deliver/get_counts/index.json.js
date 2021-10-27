@@ -13,6 +13,9 @@ export const get = async (_) => {
             FROM order_
             INNER JOIN product
             ON product.id = order_.product
+            INNER JOIN customer
+            ON customer.id = order_.customer
+            WHERE customer.active = 'true'
             GROUP BY name;
         `);
         return {

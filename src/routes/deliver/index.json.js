@@ -14,6 +14,7 @@ export const get = async (_) => {
             ON customer.id = order_.customer
             INNER JOIN product
             ON product.id = order_.product
+            WHERE customer.active = 'true'
         `);
         //  Group orders by customer
         const ordersByCustomer = res.rows.reduce((acc, obj) => {
