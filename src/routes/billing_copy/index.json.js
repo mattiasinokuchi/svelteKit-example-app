@@ -1,19 +1,19 @@
 /*  This module contains endpoints to the database
     for the billing page   */
 
-import supabase from '$lib/db';
 import { pool } from '$lib/db';
 
-//  Read deliveries
+//  Read deliveries...
 export const get = async (_) => {
     try {
         const res = await pool.query(`
-            SELECT *
+            SELECT
+                delivery.id AS delivery_id, *
             FROM delivery
             INNER JOIN customer
             ON customer.id = delivery.customer_id
         `);
-        //  Group deliveries by customer
+        //  ...then group deliveries by customer
         const deliveriesByCustomer = res.rows.reduce((acc, obj) => {
             if (acc.find(
                 accObject => accObject.customer_id === obj.customer_id
@@ -21,8 +21,10 @@ export const get = async (_) => {
                 const index = acc.findIndex(
                     accObject => accObject.customer_id === obj.customer_id
                 );
+                acc[index].to_pay = acc[index].to_pay + obj.price;
                 acc[index].delivery.push({
                     date: obj.created_at,
+                    delivery_id: obj.delivery_id,
                     order_id: obj.order_id,
                     product: obj.product_name,
                     price: obj.price
@@ -32,8 +34,10 @@ export const get = async (_) => {
                     customer_id: obj.customer_id,
                     first_name: obj.first_name,
                     last_name: obj.last_name,
+                    to_pay: obj.price,
                     delivery: [{
                         date: obj.created_at,
+                        delivery_id: obj.delivery_id,
                         order_id: obj.order_id,
                         product: obj.product_name,
                         price: obj.price
@@ -50,25 +54,26 @@ export const get = async (_) => {
     }
 }
 
-// Clear delivery
-export const post = async (request) => {
-    const past_delivery = [];
-    const { data, error } = await supabase
-        .from('order_')
-        .update({
-            past_delivery: past_delivery
-        })
-        .eq('id', request.body.get('id'));
-
-    if (!error && request.headers.accept !== 'application/json') {
+//  Delete delivery
+export const del = async (request) => {
+    /*if (!request.locals.user) {
+        return { status: 401 };
+    }*/
+    try {
+        /*  Avoids string concatenating parameters into the
+            query text directly to prevent sql injection    */
+        await pool.query(`
+            DELETE FROM delivery
+            WHERE id = $1`,
+            [request.body.get('id')]
+        );
         return {
             status: 303,
             headers: {
-                location: '/billing'
+                location: '/billing_copy'
             }
         };
+    } catch (error) {
+        console.log(error)
     }
-    return {
-        body: data
-    };
 };

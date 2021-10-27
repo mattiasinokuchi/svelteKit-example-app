@@ -18,40 +18,26 @@
 
 <script>
 	export let customer;
-	/*
-	// This block sums the amount customers should pay
-	for (let i = 0; i < customer.length; i++) {
-		const sum = customer[i].order_.reduce(function (acc, cur) {
-			if (cur.past_delivery !== null) {
-				return acc + cur.past_delivery.length * cur.product.price;
-			} else {
-				return acc;
-			}
-		}, 0);
-		customer[i]["toPay"] = sum;
-	}	*/
 </script>
 
 <main>
 	<h2 hidden={customer.length > 0}>No billing to do. Relax!</h2>
-	{#each customer as { first_name, last_name, delivery, toPay }}
-		<!--		{#if toPay != null && toPay !== 0}	-->
+	{#each customer as { first_name, last_name, delivery, to_pay }}
 		<div class="box">
 			<h2>
 				{first_name}
 				{last_name}:
 			</h2>
-			{#each delivery as { date, order_id, product, price }}
+			{#each delivery as { date, delivery_id, product, price }}
 				{date}
 				{product} ${price}
-				<form action="/billing.json" method="post">
-					<input hidden name="id" value={order_id} />
+				<form action="/billing_copy.json?_method=delete" method="post">
+					<input hidden name="id" value={delivery_id} />
 					<input type="submit" value="Clear" />
 				</form>
 			{/each}
-			Total: ${toPay}
+			Total: ${to_pay}
 		</div>
-		<!--		{/if}	-->
 	{/each}
 </main>
 
