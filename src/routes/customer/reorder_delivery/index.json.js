@@ -8,25 +8,50 @@ import { pool } from '$lib/db';
     query text directly to prevent sql injection    */
 export const post = async (request) => {
     const client = await pool.connect();
+    const new_order = request.body.get('order');
+    const id = request.body.get('id');
+    let old_order = null;
     try {
         await client.query('BEGIN');
-        //  Defer customers by incrementing their delivery orders
-        await client.query(`
-            UPDATE customer
-            SET delivery_order = delivery_order + 1
-            WHERE delivery_order >= ($1);
-            `, [request.body.get('order')]
+        //  Get current delivery order of customer in request
+        const res = await client.query(`
+            SELECT delivery_order
+            FROM customer
+            WHERE id = ($1);
+            `, [id]
         );
-        //  Advance customer in request
-        await client.query(`
-            UPDATE customer
-            SET delivery_order = ($1)
-            WHERE id = ($2);
-            `, [
-                request.body.get('order'),
-                request.body.get('id')
-            ]
-        );
+        old_order = res.rows[0].delivery_order;
+        if (new_order < old_order) {
+            //  Defer other customers
+            await client.query(`
+                UPDATE customer
+                SET delivery_order = delivery_order + 1
+                WHERE delivery_order BETWEEN ($1) AND ($2);
+                `, [new_order, old_order]
+            );
+            //  Advance customer in request
+            await client.query(`
+                UPDATE customer
+                SET delivery_order = ($1)
+                WHERE id = ($2);
+                `, [new_order, id]
+            );
+        } else {
+            //  Advance other customers
+            await client.query(`
+                UPDATE customer
+                SET delivery_order = delivery_order - 1
+                WHERE delivery_order BETWEEN ($1) AND ($2);
+                `, [old_order, new_order]
+            );
+            //  Defer customer in request
+            await client.query(`
+                UPDATE customer
+                SET delivery_order = ($1)
+                WHERE id = ($2);
+                `, [new_order, id]
+            );
+        }
         await client.query('COMMIT');
         return {
             status: 303,
