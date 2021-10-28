@@ -15,7 +15,12 @@ export const get = async (_) => {
             ON product.id = order_.product
             INNER JOIN customer
             ON customer.id = order_.customer
-            WHERE customer.active = 'true'
+            WHERE
+                customer.active = 'true' AND
+                order_.id NOT IN (
+                    SELECT order_id
+                    FROM delivery
+                )
             GROUP BY name;
         `);
         return {

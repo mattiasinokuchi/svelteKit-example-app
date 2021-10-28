@@ -8,13 +8,17 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                customer.id AS customer_id, *
+                customer.id AS customer_id,
+                order_.id AS order_id, *
             FROM order_
-            INNER JOIN customer
-            ON customer.id = order_.customer
-            INNER JOIN product
-            ON product.id = order_.product
-            WHERE customer.active = 'true'
+            INNER JOIN customer ON customer.id = order_.customer
+            INNER JOIN product ON product.id = order_.product
+            WHERE
+                customer.active = 'true' AND
+                order_.id NOT IN (
+                    SELECT order_id
+                    FROM delivery
+                );
         `);
         //  Group orders by customer
         const ordersByCustomer = res.rows.reduce((acc, obj) => {
@@ -25,7 +29,7 @@ export const get = async (_) => {
                     accObject => accObject.customer_id === obj.customer_id
                 );
                 acc[index].orders.push({
-                    id: obj.id,
+                    order_id: obj.order_id,
                     product: obj.name,
                     price: obj.price
                 });
@@ -35,7 +39,7 @@ export const get = async (_) => {
                     first_name: obj.first_name,
                     last_name: obj.last_name,
                     orders: [{
-                        order_id: obj.id,
+                        order_id: obj.order_id,
                         product: obj.name,
                         price: obj.price
                     }]
