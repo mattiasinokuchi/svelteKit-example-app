@@ -17,18 +17,20 @@ export const get = async (_) => {
 
 //  Adds a new customer
 export const post = async (request) => {
-    const values = [
-        request.body.get('first_name'),
-        request.body.get('last_name')
-    ];
     try {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            INSERT INTO customer_table(first_name, last_name)
-            VALUES($1, $2)
+            INSERT INTO customer_table(first_name, last_name, delivery_order)
+            VALUES($1, $2, (
+                SELECT COUNT(*) + 1
+                FROM customer_table
+            ))
             RETURNING *`,
-            values
+            [
+                request.body.get('first_name'),
+                request.body.get('last_name')
+            ]
         );
         return {
             status: 303,
