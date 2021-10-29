@@ -43,7 +43,7 @@
 			<form action="/customer/reorder_delivery.json" method="post">
 				<label for="delivery_order">Delivery order</label>
 				<input hidden name="customer_id" value={customer_id} />
-				<input type="number" name="delivery_order" value={delivery_order} />
+				<input type="number" name="delivery_order" min="1" max="999" value={delivery_order} />
 				<input type="submit" value="Reorder" />
 			</form>
 		</div>
