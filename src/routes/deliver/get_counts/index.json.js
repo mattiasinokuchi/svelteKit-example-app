@@ -8,20 +8,20 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                name AS product,
-                COUNT (name)
-            FROM order_
-            INNER JOIN product
-            ON product.id = order_.product
-            INNER JOIN customer
-            ON customer.id = order_.customer
+                product_name,
+                COUNT (product_name)
+            FROM order_table
+            INNER JOIN product_table
+            ON product_table.id = order_table.product_id
+            INNER JOIN customer_table
+            ON customer_table.id = order_table.customer_id
             WHERE
-                customer.active = 'true' AND
-                order_.id NOT IN (
+                customer_table.active = 'true' AND
+                order_table.id NOT IN (
                     SELECT order_id
-                    FROM delivery
+                    FROM delivery_table
                 )
-            GROUP BY name;
+            GROUP BY product_name;
         `);
         return {
             body: res.rows

@@ -29,8 +29,8 @@
 	<h2 hidden={count.length > 0}>No delivery to do. Relax!</h2>
 	<div hidden={count.length < 1} class="box">
 		<h2>To deliver:</h2>
-		{#each count as { product, count }}
-			{count} x {product}
+		{#each count as { product_name, count }}
+			{count} x {product_name}
 			<br>
 		{/each}
 	</div>
@@ -41,13 +41,13 @@
 				{first_name}
 				{last_name}:
 			</h2>
-			{#each orders as { order_id, product, price }}
+			{#each orders as { order_id, product_name, price }}
 				<form action="/deliver.json" method="post">
 					<input hidden name="customer_id" value={customer_id} />
 					<input hidden name="order_id" value={order_id} />
 					<input hidden name="price" value={price} />
-					<input hidden name="product_name" value={product} />
-					<input type="submit" value={product} />
+					<input hidden name="product_name" value={product_name} />
+					<input type="submit" value={product_name} />
 				</form>
 			{/each}
 		</div>

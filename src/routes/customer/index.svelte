@@ -1,4 +1,5 @@
 <!--	This is the parent page for customers	-->
+
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch("/customer.json");
@@ -23,26 +24,26 @@
 	<!-- This is a form for adding new customers -->
 	<form class="box" action="/customer.json" method="post">
 		<h2>New customer</h2>
-		<label for="firstName">First Name</label>
-		<input type="text" id="firstName" name="firstName" />
+		<label for="first_name">First Name</label>
+		<input type="text" id="first_name" name="first_name" />
 		<br />
-		<label for="lastName">Last Name</label>
-		<input type="text" id="lastName" name="lastName" />
+		<label for="last_name">Last Name</label>
+		<input type="text" id="last_name" name="last_name" />
 		<br />
 		<button type="submit">Submit</button>
 	</form>
 
 	<!---	This is a list of customers with a form
 			for changing their delivery order	-->
-	{#each customer as { first_name, last_name, id, delivery_order }}
+	{#each customer as { first_name, last_name, customer_id, delivery_order }}
 		<div class="box">
-			<a sveltekit:prefetch href={`/customer/${id}`}>
+			<a sveltekit:prefetch href={`/customer/${customer_id}`}>
 				<h2>{first_name} {last_name}</h2>
 			</a>
 			<form action="/customer/reorder_delivery.json" method="post">
-				<label for="order">Delivery order</label>
-				<input hidden name="id" value={id} />
-				<input type="number" name="order" value={delivery_order} />
+				<label for="delivery_order">Delivery order</label>
+				<input hidden name="customer_id" value={customer_id} />
+				<input type="number" name="delivery_order" value={delivery_order} />
 				<input type="submit" value="Reorder" />
 			</form>
 		</div>

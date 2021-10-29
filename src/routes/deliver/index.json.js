@@ -8,16 +8,16 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                customer.id AS customer_id,
-                order_.id AS order_id, *
-            FROM order_
-            INNER JOIN customer ON customer.id = order_.customer
-            INNER JOIN product ON product.id = order_.product
+                customer_table.id AS customer_id,
+                order_table.id AS order_id, *
+            FROM order_table
+            INNER JOIN customer_table ON customer_table.id = order_table.customer_id
+            INNER JOIN product_table ON product_table.id = order_table.product_id
             WHERE
-                customer.active = 'true' AND
-                order_.id NOT IN (
+                customer_table.active = 'true' AND
+                order_table.id NOT IN (
                     SELECT order_id
-                    FROM delivery
+                    FROM delivery_table
                 );
         `);
         //  Group orders by customer
@@ -30,7 +30,7 @@ export const get = async (_) => {
                 );
                 acc[index].orders.push({
                     order_id: obj.order_id,
-                    product: obj.name,
+                    product_name: obj.product_name,
                     price: obj.price
                 });
             } else {
@@ -40,7 +40,7 @@ export const get = async (_) => {
                     last_name: obj.last_name,
                     orders: [{
                         order_id: obj.order_id,
-                        product: obj.name,
+                        product_name: obj.product_name,
                         price: obj.price
                     }]
                 });
@@ -67,7 +67,7 @@ export const post = async (request) => {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            INSERT INTO delivery(customer_id, price, product_name, order_id)
+            INSERT INTO delivery_table(customer_id, price, product_name, order_id)
             VALUES($1, $2, $3, $4)
             RETURNING *`,
             values

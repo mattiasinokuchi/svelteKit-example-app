@@ -28,11 +28,11 @@
 				{first_name}
 				{last_name}:
 			</h2>
-			{#each delivery as { date, delivery_id, product, price }}
-				{date}
-				{product} ${price}
+			{#each delivery as { delivery_date, delivery_id, product_name, price }}
+				{delivery_date}
+				{product_name} ${price}
 				<form action="/billing.json?_method=delete" method="post">
-					<input hidden name="id" value={delivery_id} />
+					<input hidden name="delivery_id" value={delivery_id} />
 					<input type="submit" value="Clear" />
 				</form>
 			{/each}

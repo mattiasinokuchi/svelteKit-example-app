@@ -1,12 +1,13 @@
-<!--    This is a specific customers page  -->
+<!--    This is a specific customers page   -->
+
 <script context="module">
     export async function load({ fetch, page }) {
-        const { id } = page.params;
+        const { customer_id } = page.params;
         let res = null;
         try {
-            res = await fetch(`/customer/${id}.json`);
+            res = await fetch(`/customer/${customer_id}.json`);
             const customer = await res.json();
-            res = await fetch(`/customer/get_order/${id}.json`);
+            res = await fetch(`/customer/get_order/${customer_id}.json`);
             const order = await res.json();
             res = await fetch(`/customer/get_product_options.json`);
             const option = await res.json();
@@ -32,32 +33,27 @@
 
     <!-- This is a form for setting the subscription status -->
     <form action="/customer/set_status.json" method="post">
-        <input type="hidden" name="customer" value={customer.id} />
+        <input type="hidden" name="customer_id" value={customer.customer_id} />
         <input type="hidden" name="subscribe" value={customer.active} />
-        <input
-            type="checkbox"
-            id="subscribe"
-            name="subscribe"
-            bind:checked={customer.active}
-        />
+        <input type="checkbox" name="subscribe" bind:checked={customer.active} />
         <label for="subscribe">Active subscription</label>
         <button type="submit">Update</button>
     </form>
 
     <!-- This is a list of subscriptions/orders with delete buttons -->
-    <section id="list">
+    <section>
         <p>Subscriptions/orders:</p>
         {#if order.length > 0}
             <ul>
-                {#each order as { name, id }}
+                {#each order as { product_name, order_id }}
                     <li>
                         <form
-                            action="/customer/remove_product/{id}.json?_method=delete"
+                            action="/customer/remove_product/{order_id}.json?_method=delete"
                             method="post"
                             disabled={!customer.active}
                         >
                             <label>
-                                {name}
+                                {product_name}
                                 <button
                                     type="submit"
                                     disabled={!customer.active}>Delete</button
@@ -73,19 +69,19 @@
     <!-- This is a form for adding products -->
     <form action="/customer/add_product.json" method="post">
         <p>Add product:</p>
-        <input hidden type="text" value={customer.id} name="customer" />
-        <select name="product" id="product-select">
+        <input hidden type="text" value={customer.customer_id} name="customer_id" />
+        <select name="product_id" >
             <option value="">- Please choose an option -</option>
-            {#each option as { name, id }}
-                <option value={id}>{name}</option>
+            {#each option as { product_name, product_id }}
+                <option value={product_id}>{product_name}</option>
             {/each}
         </select>
         <button type="submit">Add product</button>
     </form>
 
     <!-- This is a form for deleting customers -->
-    <form action="/customer/{customer.id}.json?_method=delete" method="post">
-        <input hidden value={customer.delivery_order} name="order" />
+    <form action="/customer/{customer.customer_id}.json?_method=delete" method="post">
+        <input hidden value={customer.delivery_order} name="delivery_order" />
         <button type="submit" disabled={order.length > 0}
             >Delete Customer</button
         >

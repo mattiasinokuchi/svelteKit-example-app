@@ -6,11 +6,12 @@ import { pool } from '$lib/db';
 //  Reads data for a specific customer
 export const get = async ({ params }) => {
     try {
-        const { id } = params;
+        const { customer_id } = params;
         const res = await pool.query(`
-            SELECT * FROM customer
+            SELECT id AS customer_id, *
+            FROM customer_table
             WHERE id = $1
-            `, [id]
+            `, [customer_id]
         );
         return {
             body: res.rows[0]
@@ -33,15 +34,17 @@ export const del = async (request) => {
         await client.query('BEGIN');
         //  Advance customers by decrementing their delivery orders
         await client.query(`
-            UPDATE customer
+            UPDATE customer_table
             SET delivery_order = delivery_order - 1
             WHERE delivery_order >= ($1);
-            `, [request.body.get('order')]
+            `, [request.body.get('delivery_order')]
         );
         //  Delete customer in request
         await client.query(`
-            DELETE FROM customer
-            WHERE id = $1`, [request.params.id]
+            DELETE
+            FROM customer_table
+            WHERE id = $1
+            `, [request.params.customer_id]
         );
         await client.query('COMMIT');
         return {

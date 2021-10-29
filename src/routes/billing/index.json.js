@@ -8,10 +8,10 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                delivery.id AS delivery_id, *
-            FROM delivery
-            INNER JOIN customer
-            ON customer.id = delivery.customer_id
+                delivery_table.id AS delivery_id, *
+            FROM delivery_table
+            INNER JOIN customer_table
+            ON customer_table.id = delivery_table.customer_id
         `);
         //  ...then group deliveries by customer
         const deliveriesByCustomer = res.rows.reduce((acc, obj) => {
@@ -23,10 +23,10 @@ export const get = async (_) => {
                 );
                 acc[index].to_pay = acc[index].to_pay + obj.price;
                 acc[index].delivery.push({
-                    date: obj.created_at,
+                    delivery_date: obj.delivery_date,
                     delivery_id: obj.delivery_id,
                     order_id: obj.order_id,
-                    product: obj.product_name,
+                    product_name: obj.product_name,
                     price: obj.price
                 });
             } else {
@@ -36,10 +36,10 @@ export const get = async (_) => {
                     last_name: obj.last_name,
                     to_pay: obj.price,
                     delivery: [{
-                        date: obj.created_at,
+                        delivery_date: obj.delivery_date,
                         delivery_id: obj.delivery_id,
                         order_id: obj.order_id,
-                        product: obj.product_name,
+                        product_name: obj.product_name,
                         price: obj.price
                     }]
                 });
@@ -63,9 +63,9 @@ export const del = async (request) => {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            DELETE FROM delivery
+            DELETE FROM delivery_table
             WHERE id = $1`,
-            [request.body.get('id')]
+            [request.body.get('delivery_id')]
         );
         return {
             status: 303,

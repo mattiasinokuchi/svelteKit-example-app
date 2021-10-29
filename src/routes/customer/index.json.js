@@ -6,8 +6,8 @@ import { pool } from '$lib/db';
 //  Reads all customers
 export const get = async (_) => {
     const res = await pool.query(`
-        SELECT *
-        FROM customer
+        SELECT id AS customer_id, *
+        FROM customer_table
         ORDER BY delivery_order ASC`
     );
     return {
@@ -18,14 +18,14 @@ export const get = async (_) => {
 //  Adds a new customer
 export const post = async (request) => {
     const values = [
-        request.body.get('firstName'),
-        request.body.get('lastName')
+        request.body.get('first_name'),
+        request.body.get('last_name')
     ];
     try {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            INSERT INTO customer(first_name, last_name)
+            INSERT INTO customer_table(first_name, last_name)
             VALUES($1, $2)
             RETURNING *`,
             values

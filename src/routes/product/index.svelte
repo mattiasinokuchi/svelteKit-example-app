@@ -1,3 +1,5 @@
+<!--	This is the parent page for products	-->
+
 <script context="module">
 	export async function load({ fetch }) {
 		const res = await fetch("/product.json");
@@ -23,13 +25,12 @@
 	<!-- This is a form for adding new products -->
 	<form class="box" action="/product.json" method="post">
 		<h2>New product</h2>
-		<label for="name">Name</label>
+		<label for="product_name">Name</label>
 		<input
 			type="text"
-			id="name"
-			name="name"
+			id="product_name"
+			name="product_name"
 			aria-label="Add product"
-			placeholder="Product name"
 		/>
 		<br />
 		<label for="price">Price ($)</label>
@@ -38,7 +39,6 @@
 			id="price"
 			name="price"
 			aria-label="Add product"
-			placeholder="10"
 		/>
 		<br />
 		<label for="emoji">Emoji</label>
@@ -47,16 +47,15 @@
 			id="emoji"
 			name="emoji"
 			aria-label="Add product"
-			placeholder="🌽"
 		/>
 		<br />
 		<button type="submit">Submit</button>
 	</form>
 
 	<!-- This a list of all products -->
-	{#each product as { name, emoji, id }}
-		<a class="box" sveltekit:prefetch href={`/product/${id}`}>
-			<h2>{name}</h2>
+	{#each product as { product_name, emoji, product_id }}
+		<a class="box" sveltekit:prefetch href={`/product/${product_id}`}>
+			<h2>{product_name}</h2>
 			<h2>{emoji}</h2>
 		</a>
 		<br />

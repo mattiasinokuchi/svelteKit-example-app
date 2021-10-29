@@ -6,14 +6,16 @@ import { pool } from '$lib/db';
 //  Reads all orders for a specific customer
 export const get = async ({ params }) => {
     try {
-        const { id } = params;
+        const { customer_id } = params;
         const res = await pool.query(`
-            SELECT order_.id, name
-            FROM order_
-            INNER JOIN product
-            ON product.id = order_.product
-            WHERE customer = $1
-            `, [id]);
+            SELECT
+                order_table.id AS order_id,
+                product_name
+            FROM order_table
+            INNER JOIN product_table
+            ON product_table.id = order_table.product_id
+            WHERE customer_id = $1
+            `, [customer_id]);
         return {
             body: res.rows
         }

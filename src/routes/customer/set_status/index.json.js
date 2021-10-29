@@ -7,13 +7,13 @@ import { pool } from '$lib/db';
 export const post = async (request) => {
     const values = [
         request.body.get('subscribe'),
-        request.body.get('customer')
+        request.body.get('customer_id')
     ];
     try {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            UPDATE customer
+            UPDATE customer_table
             SET active = ($1)
             WHERE id = ($2)
             RETURNING *

@@ -8,48 +8,48 @@ import { pool } from '$lib/db';
     query text directly to prevent sql injection    */
 export const post = async (request) => {
     const client = await pool.connect();
-    const new_order = request.body.get('order');
-    const id = request.body.get('id');
+    const new_order = request.body.get('delivery_order');
+    const customer_id = request.body.get('customer_id');
     let old_order = null;
     try {
         await client.query('BEGIN');
         //  Get current delivery order of customer in request
         const res = await client.query(`
             SELECT delivery_order
-            FROM customer
+            FROM customer_table
             WHERE id = ($1);
-            `, [id]
+            `, [customer_id]
         );
         old_order = res.rows[0].delivery_order;
         if (new_order < old_order) {
             //  Defer other customers
             await client.query(`
-                UPDATE customer
+                UPDATE customer_table
                 SET delivery_order = delivery_order + 1
                 WHERE delivery_order BETWEEN ($1) AND ($2);
                 `, [new_order, old_order]
             );
             //  Advance customer in request
             await client.query(`
-                UPDATE customer
+                UPDATE customer_table
                 SET delivery_order = ($1)
                 WHERE id = ($2);
-                `, [new_order, id]
+                `, [new_order, customer_id]
             );
         } else {
             //  Advance other customers
             await client.query(`
-                UPDATE customer
+                UPDATE customer_table
                 SET delivery_order = delivery_order - 1
                 WHERE delivery_order BETWEEN ($1) AND ($2);
                 `, [old_order, new_order]
             );
             //  Defer customer in request
             await client.query(`
-                UPDATE customer
+                UPDATE customer_table
                 SET delivery_order = ($1)
                 WHERE id = ($2);
-                `, [new_order, id]
+                `, [new_order, customer_id]
             );
         }
         await client.query('COMMIT');

@@ -8,14 +8,13 @@ export const del = async (request) => {
     /*if (!request.locals.user) {
         return { status: 401 };
     }*/
-    const id = request.params.id;
     try {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            DELETE FROM order_
+            DELETE FROM order_table
             WHERE id = $1`,
-            [id]
+            [request.params.order_id]
         );
         return {
             status: 303,
