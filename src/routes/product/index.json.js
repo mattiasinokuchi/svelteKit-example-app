@@ -18,11 +18,11 @@ export const post = async (request) => {
     const values = [
         request.body.get('product_name'),
         request.body.get('price'),
-        request.body.get('emoji')
+        request.body.get('delivery_interval')
     ];
     try {
         await pool.query(`
-            INSERT INTO product_table(product_name, price, emoji)
+            INSERT INTO product_table(product_name, price, delivery_interval)
             VALUES($1, $2, $3)
             RETURNING *
         `, values);

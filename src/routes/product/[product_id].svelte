@@ -24,6 +24,7 @@
 <main>
     <h1>{product.product_name}</h1>
     <h2>Price: ${product.price}</h2>
+    <h2>Delivery interval: {product.delivery_interval} days</h2>
 </main>
 
 <style>

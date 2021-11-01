@@ -41,11 +41,11 @@
 			aria-label="Add product"
 		/>
 		<br />
-		<label for="emoji">Emoji</label>
+		<label for="delivery_interval">Delivery interval (days)</label>
 		<input
 			type="text"
-			id="emoji"
-			name="emoji"
+			id="delivery_interval"
+			name="delivery_interval"
 			aria-label="Add product"
 		/>
 		<br />
@@ -53,10 +53,9 @@
 	</form>
 
 	<!-- This a list of all products -->
-	{#each product as { product_name, emoji, product_id }}
+	{#each product as { product_name, product_id }}
 		<a class="box" sveltekit:prefetch href={`/product/${product_id}`}>
 			<h2>{product_name}</h2>
-			<h2>{emoji}</h2>
 		</a>
 		<br />
 	{/each}
