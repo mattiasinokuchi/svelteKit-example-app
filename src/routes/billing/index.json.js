@@ -8,7 +8,8 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                delivery_table.id AS delivery_id, *
+                delivery_table.id AS delivery_id,
+                TO_CHAR(delivery_time :: DATE, 'yyyy-mm-dd') AS delivery_date, *
             FROM delivery_table
             INNER JOIN customer_table
             ON customer_table.id = delivery_table.customer_id
