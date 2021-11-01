@@ -16,14 +16,16 @@ export const get = async (_) => {
 //  Add a new product
 export const post = async (request) => {
     const values = [
+        request.body.get('subscription'),
         request.body.get('product_name'),
         request.body.get('price'),
         request.body.get('delivery_interval')
     ];
+    console.log(values);
     try {
         await pool.query(`
-            INSERT INTO product_table(product_name, price, delivery_interval)
-            VALUES($1, $2, $3)
+            INSERT INTO product_table(subscription, product_name, price, delivery_interval)
+            VALUES($1, $2, $3, $4)
             RETURNING *
         `, values);
         return {

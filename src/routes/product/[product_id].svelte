@@ -1,5 +1,4 @@
 <!--    This is a specific product page   -->
-
 <script context="module">
     export async function load({ fetch, page }) {
         const { product_id } = page.params;
@@ -24,7 +23,9 @@
 <main>
     <h1>{product.product_name}</h1>
     <h2>Price: ${product.price}</h2>
-    <h2>Delivery interval: {product.delivery_interval} days</h2>
+    {#if product.delivery_interval}
+        <h2>Delivery interval: {product.delivery_interval} days</h2>
+    {/if}
 </main>
 
 <style>
