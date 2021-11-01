@@ -17,11 +17,13 @@ export const get = async (_) => {
             ON customer_table.id = order_table.customer_id
             WHERE
                 customer_table.active = 'true' AND
+                -- not already delivered today
                 order_table.id NOT IN (
                     SELECT order_id
                     FROM delivery_table
+                    WHERE (NOW()::date - delivery_time::date) < 1
                 )
-            GROUP BY product_name;
+        GROUP BY product_name;
         `);
         return {
             body: res.rows
