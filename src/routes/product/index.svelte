@@ -30,13 +30,6 @@
 			name="subscription"
 			bind:checked={subscription}
 		/>
-		<!-- Fix for submitting unchecked as default value -->
-		<input
-			type="hidden"
-			id="subscription"
-			name="subscription"
-			value=false
-		/>
 		<label for="subscription">Subscription</label>
 		<br />
 		<label hidden={!subscription} for="delivery_interval"
@@ -45,9 +38,9 @@
 		<input
 			hidden={!subscription}
 			type="number"
-			min="1"
+			min="0"
 			max="999"
-			value=1
+			value="0"
 			id="delivery_interval"
 			name="delivery_interval"
 			aria-label="Add product"
