@@ -22,7 +22,6 @@ export const get = async (_) => {
                     WHERE (NOW()::date - delivery_time::date) < product_table.delivery_interval
                 );
         `);
-        console.log(res.rows);
         //  Group orders by customer
         const ordersByCustomer = res.rows.reduce((acc, obj) => {
             if (acc.find(
