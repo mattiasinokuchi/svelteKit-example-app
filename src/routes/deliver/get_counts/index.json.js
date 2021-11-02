@@ -21,9 +21,9 @@ export const get = async (_) => {
                 order_table.id NOT IN (
                     SELECT order_id
                     FROM delivery_table
-                    WHERE (NOW()::date - delivery_time::date) < 1
+                    WHERE (NOW()::date - delivery_time::date) < product_table.delivery_interval
                 )
-        GROUP BY product_name;
+            GROUP BY product_name;
         `);
         return {
             body: res.rows
