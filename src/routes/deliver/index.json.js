@@ -57,8 +57,12 @@ export const get = async (_) => {
     }
 }
 
-//  Register a delivery
+/*  Register a delivery.
+    Client instance must be used in transaction with PostgreSQL.
+    Avoids string concatenating parameters into the
+    query text directly to prevent sql injection    */
 export const post = async (request) => {
+    const client = await pool.connect();
     const values = [
         request.body.get('customer_id'),
         request.body.get('price'),
@@ -66,14 +70,32 @@ export const post = async (request) => {
         request.body.get('order_id')
     ];
     try {
-        /*  Avoids string concatenating parameters into the
-            query text directly to prevent sql injection    */
+        await client.query('BEGIN');
+        //  Register delivery
         await pool.query(`
             INSERT INTO delivery_table(customer_id, price, product_name, order_id)
             VALUES($1, $2, $3, $4)
-            RETURNING *`,
-            values
+            RETURNING *
+            `, values
         );
+        //  Check if the delivery is a subscription
+        const res = await client.query(`
+            SELECT delivery_interval
+            FROM order_table
+            INNER JOIN product_table ON product_table.id = order_table.product_id
+            WHERE order_table.id = ($1);
+            `, [request.body.get('order_id')]
+        );
+        if (res.rows[0].delivery_interval === 0) {
+            //  Delete the order if it is not a subscription
+            await client.query(`
+            DELETE
+            FROM order_table
+            WHERE id = $1
+            `, [request.body.get('order_id')]
+            );
+        }
+        await client.query('COMMIT');
         return {
             status: 303,
             headers: {
@@ -81,6 +103,9 @@ export const post = async (request) => {
             }
         };
     } catch (error) {
-        console.log(error)
+        await client.query('ROLLBACK');
+        throw error;
+    } finally {
+        client.release();
     }
 };

@@ -20,7 +20,6 @@ export const post = async (request) => {
         request.body.get('price'),
         request.body.get('delivery_interval')
     ];
-    console.log(values);
     try {
         await pool.query(`
             INSERT INTO product_table(product_name, price, delivery_interval)
