@@ -15,13 +15,14 @@ export const get = async (_) => {
             INNER JOIN product_table ON product_table.id = order_table.product_id
             WHERE
                 customer_table.active = 'true' AND
-                -- not already delivered today
+                -- not delivered within delivery interval
                 order_table.id NOT IN (
                     SELECT order_id
                     FROM delivery_table
-                    WHERE (NOW()::date - delivery_time::date) < 1
+                    WHERE (NOW()::date - delivery_time::date) < product_table.delivery_interval
                 );
         `);
+        console.log(res.rows);
         //  Group orders by customer
         const ordersByCustomer = res.rows.reduce((acc, obj) => {
             if (acc.find(
