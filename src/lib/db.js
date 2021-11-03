@@ -1,4 +1,8 @@
-import { Pool } from 'pg';
+/*  'pg' is a CommonJS module which may not support named exports.
+    Import is done via the default export instead  */
+
+import pkg from 'pg';
+const { Pool } = pkg;
 
 export const pool = new Pool({
   user: 'postgres',
