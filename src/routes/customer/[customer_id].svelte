@@ -1,5 +1,4 @@
 <!--    This is a specific customers page   -->
-
 <script context="module">
     export async function load({ fetch, page }) {
         const { customer_id } = page.params;
@@ -30,12 +29,31 @@
 
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
+    
+    <!-- This is a form for deleting customers -->
+    <form
+        action="/customer/{customer.customer_id}.json?_method=delete"
+        method="post"
+    >
+        <input hidden value={customer.delivery_order} name="delivery_order" />
+        <button type="submit" disabled={order.length > 0}
+            >Delete Customer</button
+        >
+        <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
+        <label for="button" hidden={order.length < 1}
+            >(delete product and subscription first)</label
+        >
+    </form>
 
     <!-- This is a form for setting the subscription status -->
     <form action="/customer/set_status.json" method="post">
         <input type="hidden" name="customer_id" value={customer.customer_id} />
         <input type="hidden" name="subscribe" value={customer.active} />
-        <input type="checkbox" name="subscribe" bind:checked={customer.active} />
+        <input
+            type="checkbox"
+            name="subscribe"
+            bind:checked={customer.active}
+        />
         <label for="subscribe">Active subscription</label>
         <button type="submit">Update</button>
     </form>
@@ -68,27 +86,25 @@
 
     <!-- This is a form for adding products -->
     <form action="/customer/add_product.json" method="post">
-        <p>Add product:</p>
-        <input hidden type="text" value={customer.customer_id} name="customer_id" />
-        <select name="product_id" >
+        <p>Add order:</p>
+        <input
+            hidden
+            type="text"
+            value={customer.customer_id}
+            name="customer_id"
+        />
+        <label for="product_id">Product</label>
+        <select name="product_id">
             <option value="">- Please choose an option -</option>
             {#each option as { product_name, product_id }}
                 <option value={product_id}>{product_name}</option>
             {/each}
         </select>
+        <br />
+        <label for="start_date">Start date</label>
+        <input type="date" name="start_date" />
+        <br />
         <button type="submit">Add product</button>
-    </form>
-
-    <!-- This is a form for deleting customers -->
-    <form action="/customer/{customer.customer_id}.json?_method=delete" method="post">
-        <input hidden value={customer.delivery_order} name="delivery_order" />
-        <button type="submit" disabled={order.length > 0}
-            >Delete Customer</button
-        >
-        <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
-        <label for="button" hidden={order.length < 1}
-            >(delete product and subscription first)</label
-        >
     </form>
 </main>
 
