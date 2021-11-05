@@ -33,6 +33,7 @@ export const get = async (_) => {
                 acc[index].orders.push({
                     order_id: obj.order_id,
                     product_name: obj.product_name,
+                    product_id: obj.product_id,
                     price: obj.price
                 });
             } else {
@@ -43,6 +44,7 @@ export const get = async (_) => {
                     orders: [{
                         order_id: obj.order_id,
                         product_name: obj.product_name,
+                        product_id: obj.product_id,
                         price: obj.price
                     }]
                 });
@@ -67,14 +69,21 @@ export const post = async (request) => {
         request.body.get('customer_id'),
         request.body.get('price'),
         request.body.get('product_name'),
+        request.body.get('product_id'),
         request.body.get('order_id')
     ];
     try {
         await client.query('BEGIN');
         //  Register delivery
         await pool.query(`
-            INSERT INTO delivery_table(customer_id, price, product_name, order_id)
-            VALUES($1, $2, $3, $4)
+            INSERT INTO delivery_table(
+                customer_id,
+                price,
+                product_name,
+                product_id,
+                order_id
+            )
+            VALUES($1, $2, $3, $4, $5)
             RETURNING *
             `, values
         );
