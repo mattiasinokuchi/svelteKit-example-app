@@ -6,7 +6,7 @@ import { pool } from '$lib/db';
 //  Reads all products
 export const get = async (_) => {
     const res = await pool.query(`
-        SELECT id AS product_id, product_name
+        SELECT id AS product_id, *
         FROM product_table
         ORDER BY product_name ASC`
     );

@@ -25,11 +25,15 @@
 
 <script>
     export let customer, order, option;
+    let selected_product_id, selected_product;
+    $: if (selected_product_id) {
+        selected_product = option.find((el) => el.id === selected_product_id);
+    }
 </script>
 
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
-    
+
     <!-- This is a form for deleting customers -->
     <form
         action="/customer/{customer.customer_id}.json?_method=delete"
@@ -39,7 +43,7 @@
         <button type="submit" disabled={order.length > 0}
             >Delete Customer</button
         >
-        <!-- data with relationship to each customer needs to be deleted first to prevent personal information from being left in the database -->
+        <!-- customer data needs to be deleted from the database -->
         <label for="button" hidden={order.length < 1}
             >(delete product and subscription first)</label
         >
@@ -94,16 +98,16 @@
             name="customer_id"
         />
         <label for="product_id">Product</label>
-        <select name="product_id">
+        <select bind:value={selected_product_id} name="product_id">
             <option value="">- Please choose an option -</option>
             {#each option as { product_name, product_id }}
                 <option value={product_id}>{product_name}</option>
             {/each}
         </select>
-        <br />
-        <label for="start_date">Start date</label>
-        <input type="date" name="start_date" />
-        <br />
+        {#if selected_product && selected_product.delivery_interval }
+            <label for="start_date">Start date</label>
+            <input required type="date" name="start_date" />
+        {/if}
         <button type="submit">Add product</button>
     </form>
 </main>
