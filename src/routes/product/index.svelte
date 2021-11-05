@@ -38,9 +38,9 @@
 		<input
 			hidden={!subscription}
 			type="number"
-			min="0"
+			min="1"
 			max="999"
-			value="0"
+			value="7"
 			id="delivery_interval"
 			name="delivery_interval"
 			aria-label="Add product"
