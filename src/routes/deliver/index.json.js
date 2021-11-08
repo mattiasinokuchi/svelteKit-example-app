@@ -15,6 +15,11 @@ export const get = async (_) => {
             INNER JOIN product_table ON product_table.id = order_table.product_id
             WHERE
                 customer_table.active = 'true' AND
+                -- no time-out today
+                customer_id NOT IN (
+                    SELECT customer_id
+                    FROM time_out_table
+                    WHERE (CURRENT_DATE BETWEEN start_time::date AND end_time)) AND     
                 -- not delivered within delivery interval
                 order_table.id NOT IN (
                     SELECT order_id
@@ -52,7 +57,7 @@ export const get = async (_) => {
             return acc;
         }, []);
         return {
-            body: ordersByCustomer
+            body: res.rows
         }
     } catch (error) {
         console.log(error);
