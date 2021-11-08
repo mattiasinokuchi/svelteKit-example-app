@@ -57,7 +57,7 @@ export const get = async (_) => {
             return acc;
         }, []);
         return {
-            body: res.rows
+            body: ordersByCustomer
         }
     } catch (error) {
         console.log(error);
