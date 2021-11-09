@@ -1,4 +1,5 @@
 <!--	This is the delivery page	-->
+
 <script context="module">
 	export async function load({ fetch }) {
 		let res = null;
