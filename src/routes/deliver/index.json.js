@@ -15,7 +15,20 @@ export const get = async (_) => {
         for (let index = 0; deliveries.every(within30Days); index++) {
             const res = await pool.query(`
                 SELECT
-                    TO_CHAR(CURRENT_DATE + $1*delivery_interval - MOD((CURRENT_DATE - start_date), delivery_interval), 'yyyy-mm-dd') AS delivery_date,
+                    -- delivery date (converted to yyyy-mm-dd) given by...
+                    TO_CHAR(
+                        --- ...todays date...
+                        CURRENT_DATE +
+                        -- ...added to a serie based on the delivery interval...
+                        $1*delivery_interval -
+                        -- ...substracted by days past since last delivery using the remainder...
+                        MOD(
+                            -- ...after division of past days since delivery started...
+                            CURRENT_DATE - start_date,
+                            -- ...by the delivery interval (remainder is 0 on a delivery day)...
+                            delivery_interval),
+                        'yyyy-mm-dd')
+                    AS delivery_date,
                     product_name,
                     COUNT (product_name)
                 FROM
@@ -29,6 +42,7 @@ export const get = async (_) => {
                 ON
                     customer_table.id = order_table.customer_id
                 WHERE
+                    -- subscription is activated
                     customer_table.active = 'true'
                 AND
                     -- no time-out on selected day
@@ -47,11 +61,14 @@ export const get = async (_) => {
                         WHERE delivery_time::date = (CURRENT_DATE + $1*delivery_interval) 
                     )
                 AND
-                    -- delivery is less than 30 days ahead
+                    -- delivery within 30 days
                     $1*delivery_interval < 30
                 GROUP BY
                     product_name,
-                    CURRENT_DATE + $1*delivery_interval - MOD((CURRENT_DATE - start_date), delivery_interval)
+                    -- delivery date (same expression as above)
+                    CURRENT_DATE +
+                    $1*delivery_interval -
+                    MOD((CURRENT_DATE - start_date), delivery_interval)
                 ORDER BY
                     product_name;
             `, [index]);
