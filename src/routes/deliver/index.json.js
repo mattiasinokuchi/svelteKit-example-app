@@ -7,9 +7,13 @@ import { pool } from '$lib/db';
 export const get = async (_) => {
     try {
         let deliveries = [];
-        for (let index = 0; deliveries.length < 10; index++) {
+        const dateIn30Days = new Date();
+        dateIn30Days.setDate(dateIn30Days.getDate() + 30);
+        function within30Days(delivery) {
+            return new Date(delivery.delivery_date) < dateIn30Days;
+        }
+        for (let index = 0; deliveries.every(within30Days); index++) {
             const res = await pool.query(`
-            
                 SELECT
                     TO_CHAR(CURRENT_DATE + $1*delivery_interval - MOD((CURRENT_DATE - start_date), delivery_interval), 'yyyy-mm-dd') AS delivery_date,
                     product_name,
@@ -42,23 +46,31 @@ export const get = async (_) => {
                         FROM delivery_table
                         WHERE delivery_time::date = (CURRENT_DATE + $1*delivery_interval) 
                     )
+                AND
+                    -- delivery is less than 30 days ahead
+                    $1*delivery_interval < 30
                 GROUP BY
                     product_name,
-                    CURRENT_DATE + $1*delivery_interval - MOD((CURRENT_DATE - start_date), delivery_interval);
+                    CURRENT_DATE + $1*delivery_interval - MOD((CURRENT_DATE - start_date), delivery_interval)
+                ORDER BY
+                    product_name;
             `, [index]);
+            if (res.rows.length < 1) break;
             res.rows.forEach(element => {
                 deliveries.push(element);
             });
         }
-
+        const deliveriesSortedByDate = deliveries.sort((a, b) => {
+            return new Date(a.delivery_date) - new Date(b.delivery_date)
+        });
         //  Group deliveries by date
-        const deliveriesGroupedByDate = deliveries.reduce((acc, obj) => {
+        const deliveriesGroupedByDate = deliveriesSortedByDate.reduce((acc, obj) => {
             if (acc.find(
                 accObject => accObject.delivery_date === obj.delivery_date
             )) {
                 const index = acc.findIndex(
                     accObject => accObject.delivery_date === obj.delivery_date
-                    );
+                );
                 acc[index].deliveries.push({
                     product_name: obj.product_name,
                     count: obj.count
@@ -69,7 +81,7 @@ export const get = async (_) => {
                     deliveries: [{
                         product_name: obj.product_name,
                         count: obj.count
-                        }]
+                    }]
                 });
             }
             return acc;
