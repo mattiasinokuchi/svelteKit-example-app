@@ -1,9 +1,8 @@
-/*  This module contains endpoints to the database
-    for countings to the delivery page   */
+/*  This module contains endpoint to the database
+    for the parent delivery page   */
 
 import { pool } from '$lib/db';
 
-//  Reads all orders
 export const get = async (_) => {
     try {
         let deliveries = [];
@@ -12,6 +11,7 @@ export const get = async (_) => {
         function within90Days(delivery) {
             return new Date(delivery.delivery_date) < dateIn90Days;
         }
+        // Loop query until all deliveries within 90 days are returned...
         for (let index = 0; deliveries.every(within90Days); index++) {
             const res = await pool.query(`
                 SELECT
@@ -19,13 +19,13 @@ export const get = async (_) => {
                     TO_CHAR(
                         --- ...todays date...
                         CURRENT_DATE +
-                        -- ...added to a serie based on the delivery interval...
+                        -- ...added to a serie using the delivery interval...
                         $1*delivery_interval -
-                        -- ...substracted by days past since last delivery using the remainder...
+                        -- ...substracted by the remainder (days since last delivery)...
                         MOD(
-                            -- ...after division of past days since delivery started...
+                            -- ...after division of days since delivery started...
                             CURRENT_DATE - start_date,
-                            -- ...by the delivery interval (remainder is 0 on a delivery day)...
+                            -- ...by the delivery interval (remainder is 0 on delivery days)...
                             delivery_interval),
                         'yyyy-mm-dd')
                     AS delivery_date,
@@ -61,7 +61,8 @@ export const get = async (_) => {
                         WHERE delivery_time::date = (CURRENT_DATE + $1*delivery_interval) 
                     )
                 AND
-                    -- delivery within 90 days
+                    -- delivery within 90 days (to prevent products with shorter
+                    -- delivery interval being replaced by products with longer interval)
                     $1*delivery_interval < 90
                 GROUP BY
                     product_name,
@@ -72,7 +73,9 @@ export const get = async (_) => {
                 ORDER BY
                     product_name;
             `, [index]);
-            if (res.rows.length < 1) break;
+            // ...prevent infinite loop...
+            if (index > 90) break;
+            //  ...and added...
             res.rows.forEach(element => {
                 deliveries.push(element);
             });
