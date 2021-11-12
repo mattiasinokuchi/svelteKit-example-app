@@ -60,6 +60,8 @@
 		<button type="submit">Submit</button>
 	</form>
 
+	<h2 hidden={product.length > 0}>No products. Add something!</h2>
+
 	<!-- This a list of all products -->
 	{#each product as { product_name, product_id }}
 		<a class="box" sveltekit:prefetch href={`/product/${product_id}`}>

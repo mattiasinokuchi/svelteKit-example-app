@@ -21,6 +21,8 @@
 </script>
 
 <main>
+	<h2 hidden={delivery.length > 0}>No deliveries. Add some orders to your customers!</h2>
+
 	<!-- This is a list of delivery dates with products and counts-->
 	{#each delivery as { delivery_date, deliveries }}
 		<div class="box">

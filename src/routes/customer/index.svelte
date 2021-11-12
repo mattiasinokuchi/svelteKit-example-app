@@ -33,6 +33,8 @@
 		<button type="submit">Submit</button>
 	</form>
 
+	<h2 hidden={customer.length > 0}>No customers. Add someone!</h2>
+
 	<!---	This is a list of customers with a form
 			for changing their delivery order	-->
 	{#each customer as { first_name, last_name, customer_id, delivery_order }}

@@ -30,6 +30,8 @@
 		</form>
 	</div>
 
+	<h2 hidden={delivery.length > 0}>No delivery to do. Relax!</h2>
+
 	<!-- This is a list of customers and products to deliver-->
 	{#each delivery as { customer_id, first_name, last_name, orders }}
 		<div class="box">
