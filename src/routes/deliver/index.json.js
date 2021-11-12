@@ -7,12 +7,12 @@ import { pool } from '$lib/db';
 export const get = async (_) => {
     try {
         let deliveries = [];
-        const dateIn30Days = new Date();
-        dateIn30Days.setDate(dateIn30Days.getDate() + 30);
-        function within30Days(delivery) {
-            return new Date(delivery.delivery_date) < dateIn30Days;
+        const dateIn90Days = new Date();
+        dateIn90Days.setDate(dateIn90Days.getDate() + 90);
+        function within90Days(delivery) {
+            return new Date(delivery.delivery_date) < dateIn90Days;
         }
-        for (let index = 0; deliveries.every(within30Days); index++) {
+        for (let index = 0; deliveries.every(within90Days); index++) {
             const res = await pool.query(`
                 SELECT
                     -- delivery date (converted to yyyy-mm-dd) given by...
@@ -61,8 +61,8 @@ export const get = async (_) => {
                         WHERE delivery_time::date = (CURRENT_DATE + $1*delivery_interval) 
                     )
                 AND
-                    -- delivery within 30 days
-                    $1*delivery_interval < 30
+                    -- delivery within 90 days
+                    $1*delivery_interval < 90
                 GROUP BY
                     product_name,
                     -- delivery date (same expression as above)
