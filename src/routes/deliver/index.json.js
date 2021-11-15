@@ -5,17 +5,10 @@ import { pool } from '$lib/db';
 
 export const get = async (_) => {
     try {
-        // Declare an array for responses from looped query
+        // Declare an array to store responses from looped query
         let deliveries = [];
-        // Define date object used in condition for looping query
-        const dateIn90Days = new Date();
-        dateIn90Days.setDate(dateIn90Days.getDate() + 90);
-        // Define function used in condition for looping query
-        function within90Days(delivery) {
-            return new Date(delivery.delivery_date) < dateIn90Days;
-        }
         // Loop query until all deliveries within 90 days are returned
-        for (let index = 0; deliveries.every(within90Days); index++) {
+        for (let index = 0; index < 90; index++) {
             const res = await pool.query(`
                 SELECT
                     -- delivery date (converted to yyyy-mm-dd) given by...
@@ -76,8 +69,6 @@ export const get = async (_) => {
                 ORDER BY
                     product_name;
             `, [index]);
-            // Prevent infinite loop
-            if (index > 90) break;
             // Add response to array
             res.rows.forEach(element => {
                 deliveries.push(element);
