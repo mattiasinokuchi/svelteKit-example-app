@@ -19,6 +19,7 @@
 
 <script>
 	export let delivery, delivery_date;
+	const today = new Date().toISOString().slice(0, 10);
 </script>
 
 <main>
@@ -26,7 +27,7 @@
 		<h1>{delivery_date}</h1>
 		<!-- This is a undo buttton -->
 		<form action="/deliver/undo.json?_method=delete" method="post">
-			<input type="submit" value="Undo last delivery" />
+			<input type="submit" value="Undo last delivery" disabled={delivery_date !== today} />
 		</form>
 	</div>
 
@@ -40,13 +41,13 @@
 				{last_name}:
 			</h2>
 			{#each orders as { order_id, product_name, product_id, price }}
-				<form action="/deliver.json" method="post">
+				<form action="/deliver/deliver.json" method="post">
 					<input hidden name="customer_id" value={customer_id} />
 					<input hidden name="order_id" value={order_id} />
 					<input hidden name="price" value={price} />
 					<input hidden name="product_name" value={product_name} />
 					<input hidden name="product_id" value={product_id} />
-					<input type="submit" value={product_name} />
+					<input type="submit" value={product_name} disabled={delivery_date !== today} />
 				</form>
 			{/each}
 		</div>
