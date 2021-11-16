@@ -17,7 +17,7 @@ export const get = async ({ params }) => {
             WHERE
                 customer_table.active = 'true'
             AND
-                -- no time-out on selected day
+                -- no time-out this day
                 customer_id
                 NOT IN (
                     SELECT customer_id
@@ -25,15 +25,20 @@ export const get = async ({ params }) => {
                     WHERE ($1::DATE BETWEEN start_time::date AND end_time)
                 )
             AND     
-                -- not delivered
+                -- not delivered this day
                 order_table.id
                 NOT IN (
                     SELECT order_id
                     FROM delivery_table
                     WHERE delivery_time::date = $1::DATE 
                 )
-            AND -- selected day is a delivery day
-                MOD(($1::DATE - start_date), delivery_interval) = 0;
+            AND -- this is the delivery day...
+                CASE
+                    WHEN delivery_interval IS NULL  -- one-time orders...
+                        THEN $1::DATE = start_date  -- ...are delivered on start_date...
+                    ELSE    -- ...subscriptions are delivered...
+                        MOD(($1::DATE - start_date), delivery_interval) = 0 -- ...when remainder is 0 days
+                END;
         `, [delivery_date]);   
         //  Group orders by customer
         const ordersByCustomer = res.rows.reduce((acc, obj) => {
