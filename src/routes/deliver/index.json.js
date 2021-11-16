@@ -7,7 +7,13 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                TO_CHAR(
+                product_name,
+                COUNT (product_name),
+                CASE
+                    WHEN delivery_interval IS NULL
+                        THEN TO_CHAR(start_date, 'yyyy-mm-dd')
+                    ELSE
+                    TO_CHAR(
                     --- Todays date...
                     CURRENT_DATE +
                     -- ...added to a serie using the delivery interval...
@@ -18,11 +24,9 @@ export const get = async (_) => {
                         CURRENT_DATE - start_date,
                         -- ...by the delivery interval (remainder is 0 on delivery days)...
                         delivery_interval),
-                        -- ...converted to yyyy-mm-dd
+                        -- ...converted to...
                         'yyyy-mm-dd')
-                AS delivery_date,
-                product_name,
-                COUNT (product_name)
+                END delivery_date
             FROM
                 order_table
             INNER JOIN
@@ -56,13 +60,16 @@ export const get = async (_) => {
                     )
             AND
                 -- delivery within 90 days (to prevent products with shorter delivery interval being replaced by products with longer interval)
-                index*delivery_interval < 90
+                CASE
+                    -- for one-time orders to be present (and not be counted 90 times)
+                    WHEN index = 0
+                        THEN index*delivery_interval < 90 OR delivery_interval IS NULL
+                    ELSE
+                    index*delivery_interval < 90
+                    END
             GROUP BY
                 product_name,
-                -- delivery date (same expression as above)
-                CURRENT_DATE +
-                index*delivery_interval -
-                MOD((CURRENT_DATE - start_date), delivery_interval)
+                delivery_date
             ORDER BY
                 product_name;
             `);
