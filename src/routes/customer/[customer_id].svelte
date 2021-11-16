@@ -1,5 +1,4 @@
 <!--    This is a specific customers page   -->
-
 <script context="module">
     export async function load({ fetch, page }) {
         const { customer_id } = page.params;
@@ -119,13 +118,18 @@
                 <option value={product_id}>{product_name}</option>
             {/each}
         </select>
-        {#if selected_product && selected_product.delivery_interval}
-            <label for="start_date">Start date</label>
+        {#if selected_product}
+            {#if selected_product.delivery_interval}
+                <label for="start_date">Start date</label>
+            {:else}
+            <!-- start_date is used as delivery date for one-time orders -->
+                <label for="start_date">Delivery date</label>
+            {/if}
             <input required type="date" name="start_date" />
+            <button type="submit">Add product</button>
         {/if}
-        <button type="submit">Add product</button>
     </form>
-    
+
     <h2>Subscription status</h2>
 
     <!-- This is a form for setting the subscription status -->
@@ -141,7 +145,7 @@
         <button type="submit">Update</button>
     </form>
 
-    <hr>
+    <hr />
 
     <!-- This is a form for deleting customers -->
     <form
