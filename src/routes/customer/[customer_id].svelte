@@ -126,7 +126,7 @@
                 <label for="start_date">Delivery date</label>
             {/if}
             <input required type="date" name="start_date" />
-            <button type="submit">Add product</button>
+            <button type="submit" hidden={selected_product_id === ""}>Add product</button>
         {/if}
     </form>
 
