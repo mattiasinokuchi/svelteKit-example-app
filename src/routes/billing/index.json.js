@@ -15,7 +15,7 @@ export const get = async (_) => {
                 product_name,
                 price,
                 NOW() AS time_stamp
-                FROM delivery_table
+            FROM delivery_table
             INNER JOIN customer_table
             ON customer_table.id = delivery_table.customer_id;
         `);
