@@ -13,8 +13,7 @@ export const get = async (_) => {
                 first_name,
                 last_name,
                 product_name,
-                price,
-                NOW() AS time_stamp
+                price
             FROM delivery_table
             INNER JOIN customer_table
             ON customer_table.id = delivery_table.customer_id;
@@ -39,7 +38,6 @@ export const get = async (_) => {
                     first_name: obj.first_name,
                     last_name: obj.last_name,
                     to_pay: obj.price,
-                    time_stamp: obj.time_stamp,
                     delivery: [{
                         delivery_date: obj.delivery_date,
                         product_name: obj.product_name,
@@ -66,8 +64,8 @@ export const del = async (request) => {
         await pool.query(`
         DELETE FROM delivery_table
             WHERE customer_id = $1
-            AND delivery_time < timezone('Europe/Stockholm', $2::timestamptz);  -- prevents unintentional deletion during ongoing delivery
-            `, [request.body.get('customer_id'), request.body.get('time_stamp')]
+            AND delivery_time :: DATE < CURRENT_DATE;  -- prevents interference with ongoing delivery
+            `, [request.body.get('customer_id')]
         );
         return {
             status: 303,

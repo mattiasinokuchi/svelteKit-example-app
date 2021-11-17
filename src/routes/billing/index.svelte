@@ -17,12 +17,18 @@
 </script>
 
 <script>
+	import { element } from "svelte/internal";
+
 	export let customer;
+	const today = new Date().toISOString().slice(0, 10);
+	function allDeliveriesToday (delivery) {
+		return delivery.every(element => element.delivery_date === today);
+	}
 </script>
 
 <main>
 	<h2 hidden={customer.length > 0}>No billing to do. Relax!</h2>
-	{#each customer as { first_name, last_name, delivery, to_pay, customer_id, time_stamp }}
+	{#each customer as { first_name, last_name, delivery, to_pay, customer_id }}
 		<div class="box">
 			<h2>
 				{first_name}
@@ -35,10 +41,12 @@
 			{/each}
 			Total: ${to_pay}
 			<form action="/billing.json?_method=delete" method="post">
-				<!-- following input prevents unintentional deletion during ongoing delivery -->
-				<input hidden name="time_stamp" value={time_stamp} />
 				<input hidden name="customer_id" value={customer_id} />
-				<input type="submit" value="Clear" />
+				<input
+					type="submit"
+					value="Clear"
+					disabled={(() => allDeliveriesToday(delivery))()}
+				/>
 			</form>
 		</div>
 	{/each}
