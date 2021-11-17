@@ -118,15 +118,15 @@
                 <option value={product_id}>{product_name}</option>
             {/each}
         </select>
-        {#if selected_product}
-            {#if selected_product.delivery_interval}
-                <label for="start_date">Start date</label>
+        {#if selected_product && selected_product_id !== ""}
+            {#if selected_product.delivery_interval }
+                <label for="start_date">Start</label>
             {:else}
             <!-- start_date is used as delivery date for one-time orders -->
-                <label for="start_date">Delivery date</label>
+                <label for="start_date">Delivery</label>
             {/if}
             <input required type="date" name="start_date" />
-            <button type="submit" hidden={selected_product_id === ""}>Add product</button>
+            <button type="submit" >Add product</button>
         {/if}
     </form>
 
