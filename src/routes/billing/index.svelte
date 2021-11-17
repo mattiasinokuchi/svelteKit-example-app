@@ -22,21 +22,24 @@
 
 <main>
 	<h2 hidden={customer.length > 0}>No billing to do. Relax!</h2>
-	{#each customer as { first_name, last_name, delivery, to_pay }}
+	{#each customer as { first_name, last_name, delivery, to_pay, customer_id, time_stamp }}
 		<div class="box">
 			<h2>
 				{first_name}
 				{last_name}:
 			</h2>
-			{#each delivery as { delivery_date, delivery_id, product_name, price }}
-				{delivery_date}
-				{product_name} ${price}
-				<form action="/billing.json?_method=delete" method="post">
-					<input hidden name="delivery_id" value={delivery_id} />
-					<input type="submit" value="Clear" />
-				</form>
+			{#each delivery as { delivery_date, product_name, price }}
+				<p>
+					{delivery_date}: {product_name} (${price})
+				</p>
 			{/each}
 			Total: ${to_pay}
+			<form action="/billing.json?_method=delete" method="post">
+				<!-- following input prevents unintentional deletion during ongoing delivery -->
+				<input hidden name="time_stamp" value={time_stamp} />
+				<input hidden name="customer_id" value={customer_id} />
+				<input type="submit" value="Clear" />
+			</form>
 		</div>
 	{/each}
 </main>

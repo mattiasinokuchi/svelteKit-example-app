@@ -8,11 +8,17 @@ export const get = async (_) => {
     try {
         const res = await pool.query(`
             SELECT
-                delivery_table.id AS delivery_id,
-                TO_CHAR(delivery_time :: DATE, 'yyyy-mm-dd') AS delivery_date, *
-            FROM delivery_table
+                TO_CHAR(delivery_time :: DATE, 'yyyy-mm-dd') AS delivery_date,
+                customer_id,
+                delivery_time,
+                first_name,
+                last_name,
+                product_name,
+                price,
+                NOW() AS time_stamp
+                FROM delivery_table
             INNER JOIN customer_table
-            ON customer_table.id = delivery_table.customer_id
+            ON customer_table.id = delivery_table.customer_id;
         `);
         //  ...then group deliveries by customer
         const deliveriesByCustomer = res.rows.reduce((acc, obj) => {
@@ -25,10 +31,9 @@ export const get = async (_) => {
                 acc[index].to_pay = acc[index].to_pay + obj.price;
                 acc[index].delivery.push({
                     delivery_date: obj.delivery_date,
-                    delivery_id: obj.delivery_id,
-                    order_id: obj.order_id,
                     product_name: obj.product_name,
-                    price: obj.price
+                    price: obj.price,
+                    delivery_time: obj.delivery_time
                 });
             } else {
                 acc.push({
@@ -36,12 +41,12 @@ export const get = async (_) => {
                     first_name: obj.first_name,
                     last_name: obj.last_name,
                     to_pay: obj.price,
+                    time_stamp: obj.time_stamp,
                     delivery: [{
                         delivery_date: obj.delivery_date,
-                        delivery_id: obj.delivery_id,
-                        order_id: obj.order_id,
                         product_name: obj.product_name,
-                        price: obj.price
+                        price: obj.price,
+                        delivery_time: obj.delivery_time
                     }]
                 });
             }
@@ -55,18 +60,17 @@ export const get = async (_) => {
     }
 }
 
-//  Delete delivery
+//  Delete deliveries
 export const del = async (request) => {
     /*if (!request.locals.user) {
         return { status: 401 };
     }*/
     try {
-        /*  Avoids string concatenating parameters into the
-            query text directly to prevent sql injection    */
         await pool.query(`
-            DELETE FROM delivery_table
-            WHERE id = $1`,
-            [request.body.get('delivery_id')]
+        DELETE FROM delivery_table
+            WHERE customer_id = $1
+            AND delivery_time < timezone('Europe/Stockholm', $2::timestamptz);  -- prevents unintentional deletion during ongoing delivery
+            `, [request.body.get('customer_id'), request.body.get('time_stamp')]
         );
         return {
             status: 303,
