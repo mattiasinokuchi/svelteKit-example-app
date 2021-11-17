@@ -3,12 +3,15 @@
 	export async function load({ fetch, page }) {
 		try {
 			const { delivery_date } = page.params;
-			const res = await fetch(`/deliver/${delivery_date}.json`);
+			let res = await fetch(`/deliver/${delivery_date}.json`);
 			const delivery = await res.json();
+			res = await fetch(`/deliver/get_todays_deliveries.json`);
+			const todays_delivery = await res.json();
 			return {
 				props: {
 					delivery,
-					delivery_date
+					delivery_date,
+					todays_delivery
 				},
 			};
 		} catch (error) {
@@ -18,7 +21,7 @@
 </script>
 
 <script>
-	export let delivery, delivery_date;
+	export let delivery, delivery_date, todays_delivery;
 	const today = new Date().toISOString().slice(0, 10);
 </script>
 
@@ -27,7 +30,7 @@
 		<h1>{delivery_date}</h1>
 		<!-- This is a undo buttton -->
 		<form action="/deliver/undo.json?_method=delete" method="post">
-			<input type="submit" value="Undo last delivery" disabled={delivery_date !== today} />
+			<input type="submit" value="Undo last delivery" hidden={delivery_date !== today} disabled={todays_delivery.length<1}/>
 		</form>
 	</div>
 

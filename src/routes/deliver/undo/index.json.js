@@ -30,24 +30,28 @@ export const del = async (request) => {
             RETURNING *;
         `);
         //  Restore order if deleted
-        await pool.query(
-            `INSERT INTO order_table(
+        if (res.rows.length > 0) {
+            await pool.query(`
+            INSERT INTO order_table(
                 id,
                 customer_id,
-                product_id)
-            VALUES($1, $2, $3)
-            ON CONFLICT (id) DO NOTHING;`,
-            [
-                res.rows[0].order_id,
-                res.rows[0].customer_id,
-                res.rows[0].product_id
-            ]
-        );
+                product_id,
+                start_date)
+            VALUES($1, $2, $3, CURRENT_DATE)
+            ON CONFLICT (id) DO NOTHING;
+            `,
+                [
+                    res.rows[0].order_id,
+                    res.rows[0].customer_id,
+                    res.rows[0].product_id
+                ]
+            );
+        }
         await client.query('COMMIT');
         return {
             status: 303,
             headers: {
-                location: '/deliver'
+                location: request.headers.referer
             }
         };
     } catch (error) {

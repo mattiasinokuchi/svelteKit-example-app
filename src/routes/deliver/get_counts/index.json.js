@@ -1,5 +1,5 @@
 /*  This module contains endpoints to the database
-    for countings to the delivery page   */
+    for countings to delivery child pages   */
 
 import { pool } from '$lib/db';
 
