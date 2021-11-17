@@ -89,7 +89,7 @@
                             disabled={!customer.active}
                         >
                             <label>
-                                {product_name} ({start_date})
+                                {product_name}, (start/delivery {start_date})
                                 <button
                                     type="submit"
                                     disabled={!customer.active}>Delete</button
