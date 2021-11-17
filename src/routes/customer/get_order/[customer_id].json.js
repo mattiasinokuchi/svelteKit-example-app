@@ -10,7 +10,8 @@ export const get = async ({ params }) => {
         const res = await pool.query(`
             SELECT
                 order_table.id AS order_id,
-                product_name
+                product_name,
+                TO_CHAR(start_date :: DATE, 'yyyy-mm-dd') AS start_date
             FROM order_table
             INNER JOIN product_table
             ON product_table.id = order_table.product_id

@@ -81,7 +81,7 @@
         <h2>Subscriptions/orders</h2>
         {#if order.length > 0}
             <ul>
-                {#each order as { product_name, order_id }}
+                {#each order as { product_name, order_id, start_date }}
                     <li>
                         <form
                             action="/customer/remove_product/{order_id}.json?_method=delete"
@@ -89,7 +89,7 @@
                             disabled={!customer.active}
                         >
                             <label>
-                                {product_name}
+                                {product_name} ({start_date})
                                 <button
                                     type="submit"
                                     disabled={!customer.active}>Delete</button
