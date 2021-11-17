@@ -10,7 +10,6 @@ export const get = async (_) => {
             SELECT
                 TO_CHAR(delivery_time :: DATE, 'yyyy-mm-dd') AS delivery_date,
                 customer_id,
-                delivery_time,
                 first_name,
                 last_name,
                 product_name,
@@ -33,7 +32,6 @@ export const get = async (_) => {
                     delivery_date: obj.delivery_date,
                     product_name: obj.product_name,
                     price: obj.price,
-                    delivery_time: obj.delivery_time
                 });
             } else {
                 acc.push({
@@ -46,7 +44,6 @@ export const get = async (_) => {
                         delivery_date: obj.delivery_date,
                         product_name: obj.product_name,
                         price: obj.price,
-                        delivery_time: obj.delivery_time
                     }]
                 });
             }
