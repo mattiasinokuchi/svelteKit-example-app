@@ -61,6 +61,8 @@ export const get = async ({ params }) => {
                     customer_id: obj.customer_id,
                     first_name: obj.first_name,
                     last_name: obj.last_name,
+                    street_address: obj.street_address,
+                    city: obj.city,
                     orders: [{
                         order_id: obj.order_id,
                         product_name: obj.product_name,
