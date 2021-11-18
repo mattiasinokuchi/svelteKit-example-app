@@ -37,9 +37,8 @@
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
 
-    <h2>Subscription time-out</h2>
-
     <!-- This is a list of subscription time-outs with delete buttons -->
+    <h2>Subscription time-out</h2>
     <section>
         {#if time_out.length > 0}
             <ul>
@@ -64,15 +63,23 @@
         {/if}
     </section>
 
-    <h3>Add time-out</h3>
-
     <!-- This is a form for subscription time-out -->
+    <h3>Add time-out</h3>
     <form action="/customer/add_time_out.json" method="post">
         <input type="hidden" name="customer_id" value={customer.customer_id} />
-        <label for="start_date">Start date</label>
-        <input required type="date" name="start_date" bind:value={start_date} />
-        <label for="end_date">End date</label>
-        <input required type="date" name="end_date" min={start_date} />
+        <p>
+            <label for="start_date">Start date</label>
+            <input
+                required
+                type="date"
+                name="start_date"
+                bind:value={start_date}
+            />
+        </p>
+        <p>
+            <label for="end_date">End date</label>
+            <input required type="date" name="end_date" min={start_date} />
+        </p>
         <button type="submit">Add</button>
     </form>
 
@@ -134,40 +141,69 @@
     <h2>Contact Information</h2>
     <form action="/customer/update_contact_info.json" method="post">
         <input type="hidden" name="customer_id" value={customer.customer_id} />
-		<p>
-			<label for="first_name">First Name</label>
-			<input type="text" id="first_name" name="first_name" value={customer.first_name}/>
-		</p>
-		<p>
-			<label for="last_name">Last Name</label>
-			<input type="text" id="last_name" name="last_name" value={customer.last_name}/>
-		</p>
-		<p>
-			<label for="street_address">Street Address</label>
-			<input type="text" id="street_address" name="street_address" value={customer.street_address}/>
-		</p>
-		<p>
-			<label for="postcode">Postcode</label>
-			<input type="text" id="postcode" name="postcode" value={customer.postcode}/>
-		</p>
-		<p>
-			<label for="city">City</label>
-			<input type="text" id="city" name="city" value={customer.city}/>
-		</p>
-		<p>
-			<label for="telephone">Telephone</label>
-			<input type="tel" id="telephone" name="telephone" value={customer.telephone}/>
-		</p>
-		<p>
-			<label for="email">Email</label>
-			<input type="email" id="email" name="email" value={customer.email}/>
-		</p>
-		<input type="submit" value="Submit" />
+        <p>
+            <label for="first_name">First Name</label>
+            <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                value={customer.first_name}
+            />
+        </p>
+        <p>
+            <label for="last_name">Last Name</label>
+            <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                value={customer.last_name}
+            />
+        </p>
+        <p>
+            <label for="street_address">Street Address</label>
+            <input
+                type="text"
+                id="street_address"
+                name="street_address"
+                value={customer.street_address}
+            />
+        </p>
+        <p>
+            <label for="postcode">Postcode</label>
+            <input
+                type="text"
+                id="postcode"
+                name="postcode"
+                value={customer.postcode}
+            />
+        </p>
+        <p>
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" value={customer.city} />
+        </p>
+        <p>
+            <label for="telephone">Telephone</label>
+            <input
+                type="tel"
+                id="telephone"
+                name="telephone"
+                value={customer.telephone}
+            />
+        </p>
+        <p>
+            <label for="email">Email</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value={customer.email}
+            />
+        </p>
+        <input type="submit" value="Submit" />
     </form>
 
-    <h2>Subscription status</h2>
-
     <!-- This is a form for setting the subscription status -->
+    <h2>Subscription status</h2>
     <form action="/customer/set_status.json" method="post">
         <input type="hidden" name="customer_id" value={customer.customer_id} />
         <input type="hidden" name="subscribe" value={customer.active} />
