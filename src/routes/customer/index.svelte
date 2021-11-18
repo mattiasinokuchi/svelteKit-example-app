@@ -104,7 +104,6 @@
 	}
 	form {
 		text-align: center;
-		font-size: 3vw;
 	}
 	input {
 		text-align: left;
@@ -113,6 +112,6 @@
 		width: 20vw;
 		display: inline-block;
 		text-align: right;
-		color: black;
+		color: grey;
 	}
 </style>
