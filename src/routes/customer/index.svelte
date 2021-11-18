@@ -17,41 +17,50 @@
 
 <script>
 	export let customer;
+	let formHidden = true;
 </script>
 
-<main>
+<main >
 	<!-- This is a form for adding new customers -->
-	<form class="box" id="new_customer" action="/customer.json" method="post">
+	<form
+		class="box"
+		id="new_customer"
+		action="/customer.json"
+		method="post"
+		on:click={() => (formHidden=false)}
+	>
 		<h2>New customer</h2>
-		<p>
-			<label for="first_name">First Name</label>
-			<input type="text" id="first_name" name="first_name" />
-		</p>
-		<p>
-			<label for="last_name">Last Name</label>
-			<input type="text" id="last_name" name="last_name" />
-		</p>
-		<p>
-			<label for="street_address">Street Address</label>
-			<input type="text" id="street_address" name="street_address" />
-		</p>
-		<p>
-			<label for="postcode">Postcode</label>
-			<input type="text" id="postcode" name="postcode" />
-		</p>
-		<p>
-			<label for="city">City</label>
-			<input type="text" id="city" name="city" />
-		</p>
-		<p>
-			<label for="telephone">Telephone</label>
-			<input type="tel" id="telephone" name="telephone" />
-		</p>
-		<p>
-			<label for="email">Email</label>
-			<input type="email" id="email" name="email" />
-		</p>
-		<input type="submit" value="Submit" />
+		<div hidden={formHidden} >
+			<p>
+				<label for="first_name">First Name</label>
+				<input type="text" id="first_name" name="first_name" />
+			</p>
+			<p>
+				<label for="last_name">Last Name</label>
+				<input type="text" id="last_name" name="last_name" />
+			</p>
+			<p>
+				<label for="street_address">Street Address</label>
+				<input type="text" id="street_address" name="street_address" />
+			</p>
+			<p>
+				<label for="postcode">Postcode</label>
+				<input type="text" id="postcode" name="postcode" />
+			</p>
+			<p>
+				<label for="city">City</label>
+				<input type="text" id="city" name="city" />
+			</p>
+			<p>
+				<label for="telephone">Telephone</label>
+				<input type="tel" id="telephone" name="telephone" />
+			</p>
+			<p>
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" />
+			</p>
+			<input type="submit" value="Submit" />
+		</div>
 	</form>
 
 	<h2 hidden={customer.length > 0}>No customers. Add someone!</h2>
@@ -59,7 +68,7 @@
 	<!---	This is a list of customers with a form
 			for changing their delivery order	-->
 	{#each customer as { first_name, last_name, customer_id, delivery_order }}
-		<a sveltekit:prefetch href={`/customer/${customer_id}`}>
+		<a sveltekit:prefetch href={`/customer/${customer_id}`} >
 			<div class="box">
 				<h2>{first_name} {last_name}</h2>
 				<form action="/customer/reorder_delivery.json" method="post">
