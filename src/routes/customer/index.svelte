@@ -21,8 +21,8 @@
 
 <main>
 	<!-- This is a form for adding new customers -->
-	<h2>New customer</h2>
 	<form class="box" id="new_customer" action="/customer.json" method="post">
+		<h2>New customer</h2>
 		<p>
 			<label for="first_name">First Name</label>
 			<input type="text" id="first_name" name="first_name" />
@@ -103,18 +103,16 @@
 		color: salmon;
 	}
 	form {
-		display: table;
-	}
-	p {
-		display: table-row;
-	}
-	label {
-		display: table-cell;
-		color: black;
-		text-align: right;
+		text-align: center;
+		font-size: 2vw;
 	}
 	input {
-		display: table-cell;
-		margin: 1vw;
+		text-align: left;
+	}
+	label {
+		width: 20vw;
+		display: inline-block;
+		text-align: right;
+		color: black;
 	}
 </style>
