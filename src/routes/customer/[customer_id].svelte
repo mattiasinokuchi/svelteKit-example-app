@@ -110,8 +110,8 @@
     </section>
 
     <!-- This is a form for adding products -->
+    <h3>Add order:</h3>
     <form action="/customer/add_product.json" method="post">
-        <h3>Add order:</h3>
         <input
             hidden
             type="text"
@@ -199,7 +199,7 @@
                 value={customer.email}
             />
         </p>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="Update" />
     </form>
 
     <!-- This is a form for setting the subscription status -->
