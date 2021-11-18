@@ -29,7 +29,7 @@
 		method="post"
 		on:click={() => (formHidden=false)}
 	>
-		<h2>New customer</h2>
+		<h2>Add new customer</h2>
 		<div hidden={formHidden} >
 			<p>
 				<label for="first_name">First Name</label>
