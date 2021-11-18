@@ -22,36 +22,38 @@
 <main>
 	<!-- This is a form for adding new customers -->
 	<form class="box" id="new_customer" action="/customer.json" method="post">
-		<h2>New customer</h2>
-		<p>
-			<label for="first_name">First Name</label>
-			<input type="text" id="first_name" name="first_name" />
-		</p>
-		<p>
-			<label for="last_name">Last Name</label>
-			<input type="text" id="last_name" name="last_name" />
-		</p>
-		<p>
-			<label for="street_address">Street Address</label>
-			<input type="text" id="street_address" name="street_address" />
-		</p>
-		<p>
-			<label for="postcode">Postcode</label>
-			<input type="text" id="postcode" name="postcode" />
-		</p>
-		<p>
-			<label for="city">City</label>
-			<input type="text" id="city" name="city" />
-		</p>
-		<p>
-			<label for="telephone">Telephone</label>
-			<input type="tel" id="telephone" name="telephone" />
-		</p>
-		<p>
-			<label for="email">Email</label>
-			<input type="email" id="email" name="email" />
-		</p>
-		<input type="submit" value="Submit" />
+		<h2 class="new" tabindex="0">New customer</h2>
+		<div class="form">
+			<p>
+				<label for="first_name">First Name</label>
+				<input type="text" id="first_name" name="first_name" />
+			</p>
+			<p>
+				<label for="last_name">Last Name</label>
+				<input type="text" id="last_name" name="last_name" />
+			</p>
+			<p>
+				<label for="street_address">Street Address</label>
+				<input type="text" id="street_address" name="street_address" />
+			</p>
+			<p>
+				<label for="postcode">Postcode</label>
+				<input type="text" id="postcode" name="postcode" />
+			</p>
+			<p>
+				<label for="city">City</label>
+				<input type="text" id="city" name="city" />
+			</p>
+			<p>
+				<label for="telephone">Telephone</label>
+				<input type="tel" id="telephone" name="telephone" />
+			</p>
+			<p>
+				<label for="email">Email</label>
+				<input type="email" id="email" name="email" />
+			</p>
+			<input type="submit" value="Submit" />
+		</div>
 	</form>
 
 	<h2 hidden={customer.length > 0}>No customers. Add someone!</h2>
@@ -80,6 +82,13 @@
 </main>
 
 <style>
+	.new ~ .form {
+		display: none;
+	}
+	.new:focus ~ .form {
+		display: block;
+	}
+
 	main {
 		display: flex;
 		flex-wrap: wrap;
@@ -104,7 +113,6 @@
 	}
 	form {
 		text-align: center;
-		font-size: 3vw;
 	}
 	input {
 		text-align: left;
@@ -113,6 +121,6 @@
 		width: 20vw;
 		display: inline-block;
 		text-align: right;
-		color: black;
+		color: gray;
 	}
 </style>
