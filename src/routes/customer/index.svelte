@@ -21,15 +21,37 @@
 
 <main>
 	<!-- This is a form for adding new customers -->
-	<form class="box" action="/customer.json" method="post">
-		<h2>New customer</h2>
-		<label for="first_name">First Name</label>
-		<input type="text" id="first_name" name="first_name" />
-		<br />
-		<label for="last_name">Last Name</label>
-		<input type="text" id="last_name" name="last_name" />
-		<br />
-		<button type="submit">Submit</button>
+	<h2>New customer</h2>
+	<form class="box" id="new_customer" action="/customer.json" method="post">
+		<p>
+			<label for="first_name">First Name</label>
+			<input type="text" id="first_name" name="first_name" />
+		</p>
+		<p>
+			<label for="last_name">Last Name</label>
+			<input type="text" id="last_name" name="last_name" />
+		</p>
+		<p>
+			<label for="street_address">Street Address</label>
+			<input type="text" id="street_address" name="street_address" />
+		</p>
+		<p>
+			<label for="postcode">Postcode</label>
+			<input type="text" id="postcode" name="postcode" />
+		</p>
+		<p>
+			<label for="city">City</label>
+			<input type="text" id="city" name="city" />
+		</p>
+		<p>
+			<label for="telephone">Telephone</label>
+			<input type="tel" id="telephone" name="telephone" />
+		</p>
+		<p>
+			<label for="email">Email</label>
+			<input type="email" id="email" name="email" />
+		</p>
+		<input type="submit" value="Submit" />
 	</form>
 
 	<h2 hidden={customer.length > 0}>No customers. Add someone!</h2>
@@ -80,10 +102,19 @@
 		text-decoration: none;
 		color: salmon;
 	}
-	input {
-		margin: 1vw;
+	form {
+		display: table;
+	}
+	p {
+		display: table-row;
 	}
 	label {
+		display: table-cell;
 		color: black;
+		text-align: right;
+	}
+	input {
+		display: table-cell;
+		margin: 1vw;
 	}
 </style>
