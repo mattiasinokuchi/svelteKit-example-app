@@ -119,15 +119,50 @@
             {/each}
         </select>
         {#if selected_product && selected_product_id !== ""}
-            {#if selected_product.delivery_interval }
+            {#if selected_product.delivery_interval}
                 <label for="start_date">Start</label>
             {:else}
-            <!-- start_date is used as delivery date for one-time orders -->
+                <!-- start_date is used as delivery date for one-time orders -->
                 <label for="start_date">Delivery</label>
             {/if}
             <input required type="date" name="start_date" />
-            <button type="submit" >Add product</button>
+            <button type="submit">Add product</button>
         {/if}
+    </form>
+
+    <!-- This is a form for contact information -->
+    <h2>Contact Information</h2>
+    <form action="/customer/update_contact_info.json" method="post">
+        <input type="hidden" name="customer_id" value={customer.customer_id} />
+		<p>
+			<label for="first_name">First Name</label>
+			<input type="text" id="first_name" name="first_name" value={customer.first_name}/>
+		</p>
+		<p>
+			<label for="last_name">Last Name</label>
+			<input type="text" id="last_name" name="last_name" value={customer.last_name}/>
+		</p>
+		<p>
+			<label for="street_address">Street Address</label>
+			<input type="text" id="street_address" name="street_address" value={customer.street_address}/>
+		</p>
+		<p>
+			<label for="postcode">Postcode</label>
+			<input type="text" id="postcode" name="postcode" value={customer.postcode}/>
+		</p>
+		<p>
+			<label for="city">City</label>
+			<input type="text" id="city" name="city" value={customer.city}/>
+		</p>
+		<p>
+			<label for="telephone">Telephone</label>
+			<input type="tel" id="telephone" name="telephone" value={customer.telephone}/>
+		</p>
+		<p>
+			<label for="email">Email</label>
+			<input type="email" id="email" name="email" value={customer.email}/>
+		</p>
+		<input type="submit" value="Submit" />
     </form>
 
     <h2>Subscription status</h2>
