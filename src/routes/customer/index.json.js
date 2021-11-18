@@ -21,15 +21,30 @@ export const post = async (request) => {
         /*  Avoids string concatenating parameters into the
             query text directly to prevent sql injection    */
         await pool.query(`
-            INSERT INTO customer_table(first_name, last_name, delivery_order)
-            VALUES($1, $2, (
-                SELECT COUNT(*) + 1
-                FROM customer_table
-            ))
+            INSERT INTO
+                customer_table(
+                    first_name,
+                    last_name,
+                    street_address,
+                    postcode,
+                    city,
+                    telephone,
+                    email,
+                    delivery_order)
+            VALUES
+                ($1,$2,$3,$4,$5,$6,$7,(
+                    -- last number of customers
+                    SELECT COUNT(*) + 1
+                    FROM customer_table))
             RETURNING *`,
             [
                 request.body.get('first_name'),
-                request.body.get('last_name')
+                request.body.get('last_name'),
+                request.body.get('street_address'),
+                request.body.get('postcode'),
+                request.body.get('city'),
+                request.body.get('telephone'),
+                request.body.get('email')
             ]
         );
         return {
