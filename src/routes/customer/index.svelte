@@ -104,7 +104,7 @@
 	}
 	form {
 		text-align: center;
-		font-size: 2vw;
+		font-size: 3vw;
 	}
 	input {
 		text-align: left;
