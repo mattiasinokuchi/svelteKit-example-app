@@ -1,36 +1,51 @@
 <!--	This is the parent page for customers	-->
 <script context="module">
 	export async function load({ fetch }) {
-		const res = await fetch("/customer.json");
-		if (res.ok) {
+		let res = null;
+		try {
+			res = await fetch("/customer.json");
 			const customer = await res.json();
+			res = await fetch("/customer/get_phone_numbers.json");
+			const phone = await res.json();
 			return {
-				props: { customer },
+				props: {
+					customer,
+					phone,
+				},
 			};
+		} catch (error) {
+			return error;
 		}
-		const { message } = await res.json();
-		return {
-			error: new Error(message),
-		};
 	}
 </script>
 
 <script>
-	export let customer;
+	export let customer, phone;
 	let formHidden = true;
+	let buttonText = "Copy";
+	async function myFunction() {
+		await navigator.clipboard.writeText(phone.numbers);
+		buttonText = "Telephone numbers copied";
+	}
 </script>
 
-<main >
+<main>
+	<!-- This is a button for copy all customers phone numbers-->
+	<form class="box">
+		<h2>Copy telephone numbers</h2>
+		<button on:click={myFunction}>{buttonText}</button>
+	</form>
+
 	<!-- This is a form for adding new customers -->
 	<form
 		class="box"
 		id="new_customer"
 		action="/customer.json"
 		method="post"
-		on:click={() => (formHidden=false)}
+		on:click={() => (formHidden = false)}
 	>
 		<h2>Add new customer</h2>
-		<div hidden={formHidden} >
+		<div hidden={formHidden}>
 			<p>
 				<label for="first_name">First Name</label>
 				<input type="text" id="first_name" name="first_name" />
@@ -68,7 +83,7 @@
 	<!---	This is a list of customers with a form
 			for changing their delivery order	-->
 	{#each customer as { first_name, last_name, customer_id, delivery_order }}
-		<a sveltekit:prefetch href={`/customer/${customer_id}`} >
+		<a sveltekit:prefetch href={`/customer/${customer_id}`}>
 			<div class="box">
 				<h2>{first_name} {last_name}</h2>
 				<form action="/customer/reorder_delivery.json" method="post">
