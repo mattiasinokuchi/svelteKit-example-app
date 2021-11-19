@@ -21,22 +21,52 @@
 </script>
 
 <main>
-    <h1>{product.product_name}</h1>
-    <h2>Price: ${product.price}</h2>
-    {#if product.delivery_interval}
-        <h2>Delivery interval: {product.delivery_interval} days</h2>
-    {/if}
+    <h2>{product.product_name}</h2>
+    <!-- This is a form for product information -->
+    <form action="/product/update_product.json" method="post">
+        <input type="hidden" name="product_id" value={product.product_id} />
+        <p>
+            <label for="product_name">Product Name</label>
+            <input
+                type="text"
+                id="product_name"
+                name="product_name"
+                value={product.product_name}
+            />
+        </p>
+        <p>
+            <label for="price">Price ($)</label>
+            <input
+                type="number"
+                id="price"
+                name="price"
+                value={product.price}
+            />
+        </p>
+        <p>
+            <label for="delivery_interval">Delivery Interval</label>
+            <input
+                type="number"
+                min="1"
+                max="999"
+                id="delivery_interval"
+                name="delivery_interval"
+                value={product.delivery_interval}
+            />
+        </p>
+        <input type="submit" value="Update" />
+    </form>
 </main>
 
 <style>
     main {
-        margin-top: 4rem;
-        text-align: center;
-    }
-    h1 {
-        color: salmon;
+        margin: 4rem;
+        padding: 2rem;
+        color: gray;
+        justify-content: center;
+        box-shadow: 4px 5px 11px 10px lightgray;
     }
     h2 {
-        color: gray;
+        color: salmon;
     }
 </style>

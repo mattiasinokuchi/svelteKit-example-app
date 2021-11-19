@@ -1,9 +1,9 @@
 /*  This module contains endpoints to the
-    database for the specific customers page   */
+    database for the specific customer page   */
 
 import { pool } from '$lib/db';
 
-//  Adds a new customer
+//  Update customer information
 export const post = async (request) => {
     try {
         /*  Avoids string concatenating parameters into the
