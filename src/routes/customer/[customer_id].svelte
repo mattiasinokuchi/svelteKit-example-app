@@ -32,10 +32,6 @@
     $: if (selected_product_id) {
         selected_product = option.find((el) => el.id === selected_product_id);
     }
-//    import { confirm } from "./Modal.svelte";
-    async function showConfirm() {
-        result = await confirm("Really do this?");
-    }
 </script>
 
 <main>
@@ -231,7 +227,6 @@
         <input
             type="submit"
             value="Delete Customer"
-            on:click={showConfirm}
         />
     </form>
 </main>
