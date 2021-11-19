@@ -32,6 +32,20 @@ export const del = async (request) => {
     const client = await pool.connect();
     try {
         await client.query('BEGIN');
+        //  Delete customer time-out's
+        await client.query(`
+            DELETE
+            FROM time_out_table
+            WHERE customer_id = $1
+            `, [request.params.customer_id]
+        );
+        //  Delete customer orders
+        await client.query(`
+            DELETE
+            FROM order_table
+            WHERE customer_id = $1
+            `, [request.params.customer_id]
+        );
         //  Advance customers by decrementing their delivery orders
         await client.query(`
             UPDATE customer_table

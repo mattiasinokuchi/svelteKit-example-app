@@ -32,6 +32,10 @@
     $: if (selected_product_id) {
         selected_product = option.find((el) => el.id === selected_product_id);
     }
+//    import { confirm } from "./Modal.svelte";
+    async function showConfirm() {
+        result = await confirm("Really do this?");
+    }
 </script>
 
 <main>
@@ -224,13 +228,11 @@
         method="post"
     >
         <input hidden value={customer.delivery_order} name="delivery_order" />
-        <button type="submit" disabled={order.length > 0}
-            >Delete Customer</button
-        >
-        <!-- customer data needs to be deleted from the database -->
-        <label for="button" hidden={order.length < 1}
-            >(delete subscription/order first)</label
-        >
+        <input
+            type="submit"
+            value="Delete Customer"
+            on:click={showConfirm}
+        />
     </form>
 </main>
 
