@@ -37,13 +37,13 @@
 				name="subscription"
 				bind:checked={subscription}
 			/>
-			<label for="subscription">Subscription</label>
+			<label id="subscription_label" for="subscription">Subscription</label>
 			<br />
-			<label hidden={!subscription} for="delivery_interval"
+			{#if subscription}
+			<label for="delivery_interval"
 				>Delivery interval (days)</label
 			>
 			<input
-				hidden={!subscription}
 				type="number"
 				min="1"
 				max="999"
@@ -52,6 +52,8 @@
 				name="delivery_interval"
 				aria-label="Add product"
 			/>
+				
+			{/if}
 			<br />
 			<label for="product_name">Name</label>
 			<input
@@ -73,7 +75,7 @@
 		</div>
 	</form>
 
-	<h2 hidden={product.length > 0}>No products. Add something!</h2>
+	<h3 hidden={product.length > 0}>No products. Add something!</h3>
 
 	<!-- This a list of all products -->
 	{#each product as { product_name, product_id }}
@@ -85,29 +87,7 @@
 </main>
 
 <style>
-	main {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		text-align: center;
-	}
-	.box {
-		padding: 1vw;
-		margin-top: 4vw;
-		box-shadow: 1vw 1vw 2vw 0.2vw lightgray;
-		width: 90vw;
-	}
-	.box:hover {
-		box-shadow: 1vw 1vw 2vw 1vw lightgray;
-	}
-	h2 {
-		color: salmon;
-	}
-	a {
-		text-decoration: none;
-		color: salmon;
-	}
-	input {
-		margin: 1vw;
+	#subscription_label {
+		width: 0;
 	}
 </style>

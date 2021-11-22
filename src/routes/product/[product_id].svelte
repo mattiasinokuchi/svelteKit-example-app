@@ -22,9 +22,9 @@
 </script>
 
 <main>
-    <h2>{product.product_name}</h2>
     <!-- This is a form for updating product information -->
     <form action="/product/update_product.json" method="post">
+        <h2>{product.product_name}</h2>
         <input type="hidden" name="product_id" value={product.product_id} />
         <p>
             <label for="product_name">Product Name</label>

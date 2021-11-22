@@ -41,30 +41,4 @@
 </main>
 
 <style>
-	main {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		text-align: center;
-	}
-	.box {
-		padding: 1vw;
-		margin-top: 4vw;
-		box-shadow: 1vw 1vw 2vw 0.2vw lightgray;
-		width: 90vw;
-	}
-	.box:hover {
-		box-shadow: 1vw 1vw 2vw 1vw lightgray;
-	}
-	h2 {
-		color: salmon;
-	}
-	ul {
-		list-style: none;
-		padding-left: 0;
-	}
-	a {
-		text-decoration: none;
-		color: gray
-	}
 </style>

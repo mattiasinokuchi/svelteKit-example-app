@@ -39,8 +39,8 @@
     <h1>{customer.first_name} {customer.last_name}</h1>
 
     <!-- This is a list of subscription time-outs with delete buttons -->
-    <h2>Subscription time-out</h2>
-    <section>
+    <section class="box">
+        <h2>Subscription time-out</h2>
         {#if time_out.length > 0}
             <ul>
                 {#each time_out as { time_out_id, start_date, end_date }}
@@ -50,13 +50,10 @@
                             method="post"
                             disabled={!customer.active}
                         >
-                            <label>
-                                {start_date} to {end_date}
-                                <button
-                                    type="submit"
-                                    disabled={!customer.active}>Delete</button
-                                >
-                            </label>
+                            {start_date} to {end_date}
+                            <button type="submit" disabled={!customer.active}
+                                >Delete</button
+                            >
                         </form>
                     </li>
                 {/each}
@@ -65,27 +62,19 @@
     </section>
 
     <!-- This is a form for subscription time-out -->
-    <h3>Add time-out</h3>
-    <form action="/customer/add_time_out.json" method="post">
+    <form action="/customer/add_time_out.json" method="post" class="box">
+        <h2>Add time-out</h2>
         <input type="hidden" name="customer_id" value={customer.customer_id} />
-        <p>
-            <label for="start_date">Start date</label>
-            <input
-                required
-                type="date"
-                name="start_date"
-                bind:value={start_date}
-            />
-        </p>
-        <p>
-            <label for="end_date">End date</label>
-            <input required type="date" name="end_date" min={start_date} />
-        </p>
+        <label for="start_date">Start date</label>
+        <input required type="date" name="start_date" bind:value={start_date} />
+        <label for="end_date">End date</label>
+        <input required type="date" name="end_date" min={start_date} />
+        <br />
         <button type="submit">Add</button>
     </form>
 
     <!-- This is a list of subscriptions/orders with delete buttons -->
-    <section>
+    <section class="box">
         <h2>Subscriptions/orders</h2>
         {#if order.length > 0}
             <ul>
@@ -96,13 +85,10 @@
                             method="post"
                             disabled={!customer.active}
                         >
-                            <label>
-                                {product_name}, (start/delivery {start_date})
-                                <button
-                                    type="submit"
-                                    disabled={!customer.active}>Delete</button
-                                >
-                            </label>
+                            {product_name}, (start/delivery {start_date})
+                            <button type="submit" disabled={!customer.active}
+                                >Delete</button
+                            >
                         </form>
                     </li>
                 {/each}
@@ -111,8 +97,8 @@
     </section>
 
     <!-- This is a form for adding products -->
-    <h3>Add order:</h3>
-    <form action="/customer/add_product.json" method="post">
+    <form action="/customer/add_product.json" method="post" class="box">
+        <h2>Add order:</h2>
         <input
             hidden
             type="text"
@@ -139,8 +125,8 @@
     </form>
 
     <!-- This is a form for contact information -->
-    <h2>Contact Information</h2>
-    <form action="/customer/update_contact_info.json" method="post">
+    <form action="/customer/update_contact_info.json" method="post" class="box">
+        <h2>Contact Information</h2>
         <input type="hidden" name="customer_id" value={customer.customer_id} />
         <p>
             <label for="first_name">First Name</label>
@@ -204,8 +190,8 @@
     </form>
 
     <!-- This is a form for setting the subscription status -->
-    <h2>Subscription status</h2>
-    <form action="/customer/set_status.json" method="post">
+    <form action="/customer/set_status.json" method="post" class="box">
+        <h2>Subscription status</h2>
         <input type="hidden" name="customer_id" value={customer.customer_id} />
         <input type="hidden" name="subscribe" value={customer.active} />
         <input
@@ -217,36 +203,32 @@
         <button type="submit">Update</button>
     </form>
 
-    <hr />
-
     <!-- This is a form for deleting customers -->
-    <button on:click={() => (showDelete = true)} hidden={showDelete}>Delete Customer</button>
-    {#if showDelete}
-        <form
-            action="/customer/{customer.customer_id}.json?_method=delete"
-            method="post"
+    <section class="box">
+        <button on:click={() => (showDelete = true)} hidden={showDelete}
+            >Delete Customer</button
         >
-            <label for="button">Delete customer?</label>
-            <input
-                hidden
-                value={customer.delivery_order}
-                name="delivery_order"
-            />
-            <input id="button" type="submit" value="I know what I'm doing" />
-            <button on:click={() => (showDelete = false)}>Cancel</button>
-        </form>
-    {/if}
+        {#if showDelete}
+            <form
+                action="/customer/{customer.customer_id}.json?_method=delete"
+                method="post"
+            >
+                <label for="button">Delete customer?</label>
+                <input
+                    hidden
+                    value={customer.delivery_order}
+                    name="delivery_order"
+                />
+                <input
+                    id="button"
+                    type="submit"
+                    value="I know what I'm doing"
+                />
+                <button on:click={() => (showDelete = false)}>Cancel</button>
+            </form>
+        {/if}
+    </section>
 </main>
 
 <style>
-    main {
-        margin: 4rem;
-        padding: 2rem;
-        color: gray;
-        justify-content: center;
-        box-shadow: 4px 5px 11px 10px lightgray;
-    }
-    h1 {
-        color: salmon;
-    }
 </style>

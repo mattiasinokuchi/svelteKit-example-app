@@ -17,8 +17,6 @@
 </script>
 
 <script>
-	import { element } from "svelte/internal";
-
 	export let customer;
 	const today = new Date().toISOString().slice(0, 10);
 	function allDeliveriesToday (delivery) {
@@ -28,6 +26,8 @@
 
 <main>
 	<h2 hidden={customer.length > 0}>No billing to do. Relax!</h2>
+
+	<!-- This is a list of customers to bill -->
 	{#each customer as { first_name, last_name, delivery, to_pay, customer_id }}
 		<div class="box">
 			<h2>
@@ -53,25 +53,4 @@
 </main>
 
 <style>
-	main {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		text-align: center;
-	}
-	.box {
-		padding: 1vw;
-		margin-top: 4vw;
-		box-shadow: 1vw 1vw 2vw 0.2vw lightgray;
-		width: 90vw;
-	}
-	.box:hover {
-		box-shadow: 1vw 1vw 2vw 1vw lightgray;
-	}
-	h2 {
-		color: salmon;
-	}
-	input {
-		margin: 1vw;
-	}
 </style>

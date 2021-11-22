@@ -39,6 +39,9 @@
 </script>
 
 <main>
+	<!-- This is a button for copying all customers phone numbers-->
+	<form on:click={myFunction} class="box"><h2>{buttonText}</h2></form>
+
 	<!-- This is a form for adding new customers -->
 	<form
 		class="box"
@@ -80,17 +83,17 @@
 			<input type="submit" value="Submit" />
 		</div>
 	</form>
-	<!-- This is a button for copy all customers phone numbers-->
-	<p><button on:click={myFunction}>{buttonText}</button></p>
-	<!-- This is a field for finding customers	-->
-	<p>
-		<label for="last_name">Find customer</label>
-		<input id="last_name" bind:value={prefix} placeholder="last name" />
-	</p>
-	<h2 hidden={customer.length > 0}>No customers. Add someone!</h2>
 
-	<!---	This is a list of customers with a form
-			for changing their delivery order	-->
+	<!-- This is a field for finding customers	-->
+	<div class="box">
+		<h2>Find customer</h2>
+		<input id="last_name" bind:value={prefix} placeholder="last name" />
+	</div>
+
+	<h3 hidden={customer.length > 0}>No customers. Add someone!</h3>
+
+	<!---	This is a filterable list of customers 
+			with a form for changing their delivery order	-->
 	{#each filteredPeople as { first_name, last_name, customer_id, delivery_order }}
 		<a sveltekit:prefetch href={`/customer/${customer_id}`}>
 			<div class="box">
@@ -113,38 +116,4 @@
 </main>
 
 <style>
-	main {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		text-align: center;
-	}
-	.box {
-		padding: 1vw;
-		margin-top: 4vw;
-		box-shadow: 1vw 1vw 2vw 0.2vw lightgray;
-		width: 90vw;
-	}
-	.box:hover {
-		box-shadow: 1vw 1vw 2vw 1vw lightgray;
-	}
-	h2 {
-		color: salmon;
-	}
-	a {
-		text-decoration: none;
-		color: salmon;
-	}
-	form {
-		text-align: center;
-	}
-	input {
-		text-align: left;
-	}
-	label {
-		width: 20vw;
-		display: inline-block;
-		text-align: right;
-		color: grey;
-	}
 </style>
