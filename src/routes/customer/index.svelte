@@ -22,7 +22,16 @@
 <script>
 	export let customer, phone;
 	let formHidden = true;
-	let buttonText = "Copy";
+	let buttonText = "Copy telephone numbers";
+	let prefix = "";
+
+	$: filteredPeople = prefix
+		? customer.filter((person) => {
+				const name = `${person.last_name}, ${person.first_name}`;
+				return name.toLowerCase().startsWith(prefix.toLowerCase());
+		  })
+		: customer;
+
 	async function myFunction() {
 		await navigator.clipboard.writeText(phone.numbers);
 		buttonText = "Telephone numbers copied";
@@ -30,12 +39,6 @@
 </script>
 
 <main>
-	<!-- This is a button for copy all customers phone numbers-->
-	<form class="box">
-		<h2>Copy telephone numbers</h2>
-		<button on:click={myFunction}>{buttonText}</button>
-	</form>
-
 	<!-- This is a form for adding new customers -->
 	<form
 		class="box"
@@ -77,12 +80,18 @@
 			<input type="submit" value="Submit" />
 		</div>
 	</form>
-
+	<!-- This is a button for copy all customers phone numbers-->
+	<p><button on:click={myFunction}>{buttonText}</button></p>
+	<!-- This is a field for finding customers	-->
+	<p>
+		<label for="last_name">Find customer</label>
+		<input id="last_name" bind:value={prefix} placeholder="last name" />
+	</p>
 	<h2 hidden={customer.length > 0}>No customers. Add someone!</h2>
 
 	<!---	This is a list of customers with a form
 			for changing their delivery order	-->
-	{#each customer as { first_name, last_name, customer_id, delivery_order }}
+	{#each filteredPeople as { first_name, last_name, customer_id, delivery_order }}
 		<a sveltekit:prefetch href={`/customer/${customer_id}`}>
 			<div class="box">
 				<h2>{first_name} {last_name}</h2>
