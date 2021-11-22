@@ -26,7 +26,7 @@
 </script>
 
 <main>
-	<div class="box">
+	<div class="whitebox">
 		<h1>{delivery_date}</h1>
 		<!-- This is a undo buttton -->
 		<form action="/deliver/undo.json?_method=delete" method="post">

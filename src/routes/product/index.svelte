@@ -24,7 +24,7 @@
 <main>
 	<!-- This is a form for adding new products -->
 	<form
-		class="box"
+		class="whitebox"
 		action="/product.json"
 		method="post"
 		on:click={() => (formHidden = false)}

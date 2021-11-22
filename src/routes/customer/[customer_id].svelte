@@ -62,7 +62,7 @@
     </section>
 
     <!-- This is a form for subscription time-out -->
-    <form action="/customer/add_time_out.json" method="post" class="box">
+    <form action="/customer/add_time_out.json" method="post" class="whitebox">
         <h2>Add time-out</h2>
         <input type="hidden" name="customer_id" value={customer.customer_id} />
         <label for="start_date">Start date</label>
@@ -97,7 +97,7 @@
     </section>
 
     <!-- This is a form for adding products -->
-    <form action="/customer/add_product.json" method="post" class="box">
+    <form action="/customer/add_product.json" method="post" class="whitebox">
         <h2>Add order:</h2>
         <input
             hidden
@@ -190,7 +190,7 @@
     </form>
 
     <!-- This is a form for setting the subscription status -->
-    <form action="/customer/set_status.json" method="post" class="box">
+    <form action="/customer/set_status.json" method="post" class="whitebox">
         <h2>Subscription status</h2>
         <input type="hidden" name="customer_id" value={customer.customer_id} />
         <input type="hidden" name="subscribe" value={customer.active} />
@@ -204,7 +204,7 @@
     </form>
 
     <!-- This is a form for deleting customers -->
-    <section class="box">
+    <section class="whitebox">
         <button on:click={() => (showDelete = true)} hidden={showDelete}
             >Delete Customer</button
         >

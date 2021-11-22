@@ -23,7 +23,7 @@
 
 <main>
     <!-- This is a form for updating product information -->
-    <form action="/product/update_product.json" method="post">
+    <form action="/product/update_product.json" method="post" class="box">
         <h2>{product.product_name}</h2>
         <input type="hidden" name="product_id" value={product.product_id} />
         <p>
@@ -58,9 +58,8 @@
         <input type="submit" value="Update" />
     </form>
 </main>
-<footer>
-    <hr />
-    <!-- This is a form for deleting products -->
+<!-- This is a form for deleting products -->
+<section class="whitebox">
     <button on:click={() => (showDelete = true)} hidden={showDelete}
         >Delete Product</button
     >
@@ -74,17 +73,7 @@
             <button on:click={() => (showDelete = false)}>Cancel</button>
         </form>
     {/if}
-</footer>
+</section>
 
 <style>
-    main {
-        margin: 4rem;
-        padding: 2rem;
-        color: gray;
-        justify-content: center;
-        box-shadow: 4px 5px 11px 10px lightgray;
-    }
-    h2 {
-        color: salmon;
-    }
 </style>

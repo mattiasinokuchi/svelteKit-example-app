@@ -40,11 +40,11 @@
 
 <main>
 	<!-- This is a button for copying all customers phone numbers-->
-	<form on:click={myFunction} class="box"><h2>{buttonText}</h2></form>
+	<form on:click={myFunction} class="whitebox"><h2>{buttonText}</h2></form>
 
 	<!-- This is a form for adding new customers -->
 	<form
-		class="box"
+		class="whitebox"
 		id="new_customer"
 		action="/customer.json"
 		method="post"
@@ -85,7 +85,7 @@
 	</form>
 
 	<!-- This is a field for finding customers	-->
-	<div class="box">
+	<div class="whitebox">
 		<h2>Find customer</h2>
 		<input id="last_name" bind:value={prefix} placeholder="last name" />
 	</div>
