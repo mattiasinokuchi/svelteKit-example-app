@@ -6,12 +6,11 @@
 <svelte:head>
 	<meta name="robots" content="noindex" />
 </svelte:head>
-
 <nav>
-	<a class:active={$page.path === '/product'} sveltekit:prefetch href="/product">PRODUCTS</a>
-	<a class:active={$page.path === '/customer'} sveltekit:prefetch href="/customer">CUSTOMERS</a>
-	<a class:active={$page.path === '/deliver'} sveltekit:prefetch href="/deliver">DELIVERY</a>
-	<a class:active={$page.path === '/billing'} sveltekit:prefetch href="/billing">BILLING</a>
+	<a class:active={$page.path.match(/product/)} sveltekit:prefetch href="/product">PRODUCTS</a>
+	<a class:active={$page.path.match(/customer/)} sveltekit:prefetch href="/customer">CUSTOMERS</a>
+	<a class:active={$page.path.match(/deliver/)} sveltekit:prefetch href="/deliver">DELIVERY</a>
+	<a class:active={$page.path.match(/billing/)} sveltekit:prefetch href="/billing">BILLING</a>
 </nav>
 
 <slot></slot>
