@@ -91,7 +91,7 @@
                 {#each order as { product_name, order_id, start_date }}
                     <li>
                         <form
-                            action="/customer/remove_product/{order_id}.json?_method=delete"
+                            action="/customer/remove_order/{order_id}.json?_method=delete"
                             method="post"
                             disabled={!customer.active}
                         >

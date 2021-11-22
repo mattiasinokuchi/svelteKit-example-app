@@ -22,7 +22,7 @@
 
 <main>
     <h2>{product.product_name}</h2>
-    <!-- This is a form for product information -->
+    <!-- This is a form for updating product information -->
     <form action="/product/update_product.json" method="post">
         <input type="hidden" name="product_id" value={product.product_id} />
         <p>
@@ -57,6 +57,16 @@
         <input type="submit" value="Update" />
     </form>
 </main>
+<footer>
+    <hr />
+    <!-- This is a form for deleting customers -->
+    <form
+        action="/product/remove_product/{product.product_id}.json?_method=delete"
+        method="post"
+    >
+        <input type="submit" value="Delete Product" />
+    </form>
+</footer>
 
 <style>
     main {
