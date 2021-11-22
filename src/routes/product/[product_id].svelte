@@ -18,6 +18,7 @@
 
 <script>
     export let product;
+    let showDelete = false;
 </script>
 
 <main>
@@ -59,13 +60,20 @@
 </main>
 <footer>
     <hr />
-    <!-- This is a form for deleting customers -->
-    <form
-        action="/product/remove_product/{product.product_id}.json?_method=delete"
-        method="post"
+    <!-- This is a form for deleting products -->
+    <button on:click={() => (showDelete = true)} hidden={showDelete}
+        >Delete Product</button
     >
-        <input type="submit" value="Delete Product" />
-    </form>
+    {#if showDelete}
+        <form
+            action="/product/remove_product/{product.product_id}.json?_method=delete"
+            method="post"
+        >
+            <label for="button">Delete product with all orders?</label>
+            <input id="button" type="submit" value="I know what I'm doing" />
+            <button on:click={() => (showDelete = false)}>Cancel</button>
+        </form>
+    {/if}
 </footer>
 
 <style>

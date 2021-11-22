@@ -29,6 +29,7 @@
 <script>
     export let customer, order, option, time_out;
     let selected_product_id, selected_product, start_date;
+    let showDelete = false;
     $: if (selected_product_id) {
         selected_product = option.find((el) => el.id === selected_product_id);
     }
@@ -219,16 +220,22 @@
     <hr />
 
     <!-- This is a form for deleting customers -->
-    <form
-        action="/customer/{customer.customer_id}.json?_method=delete"
-        method="post"
-    >
-        <input hidden value={customer.delivery_order} name="delivery_order" />
-        <input
-            type="submit"
-            value="Delete Customer"
-        />
-    </form>
+    <button on:click={() => (showDelete = true)} hidden={showDelete}>Delete Customer</button>
+    {#if showDelete}
+        <form
+            action="/customer/{customer.customer_id}.json?_method=delete"
+            method="post"
+        >
+            <label for="button">Delete customer?</label>
+            <input
+                hidden
+                value={customer.delivery_order}
+                name="delivery_order"
+            />
+            <input id="button" type="submit" value="I know what I'm doing" />
+            <button on:click={() => (showDelete = false)}>Cancel</button>
+        </form>
+    {/if}
 </main>
 
 <style>
