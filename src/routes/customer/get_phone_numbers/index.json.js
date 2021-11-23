@@ -19,10 +19,8 @@ export const get = async (_) => {
                 FROM time_out_table
                 WHERE CURRENT_DATE BETWEEN start_time::date AND end_time)
         `);
-    console.log(res.rows.length);
     let str = '';
     for (let index = 0; index < res.rows.length; index++) {
-        console.log(str, res.rows[index].telephone);
         str += res.rows[index].telephone + ' ';
     }
     return {
