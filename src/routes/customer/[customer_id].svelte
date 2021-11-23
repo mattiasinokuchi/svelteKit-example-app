@@ -213,7 +213,7 @@
                 action="/customer/{customer.customer_id}.json?_method=delete"
                 method="post"
             >
-                <label for="button">Delete customer?</label>
+                <label for="button">Delete customer with any unbilled with deliveries?</label>
                 <input
                     hidden
                     value={customer.delivery_order}

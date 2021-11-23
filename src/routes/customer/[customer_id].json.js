@@ -46,6 +46,13 @@ export const del = async (request) => {
             WHERE customer_id = $1
             `, [request.params.customer_id]
         );
+        //  Delete customer deliveries
+        await client.query(`
+            DELETE
+            FROM delivery_table
+            WHERE customer_id = $1
+            `, [request.params.customer_id]
+        );
         //  Advance customers by decrementing their delivery orders
         await client.query(`
             UPDATE customer_table
