@@ -76,4 +76,7 @@
 </section>
 
 <style>
+    .box {
+        display: block;
+    }
 </style>

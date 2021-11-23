@@ -37,7 +37,7 @@
 
 <main>
     <h1>{customer.first_name} {customer.last_name}</h1>
-
+    
     <!-- This is a list of subscription time-outs with delete buttons -->
     <section class="box">
         <h2>Subscription time-out</h2>
@@ -65,9 +65,9 @@
     <form action="/customer/add_time_out.json" method="post" class="whitebox">
         <h2>Add time-out</h2>
         <input type="hidden" name="customer_id" value={customer.customer_id} />
-        <label for="start_date">Start date</label>
+        <label class="time-out-label" for="start_date">Start date</label>
         <input required type="date" name="start_date" bind:value={start_date} />
-        <label for="end_date">End date</label>
+        <label class="time-out-label" for="end_date">End date</label>
         <input required type="date" name="end_date" min={start_date} />
         <br />
         <button type="submit">Add</button>
@@ -86,6 +86,7 @@
                             disabled={!customer.active}
                         >
                             {product_name}, (start/delivery {start_date})
+                            <br>
                             <button type="submit" disabled={!customer.active}
                                 >Delete</button
                             >
@@ -219,4 +220,10 @@
 </main>
 
 <style>
+    h1 {
+        width: 100%;
+    }
+    .time-out-label {
+        width: auto;
+    }
 </style>

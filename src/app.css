@@ -9,20 +9,18 @@ main {
 .box {
     padding: 1vw;
     margin: 2vw;
-    box-shadow: 0vw 1vw 1vw 0.2vw lightgray;
-    width: 90vw;
+    box-shadow: 0vw 1vw 1vw 0.1vw lightgray;
+    width: 50vh;
+    height: auto;
     background-color: lemonchiffon;
-
 }
 .whitebox {
     padding: 1vw;
     margin: 2vw;
     width: 90vw;
     border: solid lightgrey 1px;
+    text-align: center;
     border-radius: 10vw;
-}
-.box:hover {
-    box-shadow: 1vw 1vw 2vw 1vw lightgray;
 }
 h1, h2 {
     color: salmon;

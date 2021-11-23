@@ -37,22 +37,21 @@
 				name="subscription"
 				bind:checked={subscription}
 			/>
-			<label id="subscription_label" for="subscription">Subscription</label>
+			<label id="subscription_label" for="subscription"
+				>Subscription</label
+			>
 			<br />
 			{#if subscription}
-			<label for="delivery_interval"
-				>Delivery interval (days)</label
-			>
-			<input
-				type="number"
-				min="1"
-				max="999"
-				value="7"
-				id="delivery_interval"
-				name="delivery_interval"
-				aria-label="Add product"
-			/>
-				
+				<label for="delivery_interval">Delivery interval (days)</label>
+				<input
+					type="number"
+					min="1"
+					max="999"
+					value="7"
+					id="delivery_interval"
+					name="delivery_interval"
+					aria-label="Add product"
+				/>
 			{/if}
 			<br />
 			<label for="product_name">Name</label>
@@ -89,5 +88,14 @@
 <style>
 	#subscription_label {
 		width: 0;
+	}
+	.box {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 20vh;
+	}
+	.box:hover {
+		transform: perspective(20cm) rotateX(20deg) rotateY(0deg);
 	}
 </style>
