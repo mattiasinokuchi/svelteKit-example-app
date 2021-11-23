@@ -94,7 +94,7 @@
 
 	<!---	This is a filterable list of customers 
 			with a form for changing their delivery order	-->
-	{#each filteredPeople as { first_name, last_name, customer_id, delivery_order }}
+	{#each customer as { first_name, last_name, customer_id, delivery_order }}
 		<a sveltekit:prefetch href={`/customer/${customer_id}`}>
 			<div class="box">
 				<h2>{first_name} {last_name}</h2>
