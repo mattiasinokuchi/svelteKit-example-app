@@ -14,7 +14,7 @@
 				},
 			};
 		} catch (error) {
-			return error;
+			console.log(error);
 		}
 	}
 </script>
@@ -94,7 +94,7 @@
 
 	<!---	This is a filterable list of customers 
 			with a form for changing their delivery order	-->
-	{#each customer as { first_name, last_name, customer_id, delivery_order }}
+	{#each filteredPeople as { first_name, last_name, customer_id, delivery_order }}
 		<a sveltekit:prefetch href={`/customer/${customer_id}`}>
 			<div class="box">
 				<h2>{first_name} {last_name}</h2>
@@ -116,4 +116,7 @@
 </main>
 
 <style>
+	main {
+		background-color: yellow;
+	}
 </style>
