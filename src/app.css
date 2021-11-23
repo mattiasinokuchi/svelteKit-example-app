@@ -8,7 +8,7 @@ main {
 }
 .box {
     padding: 1vw;
-    margin-top: 4vw;
+    margin: 2vw;
     box-shadow: 0vw 1vw 1vw 0.2vw lightgray;
     width: 90vw;
     background-color: lemonchiffon;
@@ -16,8 +16,10 @@ main {
 }
 .whitebox {
     padding: 1vw;
-    margin-top: 4vw;
+    margin: 2vw;
     width: 90vw;
+    border: solid lightgrey 1px;
+    border-radius: 10vw;
 }
 .box:hover {
     box-shadow: 1vw 1vw 2vw 1vw lightgray;
@@ -47,4 +49,7 @@ label {
 ul {
     list-style: none;
     padding-left: 0;
+}
+button {
+    margin: 1vh;
 }

@@ -189,22 +189,25 @@
         <input type="submit" value="Update" />
     </form>
 
-    <!-- This is a form for setting the subscription status -->
-    <form action="/customer/set_status.json" method="post" class="whitebox">
-        <h2>Subscription status</h2>
-        <input type="hidden" name="customer_id" value={customer.customer_id} />
-        <input type="hidden" name="subscribe" value={customer.active} />
-        <input
-            type="checkbox"
-            name="subscribe"
-            bind:checked={customer.active}
-        />
-        <label for="subscribe">Active subscription</label>
-        <button type="submit">Update</button>
-    </form>
-
-    <!-- This is a form for deleting customers -->
     <section class="whitebox">
+        <!-- This is a form for setting the subscription status -->
+        <form action="/customer/set_status.json" method="post">
+            <h2>Inactivate or delete customer</h2>
+            <input
+                type="hidden"
+                name="customer_id"
+                value={customer.customer_id}
+            />
+            <input type="hidden" name="subscribe" value={customer.active} />
+            <input
+                type="checkbox"
+                name="subscribe"
+                bind:checked={customer.active}
+            />
+            <label for="subscribe">Active</label>
+            <button type="submit">Update</button>
+        </form>
+        <!-- This is a form for deleting customers -->
         <button on:click={() => (showDelete = true)} hidden={showDelete}
             >Delete Customer</button
         >
@@ -213,7 +216,9 @@
                 action="/customer/{customer.customer_id}.json?_method=delete"
                 method="post"
             >
-                <label for="button">Delete customer with any unbilled with deliveries?</label>
+                <label for="button"
+                    >Delete customer with any unbilled with deliveries?</label
+                >
                 <input
                     hidden
                     value={customer.delivery_order}
