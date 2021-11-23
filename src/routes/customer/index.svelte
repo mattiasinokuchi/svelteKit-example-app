@@ -5,12 +5,12 @@
 		try {
 			res = await fetch("/customer.json");
 			const customer = await res.json();
-			res = await fetch("/customer/get_phone_numbers.json");
-			const phone = await res.json();
+//			res = await fetch("/customer/get_phone_numbers.json");
+//			const phone = await res.json();
 			return {
 				props: {
 					customer,
-					phone,
+//					phone,
 				},
 			};
 		} catch (error) {
@@ -116,7 +116,4 @@
 </main>
 
 <style>
-	main {
-		background-color: yellow;
-	}
 </style>
