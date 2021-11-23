@@ -19,12 +19,13 @@ export const get = async (_) => {
                 FROM time_out_table
                 WHERE CURRENT_DATE BETWEEN start_time::date AND end_time)
         `);
+    console.log(res.rows);
     let str = '';
     for (let index = 0; index < res.rows.length; index++) {
         str += res.rows[index].telephone + ',';
     }
     phone_numbers = str.slice(0,-1);
     return {
-        body: { "numbers": phone_numbers }
+        body: [{ numbers: phone_numbers }]
     };
 };
