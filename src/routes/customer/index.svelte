@@ -87,7 +87,7 @@
 	<!-- This is a field for finding customers	-->
 	<div class="whitebox">
 		<h2>Find customer</h2>
-		<input id="last_name" bind:value={prefix} placeholder="last name" />
+		<input bind:value={prefix} placeholder="last name" />
 	</div>
 
 	<h3 hidden={customer.length > 0}>No customers. Add someone!</h3>
