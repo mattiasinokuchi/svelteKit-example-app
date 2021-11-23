@@ -21,6 +21,7 @@
 
 <script>
 	export let customer, phone;
+	console.log(phone);
 	let formHidden = true;
 	let buttonText = "Copy telephone numbers";
 	let prefix = "";
@@ -32,8 +33,8 @@
 		  })
 		: customer;
 
-	async function copy() {
-		await navigator.clipboard.writeText(phone[0].numbers);
+	function copy() {
+		navigator.clipboard.writeText(phone[0].numbers);
 		buttonText = "Telephone numbers copied";
 	}
 </script>
