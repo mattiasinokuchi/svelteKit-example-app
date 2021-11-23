@@ -21,9 +21,8 @@
 
 <script>
 	export let customer, phone;
-	console.log(phone);
 	let formHidden = true;
-	let buttonText = "Copy telephone numbers";
+	let buttonText = "Copy telephone numbers (HTTPS connection needed)";
 	let prefix = "";
 
 	$: filteredPeople = prefix
