@@ -32,15 +32,15 @@
 		  })
 		: customer;
 
-	async function myFunction() {
-		await navigator.clipboard.writeText(phone.numbers);
+	function copy() {
+		navigator.clipboard.writeText(phone[0].numbers);
 		buttonText = "Telephone numbers copied";
 	}
 </script>
 
 <main>
 	<!-- This is a button for copying all customers phone numbers-->
-	<form on:click={myFunction} class="whitebox"><h2>{buttonText}</h2></form>
+	<form on:click={copy} class="whitebox"><h2>{buttonText}</h2></form>
 
 	<!-- This is a form for adding new customers -->
 	<form
