@@ -32,8 +32,8 @@
 		  })
 		: customer;
 
-	function copy() {
-		navigator.clipboard.writeText(phone[0].numbers);
+	async function copy() {
+		await navigator.clipboard.writeText(phone[0].numbers);
 		buttonText = "Telephone numbers copied";
 	}
 </script>
