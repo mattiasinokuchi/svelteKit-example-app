@@ -19,6 +19,7 @@
 	export let product;
 	let subscription = false;
 	let formHidden = true;
+	let rnd = Math.random()*10;
 </script>
 
 <main>

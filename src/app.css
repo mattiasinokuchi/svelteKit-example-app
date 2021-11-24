@@ -1,4 +1,7 @@
-:root {  font-family: monospace;}
+:root {
+    font-family: monospace;
+    --rotate-degree: -5deg;
+}
 body {  margin: 0;}
 main {
     display: flex;
@@ -13,6 +16,7 @@ main {
     width: 50vh;
     height: auto;
     background-color: lemonchiffon;
+    transform: rotateZ(var(--rotate-degree));
 }
 .whitebox {
     padding: 1vw;
