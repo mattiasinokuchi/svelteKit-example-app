@@ -1,0 +1,13 @@
+<svg width="200" height="100" xmlns='http://www.w3.org/2000/svg' >
+    <style>
+        text {
+            font-family: monospace;
+            font-size: 10;
+        }
+    </style>
+    <filter id="blurMe">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+    </filter>
+    <text x='0' y='190' fill='green' filter="url(#blurMe)" transform="rotate(90 100 100)">(((==</text>
+    <text x='40' y='190' fill='orange' filter="url(#blurMe)" transform="rotate(90 100 100)">Clili>~</text>
+</svg>
