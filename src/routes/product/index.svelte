@@ -19,7 +19,7 @@
 	export let product;
 	let subscription = false;
 	let formHidden = true;
-	let rnd = Math.random()*10;
+	let rnd = Math.random() * 10;
 </script>
 
 <main>
@@ -95,8 +95,5 @@
 		align-items: center;
 		justify-content: center;
 		height: 20vh;
-	}
-	.box:hover {
-		transform: perspective(20cm) rotateX(20deg) rotateY(0deg);
 	}
 </style>

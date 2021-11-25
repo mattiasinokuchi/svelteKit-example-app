@@ -47,7 +47,4 @@
 		justify-content: center;
 		height: 20vh;
 	}
-	.box:hover {
-		transform: perspective(20cm) rotateX(20deg) rotateY(0deg);
-	}
 </style>
