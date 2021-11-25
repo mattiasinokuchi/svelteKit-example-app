@@ -3,8 +3,8 @@
 }
 body { 
     margin: 0;
-	background-image: url("ascii_art.svg");
-    background-size: 200vh;
+/*	background-image: url("ascii_art.svg");
+    background-size: 200vh;*/
 }
 nav {
     background-color: white;
@@ -37,7 +37,6 @@ main {
     text-align: center;
     border-radius: 10vw;
     background-color: white;
-    opacity: 0.5;
 }
 h1, h2 {
     color: salmon;
