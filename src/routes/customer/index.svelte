@@ -22,7 +22,7 @@
 <script>
 	export let customer, phone;
 	let formHidden = true;
-	let buttonText = "Copy telephone numbers (HTTPS connection needed)";
+	let buttonText = "Copy telephone numbers";
 	let prefix = "";
 
 	$: filteredPeople = prefix
