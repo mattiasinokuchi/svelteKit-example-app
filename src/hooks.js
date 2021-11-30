@@ -25,11 +25,6 @@ export const handle = async ({ request, resolve }) => {
 			...response.headers,
 			'X-Frame-Options': 'SAMEORIGIN',
 			'X-Content-Type-Options': 'nosniff',
-			/* Switch from Content-Security-Policy-Report-Only to Content-Security-Policy once you are satisifed policy is what you want
-			 * on switch comment out the Report-Only line
-			 */
-			'Content-Security-Policy-Report-Only': csp,
-			// 'Content-Security-Policy': csp,
 			'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
 		},
 	};
