@@ -3,7 +3,7 @@
     export async function load() {
         return {
             status: 302,
-            redirect: "https://boss-farm.herokuapp.com/product"
+            redirect: "/product"
         };
     }
 </script>
