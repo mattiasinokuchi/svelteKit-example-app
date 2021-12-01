@@ -25,7 +25,8 @@ export const handle = async ({ request, resolve }) => {
 			'X-Frame-Options': 'SAMEORIGIN',
 			'X-Content-Type-Options': 'nosniff',
 			'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-			'Content-Security-Policy-Report-Only': 'default-src https:; report-uri /csp-violation-report-endpoint/'
+			'Content-Security-Policy-Report-Only': 'default-src https:; report-uri /csp-violation-report-endpoint/',
+			'X-XSS-Protection': '1; mode=block'
 		},
 	};
 };
