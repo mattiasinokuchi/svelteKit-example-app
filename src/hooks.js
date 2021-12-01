@@ -17,7 +17,7 @@ export const handle = async ({ request, resolve }) => {
 		// set a cookie so that we recognise them when they return
 		response.headers['set-cookie'] = `userid=${request.locals.userid}; Path=/; HttpOnly`;
 	}
-	
+
 	return {
 		...response,
 		headers: {
@@ -25,7 +25,7 @@ export const handle = async ({ request, resolve }) => {
 			'X-Frame-Options': 'SAMEORIGIN',
 			'X-Content-Type-Options': 'nosniff',
 			'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
-			'Content-Security-Policy': 'default-src https:'
+			'Content-Security-Policy-Report-Only': 'default-src https:; report-uri /csp-violation-report-endpoint/'
 		},
 	};
 };
