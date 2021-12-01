@@ -1,7 +1,6 @@
 
 <script context="module">
-    export async function load(request) {
-        console.log(request);
+    export async function load() {
         return {
             status: 302,
             redirect: "/product"
