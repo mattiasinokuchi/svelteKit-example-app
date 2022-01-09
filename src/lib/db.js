@@ -6,10 +6,10 @@ const { Pool } = pkg;
 
 export const pool = new Pool({
   user: 'postgres',
-  host: process.env['SUPABASE_HOST'],
+  host: process.env.SUPABASE_HOST,
   database: 'postgres',
-  password: process.env['SUPABASE_PASSWORD'],
-  port: process.env['SUPABASE_PORT']
+  password: process.env.SUPABASE_PASSWORD,
+  port: process.env.SUPABASE_PORT
 });
 
 /*module.exports = {
