@@ -1,10 +1,9 @@
-//  This is an endpoint for login with magic link
+//  This is an endpoint to login with magic link
 
 const url = `https://${process.env.AUTH0_DOMAIN}/passwordless/start`;
 
 export async function post(request) {
-    console.log(request.body.get('email'));
-    const res = await fetch(url, {
+    await fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -18,11 +17,11 @@ export async function post(request) {
             send: 'link',
             authParams: {
                 scope: 'openid',
+                response_type: 'code',
                 state: 'YOUR_STATE'
             }
         })
     });
-    console.log(res.body);
     return {
         status: 303,
         location: request.headers.referer,
