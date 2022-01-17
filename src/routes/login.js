@@ -16,7 +16,7 @@ export async function post(request) {
             email: request.body.get('email'),
             send: 'link',
             authParams: {
-                scope: 'openid',
+                scope: 'openid email',
                 response_type: 'code',
                 state: 'YOUR_STATE'
             }

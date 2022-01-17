@@ -2,7 +2,7 @@
     export async function load({ session }) {
         if (session.user) {
             return {
-                status: 302,
+                status: 303,
                 redirect: "/product",
             };
         }
@@ -16,12 +16,13 @@
 
 <main>
     <form action="/login" method="post">
-        <label for="email">Login with link sent to</label>
+        <p>I'm stepping in.</p>
+        <p>Send a magic link to</p>
         <input
             type="email"
             name="email"
             id="email"
-            placeholder="name@domain.tld"
+            placeholder="me@domain.tld"
         />
         <input type="submit" value="Submit" />
     </form>
@@ -39,7 +40,8 @@
     }
     form {
         position: fixed;
-        top: 50%;
+        top: 40%;
         left: 25%;
+        right: 25%;
     }
 </style>
