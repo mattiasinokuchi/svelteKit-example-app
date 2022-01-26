@@ -95,23 +95,23 @@
 	<!---	This is a filterable list of customers 
 			with a form for changing their delivery order	-->
 	{#each filteredPeople as { first_name, last_name, customer_id, delivery_order }}
-		<a sveltekit:prefetch href={`/customer/${customer_id}`}>
-			<div class="box">
+		<div class="box">
+			<a sveltekit:prefetch href={`/customer/${customer_id}`}>
 				<h2>{first_name} {last_name}</h2>
-				<form action="/customer/reorder_delivery.json" method="post">
-					<label for="delivery_order">Delivery order</label>
-					<input hidden name="customer_id" value={customer_id} />
-					<input
-						type="number"
-						name="delivery_order"
-						min="1"
-						max="999"
-						value={delivery_order}
-					/>
-					<input type="submit" value="Reorder" />
-				</form>
-			</div>
-		</a>
+			</a>
+			<form action="/customer/reorder_delivery.json" method="post">
+				<label for="delivery_order">Delivery order</label>
+				<input hidden name="customer_id" value={customer_id} />
+				<input
+					type="number"
+					name="delivery_order"
+					min="1"
+					max="999"
+					value={delivery_order}
+				/>
+				<input type="submit" value="Reorder" />
+			</form>
+		</div>
 	{/each}
 </main>
 
